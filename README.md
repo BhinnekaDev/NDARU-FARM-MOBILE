@@ -41,7 +41,7 @@ Kontribusi dan umpan balik dari komunitas sangat dihargai. Jika Anda ingin berko
 2. Jalankan aplikasi menggunakan Expo.
 
    ```
-   cd NDARU-FARM
+   cd NDARU-FARM-MOBILE
    npm install
    npx expo start
    ```
