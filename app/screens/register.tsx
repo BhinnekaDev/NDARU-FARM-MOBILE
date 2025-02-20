@@ -4,7 +4,9 @@ import React from "react";
 export default function Register() {
   return (
     <View className="flex-1 justify-center items-center bg-background">
-      <Text>Register</Text>
+      <Text style={{ fontFamily: "Lexend-Bold" }} className="text-white">
+        Register
+      </Text>
     </View>
   );
 }
