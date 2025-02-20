@@ -4,7 +4,7 @@ import React from "react";
 export default function Login() {
   return (
     <View className="flex-1 justify-center items-center bg-background">
-      <Text className="text-white">Login</Text>
+      <Text style={{ fontFamily: "Lexend-Black" }}>Login</Text>
     </View>
   );
 }

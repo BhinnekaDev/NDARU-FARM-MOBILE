@@ -8,7 +8,7 @@ export default function Index() {
     <View className="flex-1 justify-center items-center">
       {/* Ini mengarahkan ke halaman login */}
       <TouchableOpacity onPress={() => router.push("/screens/login")}>
-        <Text>Edit app/index.tsx to edit this screen.</Text>
+        <Text style={{ fontFamily: "Lexend-Black" }}>Menuju Halaman Login</Text>
       </TouchableOpacity>
     </View>
   );
