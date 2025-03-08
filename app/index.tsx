@@ -1,10 +1,28 @@
-import "@/global.css";
-import { Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { useRouter } from "expo-router";
+import SplashScreenComponent from "@/app/screens/splashScreen";
 
 export default function Index() {
-  return (
-    <View className="flex-1 justify-center items-center">
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      router.replace("/screens/startScreen");
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <SplashScreenComponent />;
+  }
+
+  return null;
 }
