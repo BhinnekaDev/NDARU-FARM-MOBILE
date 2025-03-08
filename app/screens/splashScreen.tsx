@@ -44,10 +44,11 @@ export default function SplashScreenComponent() {
       />
       {/* Teks Splash Ndaru */}
       <Animated.Text
-        className="text-5xl font-bold text-white absolute"
+        className="text-5xl text-white absolute"
         style={{
           opacity: fadeAnim,
           transform: [{ scale: textScaleAnim }],
+          fontFamily: "LexBlack",
         }}
       >
         NDARU FARM
