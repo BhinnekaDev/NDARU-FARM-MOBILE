@@ -10,13 +10,13 @@ export default function SplashScreenComponent() {
     Animated.parallel([
       Animated.timing(scaleAnim, {
         toValue: 5,
-        duration: 2000,
+        duration: 1100,
         delay: 500,
         useNativeDriver: true,
       }),
       Animated.timing(fadeAnim, {
         toValue: 1,
-        duration: 2000,
+        duration: 1100,
         delay: 500,
         useNativeDriver: true,
       }),
@@ -24,6 +24,7 @@ export default function SplashScreenComponent() {
       Animated.timing(textScaleAnim, {
         toValue: 0,
         duration: 500,
+        delay: 500,
         useNativeDriver: true,
       }).start();
     });
