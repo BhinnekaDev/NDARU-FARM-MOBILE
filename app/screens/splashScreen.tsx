@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, Animated } from "react-native";
+import { View, Animated } from "react-native";
 
 export default function SplashScreenComponent() {
   const scaleAnim = new Animated.Value(1);
@@ -31,6 +31,7 @@ export default function SplashScreenComponent() {
 
   return (
     <View className="flex-1 bg-white justify-center items-center p-10">
+      {/* Gambar Splash */}
       <Animated.Image
         source={require("@/assets/images/splash/splash1.png")}
         style={{
@@ -40,6 +41,7 @@ export default function SplashScreenComponent() {
           transform: [{ scale: scaleAnim }],
         }}
       />
+      {/* Teks Splash Ndaru */}
       <Animated.Text
         className="text-5xl font-bold text-white absolute"
         style={{
