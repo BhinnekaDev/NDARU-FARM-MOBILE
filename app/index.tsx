@@ -1,28 +1,35 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "expo-router";
+import { useEffect, useRef } from "react";
+import { Animated, View, StyleSheet } from "react-native";
 import SplashScreenComponent from "@/app/screens/splashScreen";
+import StartScreen from "@/app/screens/startScreen";
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  const fadeAnim = useRef(new Animated.Value(1)).current; // Opacity SplashScreen (mulai dari 1)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    setTimeout(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 0, // Menghilangkan SplashScreen secara perlahan
+        duration: 0, // Waktu animasi 0.8 detik
+        useNativeDriver: true,
+      }).start();
+    }, 3000); // SplashScreen tampil selama 3 detik sebelum fade-out
   }, []);
 
-  useEffect(() => {
-    if (!isLoading) {
-      router.replace("/screens/startScreen");
-    }
-  }, [isLoading]);
+  return (
+    <View style={{ flex: 1 }}>
+      {/* StartScreen langsung muncul */}
+      <StartScreen />
 
-  if (isLoading) {
-    return <SplashScreenComponent />;
-  }
-
-  return null;
+      {/* Animasi SplashScreen fade-out di atas StartScreen */}
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFill,
+          { backgroundColor: "#093731", opacity: fadeAnim },
+        ]}
+      >
+        <SplashScreenComponent />
+      </Animated.View>
+    </View>
+  );
 }
