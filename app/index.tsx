@@ -6,13 +6,13 @@ export default function Index() {
   const router = useRouter();
 
   const handleNavigation = () => {
-    router.push("/Profile");
+    router.push("/(tabs)/profile");
   };
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text className="text-2xl">Welcome Everyone 👋</Text>
-      <Button className="bg-red-500" onPress={handleNavigation}>
+    <View className="flex-1 justify-center items-center bg-white">
+      <Text className="text-2xl text-black font-semibold">Welcome Everyone 👋</Text>
+      <Button className="bg-red-500 font-semibold" onPress={handleNavigation}>
         Go To Profile Dawg
       </Button>
     </View>
