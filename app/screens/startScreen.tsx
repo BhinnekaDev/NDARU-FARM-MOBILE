@@ -1,8 +1,14 @@
 import { View, Animated, Easing } from "react-native";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+// COMPONENTS
 import MyButton from "@/components/button";
+// INTERFACES
+import { StartScreenProps } from "@/interfaces/startScreenProps";
 
-export default function StartScreen() {
+export default function StartScreen({ onExit }: StartScreenProps) {
+  const [isAnimExit, setIsAnimExit] = useState(false);
+
+  // FUngsi Animasi
   const scaleAnim = useRef(new Animated.Value(5)).current;
   const translateYAnim = useRef(new Animated.Value(0)).current;
   const translateXAnim = useRef(new Animated.Value(0)).current;
@@ -14,98 +20,158 @@ export default function StartScreen() {
   const descOpacity = useRef(new Animated.Value(0)).current;
   const buttonTranslateY = useRef(new Animated.Value(100)).current;
   const buttonOpacity = useRef(new Animated.Value(0)).current;
-  // Efek Animasi bgStart
+
+  // Efek Animasi
   useEffect(() => {
-    Animated.timing(scaleAnim, {
-      toValue: 1,
-      delay: 2300,
-      duration: 1400,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(translateYAnim, {
-      toValue: -120,
-      duration: 1000,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(translateXAnim, {
-      toValue: 90,
-      duration: 1000,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    // Efek Animasi Selada
-    Animated.parallel([
-      Animated.timing(lettuceTranslateX, {
-        toValue: 0,
-        delay: 3500,
-        duration: 600,
+    if (!isAnimExit) {
+      Animated.timing(scaleAnim, {
+        toValue: 1,
+        delay: 2300,
+        duration: 1400,
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
-      }),
-      Animated.timing(lettuceOpacity, {
-        toValue: 1,
+      }).start();
+
+      Animated.timing(translateYAnim, {
+        toValue: -120,
         duration: 1000,
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
+      }).start();
+
+      Animated.timing(translateXAnim, {
+        toValue: 90,
+        duration: 1000,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.parallel([
+        Animated.timing(lettuceTranslateX, {
+          toValue: 0,
+          delay: 3500,
+          duration: 600,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(lettuceOpacity, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      Animated.timing(textTranslateX, {
+        toValue: 0,
+        delay: 4000,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(textOpacity, {
+        toValue: 1,
+        delay: 4000,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(descTranslateX, {
+        toValue: 0,
+        delay: 4200,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(descOpacity, {
+        toValue: 1,
+        delay: 4200,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(buttonTranslateY, {
+        toValue: 0,
+        delay: 4400,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(buttonOpacity, {
+        toValue: 1,
+        delay: 4400,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isAnimExit]);
+
+  // Fungsi Tombol Animasi Keluar
+  const handleOutAnimation = () => {
+    setIsAnimExit(true);
+
+    Animated.parallel([
+      Animated.timing(textTranslateX, {
+        toValue: -100,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
       }),
-    ]).start();
-
-    // Efek Animasi Teks
-    Animated.timing(textTranslateX, {
-      toValue: 0,
-      delay: 4000,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(textOpacity, {
-      toValue: 1,
-      delay: 4000,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    // Efek Animasi Teks Deskripsi
-    Animated.timing(descTranslateX, {
-      toValue: 0,
-      delay: 4200,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(descOpacity, {
-      toValue: 1,
-      delay: 4200,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    // Efek Animasi Tombol
-    Animated.timing(buttonTranslateY, {
-      toValue: 0,
-      delay: 4400,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(buttonOpacity, {
-      toValue: 1,
-      delay: 4400,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  }, []);
+      Animated.timing(textOpacity, {
+        toValue: 0,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+      Animated.timing(descTranslateX, {
+        toValue: -100,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+      Animated.timing(descOpacity, {
+        toValue: 0,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonTranslateY, {
+        toValue: 100,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonOpacity, {
+        toValue: 0,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      Animated.parallel([
+        Animated.timing(lettuceTranslateX, {
+          toValue: 300,
+          duration: 600,
+          easing: Easing.in(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(lettuceOpacity, {
+          toValue: 0,
+          duration: 600,
+          easing: Easing.in(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        onExit();
+      });
+    });
+  };
 
   return (
     <View className="flex-1">
@@ -168,14 +234,16 @@ export default function StartScreen() {
             transform: [{ translateY: buttonTranslateY }],
             opacity: buttonOpacity,
           }}
-          className="w-full p-4 mt-10"
+          className="w-full p-3 mt-12"
         >
-          {/* Tombol ke halaman Select Screen */}
+          {/* Tombol ke halaman Select Screen dengan Animasi Out */}
           <MyButton
             fontFamily="LexBold"
             title="Mulai"
-            myActiveOpacity={0.8}
-            myClassName="bg-[#159778] w-full py-3 rounded-xl"
+            myActiveOpacity={1}
+            myClassName="p-3"
+            myTextStyle="text-lg"
+            onPress={handleOutAnimation}
           />
         </Animated.View>
       </View>

@@ -1,28 +1,68 @@
-import { TouchableOpacity, Text } from "react-native";
-import { buttonProps } from "@/interfaces/buttonProps";
+import { TouchableOpacity, Text, Animated } from "react-native";
+import { useState } from "react";
+// HOOKS
 import { useLoadFont } from "@/hooks/ClientSide/useLoadFonts";
+// INTERFACES
+import { buttonProps } from "@/interfaces/buttonProps";
 
 export default function MyButton({
   title,
   fontFamily,
   myActiveOpacity,
   myClassName,
-  ...props
+  myTextStyle,
+  myButtonColor = "#159778",
+  onPress,
 }: buttonProps) {
   const fontLoaded = useLoadFont();
+  const [isPressed, setIsPressed] = useState(false);
+  const backgroundColor = useState(new Animated.Value(0))[0];
+
+  if (!fontLoaded) {
+    return null;
+  }
+
+  // Fungsi Mengubah Warna BG Tombol
+  const handlePressIn = () => {
+    setIsPressed(true);
+    Animated.timing(backgroundColor, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+  const handlePressOut = () => {
+    setIsPressed(false);
+    Animated.timing(backgroundColor, {
+      toValue: 0,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  // Interpolasi Warna BG Tombol
+  const interpolatedColor = backgroundColor.interpolate({
+    inputRange: [0, 1],
+    outputRange: [myButtonColor, "#161E1B"],
+  });
 
   return (
-    <TouchableOpacity
-      className={myClassName}
-      activeOpacity={myActiveOpacity}
-      {...props}
+    // Tombol
+    <Animated.View
+      className={`rounded-xl ${myClassName}`}
+      style={{ backgroundColor: interpolatedColor }}
     >
-      <Text
-        style={fontLoaded && fontFamily ? { fontFamily } : {}}
-        className="text-white text-center text-lg"
+      <TouchableOpacity
+        className="w-full justify-center items-center"
+        activeOpacity={myActiveOpacity}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={onPress}
       >
-        {title}
-      </Text>
-    </TouchableOpacity>
+        <Text style={{ fontFamily }} className={`text-white ${myTextStyle}`}>
+          {title}
+        </Text>
+      </TouchableOpacity>
+    </Animated.View>
   );
 }
