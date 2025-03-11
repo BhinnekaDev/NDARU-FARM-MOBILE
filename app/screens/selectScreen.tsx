@@ -1,9 +1,20 @@
 import { View, Animated, Easing } from "react-native";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // COMPONENTS
 import MyButton from "@/components/button";
+// INTERFACES
+import { SelectScreenProps } from "@/interfaces/screenProps";
 
-export default function SelectScreen() {
+export default function SelectScreen({
+  toRegister,
+  toLogin,
+}: SelectScreenProps) {
+  const [isAnimExit, setIsAnimExit] = useState(false);
+  const [destination, setDestination] = useState<"register" | "login" | null>(
+    null
+  );
+
+  // Fungsi Animasi
   const translateYAnim = useRef(new Animated.Value(-120)).current;
   const translateXAnim = useRef(new Animated.Value(90)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -18,97 +29,171 @@ export default function SelectScreen() {
 
   //   Efek Animasi
   useEffect(() => {
-    // Efek Animasi Shape Select
-    Animated.parallel([
-      Animated.timing(translateYAnim, {
-        toValue: -300,
-        duration: 1000,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }),
-      Animated.timing(translateXAnim, {
-        toValue: -150,
-        duration: 1000,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }),
-      Animated.timing(rotateAnim, {
-        toValue: 0.3,
-        duration: 1000,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }),
-    ]).start();
+    if (!isAnimExit) {
+      // Efek Animasi Shape Select
+      Animated.parallel([
+        Animated.timing(translateYAnim, {
+          toValue: -300,
+          duration: 1000,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(translateXAnim, {
+          toValue: -150,
+          duration: 1000,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: 0.3,
+          duration: 1000,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]).start();
 
-    // Efek Animasi Farmer
-    Animated.parallel([
-      Animated.timing(farmerTranslateY, {
+      // Efek Animasi Farmer
+      Animated.parallel([
+        Animated.timing(farmerTranslateY, {
+          toValue: 0,
+          delay: 1000,
+          duration: 800,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(farmerOpacity, {
+          toValue: 1,
+          delay: 1000,
+          duration: 800,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      // Efek Animasi Teks
+      Animated.timing(textTranslateY, {
         toValue: 0,
         delay: 1000,
         duration: 800,
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
-      }),
-      Animated.timing(farmerOpacity, {
+      }).start();
+
+      Animated.timing(textOpacity, {
         toValue: 1,
         delay: 1000,
         duration: 800,
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
+      }).start();
+
+      // Efek Animasi Teks Deskripsi
+      Animated.timing(descTranslateY, {
+        toValue: 0,
+        delay: 1200,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(descOpacity, {
+        toValue: 1,
+        delay: 1200,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      // Efek Animasi Tombol
+      Animated.timing(buttonTranslateY, {
+        toValue: 0,
+        delay: 1000,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+
+      Animated.timing(buttonOpacity, {
+        toValue: 1,
+        delay: 1000,
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isAnimExit]);
+
+  // Fungsi Tombol Animasi Keluar
+  const handleOutAnimation = (target: "register" | "login") => {
+    setIsAnimExit(true);
+    setDestination(target);
+
+    // Animasi Farmer
+    Animated.parallel([
+      Animated.timing(farmerTranslateY, {
+        toValue: -60,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+      Animated.timing(farmerOpacity, {
+        toValue: 0,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
       }),
     ]).start();
 
-    // Efek Animasi Teks
+    // Animasi Teks
     Animated.timing(textTranslateY, {
-      toValue: 0,
-      delay: 1000,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
+      toValue: -50,
+      duration: 600,
+      easing: Easing.in(Easing.ease),
       useNativeDriver: true,
     }).start();
-
     Animated.timing(textOpacity, {
-      toValue: 1,
-      delay: 1000,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
+      toValue: 0,
+      duration: 600,
+      easing: Easing.in(Easing.ease),
       useNativeDriver: true,
     }).start();
 
-    // Efek Animasi Teks Deskripsi
+    // Animasi Teks Deskripsi
     Animated.timing(descTranslateY, {
-      toValue: 0,
-      delay: 1200,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
+      toValue: -50,
+      duration: 600,
+      easing: Easing.in(Easing.ease),
       useNativeDriver: true,
     }).start();
-
     Animated.timing(descOpacity, {
-      toValue: 1,
-      delay: 1200,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    // Efek Animasi Tombol
-    Animated.timing(buttonTranslateY, {
       toValue: 0,
-      delay: 1000,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
+      duration: 600,
+      easing: Easing.in(Easing.ease),
       useNativeDriver: true,
     }).start();
 
-    Animated.timing(buttonOpacity, {
-      toValue: 1,
-      delay: 1000,
-      duration: 800,
-      easing: Easing.out(Easing.ease),
+    // Animasi Tombol
+    Animated.timing(buttonTranslateY, {
+      toValue: 50,
+      duration: 600,
+      easing: Easing.in(Easing.ease),
       useNativeDriver: true,
     }).start();
-  }, []);
+    Animated.timing(buttonOpacity, {
+      toValue: 0,
+      duration: 600,
+      easing: Easing.in(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+
+    setTimeout(() => {
+      if (target === "register") {
+        toRegister();
+      } else {
+        toLogin();
+      }
+    }, 800);
+  };
 
   //   Interpolasi Farmer
   const rotateInterpolation = rotateAnim.interpolate({
@@ -186,17 +271,19 @@ export default function SelectScreen() {
             fontFamily="LexBold"
             title="Daftar"
             myActiveOpacity={0.9}
-            myClassName="w-1/2 rounded-tl-xl rounded-bl-xl rounded-none py-5"
+            myClassName="w-1/2 rounded-tl-xl rounded-bl-xl py-5"
             myTextStyle="text-xl"
+            onPress={() => handleOutAnimation("register")}
           />
           {/* Tombol ke halaman Login Screen */}
           <MyButton
             fontFamily="LexBold"
             title="Masuk"
             myActiveOpacity={1}
-            myClassName="w-1/2 rounded-tr-xl rounded-br-xl rounded-none py-5"
+            myClassName="w-1/2 rounded-tr-xl rounded-br-xl py-5"
             myTextStyle="text-xl"
             myButtonColor="#093731"
+            onPress={() => handleOutAnimation("login")}
           />
         </Animated.View>
       </View>

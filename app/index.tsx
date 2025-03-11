@@ -4,12 +4,16 @@ import { Animated, View, StyleSheet } from "react-native";
 import SplashScreenComponent from "@/app/screens/splashScreen";
 import StartScreen from "@/app/screens/startScreen";
 import SelectScreen from "@/app/screens/selectScreen";
+import RegisterScreen from "@/app/screens/registerScreen";
+import LoginScreen from "@/app/screens/loginScreen";
 
 export default function Index() {
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const [isStartVisible, setIsStartVisible] = useState(true);
   const [isSelectVisible, setIsSelectVisible] = useState(false);
+  const [isRegisterVisible, setIsRegisterVisible] = useState(false);
+  const [isLoginVisible, setIsLoginVisible] = useState(false);
 
   // Efek Animasi untuk Splash Screen
   useEffect(() => {
@@ -26,7 +30,7 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Menampilkan Start Screen */}
+      {/* Kondisi Start Screen */}
       {isStartVisible && (
         <StartScreen
           onExit={() => {
@@ -36,8 +40,39 @@ export default function Index() {
         />
       )}
 
-      {/* Menampilkan SelectScreen */}
-      {isSelectVisible && <SelectScreen />}
+      {/* Kondisi Select Screen */}
+      {isSelectVisible && (
+        <SelectScreen
+          toRegister={() => {
+            setIsSelectVisible(false);
+            setIsRegisterVisible(true);
+          }}
+          toLogin={() => {
+            setIsSelectVisible(false);
+            setIsLoginVisible(true);
+          }}
+        />
+      )}
+
+      {/* Kondisi Register Screen  */}
+      {isRegisterVisible && (
+        <RegisterScreen
+          onBack={() => {
+            setIsRegisterVisible(false);
+            setIsSelectVisible(true);
+          }}
+        />
+      )}
+
+      {/* Kondisi Login Screen  */}
+      {isLoginVisible && (
+        <LoginScreen
+          onBack={() => {
+            setIsLoginVisible(false);
+            setIsSelectVisible(true);
+          }}
+        />
+      )}
 
       {/* Menampilkan Splash Screen */}
       {isSplashVisible && (

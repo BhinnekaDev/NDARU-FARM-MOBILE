@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 // COMPONENTS
 import MyButton from "@/components/button";
 // INTERFACES
-import { StartScreenProps } from "@/interfaces/startScreenProps";
+import { StartScreenProps } from "@/interfaces/screenProps";
 
 export default function StartScreen({ onExit }: StartScreenProps) {
   const [isAnimExit, setIsAnimExit] = useState(false);
@@ -23,6 +23,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
 
   // Efek Animasi
   useEffect(() => {
+    // Animasi Shape
     if (!isAnimExit) {
       Animated.timing(scaleAnim, {
         toValue: 1,
@@ -31,14 +32,12 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
       }).start();
-
       Animated.timing(translateYAnim, {
         toValue: -120,
         duration: 1000,
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
       }).start();
-
       Animated.timing(translateXAnim, {
         toValue: 90,
         duration: 1000,
@@ -46,6 +45,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         useNativeDriver: true,
       }).start();
 
+      // Animasi Lettuce
       Animated.parallel([
         Animated.timing(lettuceTranslateX, {
           toValue: 0,
@@ -62,6 +62,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         }),
       ]).start();
 
+      // Animasi Text
       Animated.timing(textTranslateX, {
         toValue: 0,
         delay: 4000,
@@ -69,7 +70,6 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
       }).start();
-
       Animated.timing(textOpacity, {
         toValue: 1,
         delay: 4000,
@@ -78,6 +78,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         useNativeDriver: true,
       }).start();
 
+      // Animasi Deskripsi
       Animated.timing(descTranslateX, {
         toValue: 0,
         delay: 4200,
@@ -85,7 +86,6 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         easing: Easing.out(Easing.ease),
         useNativeDriver: true,
       }).start();
-
       Animated.timing(descOpacity, {
         toValue: 1,
         delay: 4200,
@@ -94,6 +94,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
         useNativeDriver: true,
       }).start();
 
+      // Animasi Tombol
       Animated.timing(buttonTranslateY, {
         toValue: 0,
         delay: 4400,
@@ -241,7 +242,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
             fontFamily="LexBold"
             title="Mulai"
             myActiveOpacity={1}
-            myClassName="p-3"
+            myClassName="p-3 rounded-xl"
             myTextStyle="text-lg"
             onPress={handleOutAnimation}
           />
