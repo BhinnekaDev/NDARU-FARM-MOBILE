@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { View, Animated, Easing, Text } from "react-native";
+import { useRouter } from "expo-router";
 // COMPONENTS
 import MyButton from "@/components/button";
 import MyButtonBack from "@/components/buttonBack";
@@ -8,6 +9,7 @@ import MyInput from "@/components/input";
 import { LoginScreenProps } from "@/interfaces/screenProps";
 
 export default function LoginScreen({ onBack }: LoginScreenProps) {
+  const router = useRouter();
   const [isAnimExit] = useState(false);
 
   // Fungsi Animasi
@@ -227,6 +229,7 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
             myActiveOpacity={0.9}
             myClassName="w-full rounded-xl py-3"
             myTextStyle="text-xl"
+            onPress={() => router.push("/screens/indentityScreen")}
           />
         </Animated.View>
       </View>

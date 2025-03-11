@@ -6,8 +6,13 @@ export interface inputProps {
   placeholder?: string;
   placeholderFont?: string;
   icon?: string;
-  iconLibrary?: keyof typeof Icons; // Bisa ambil semua dari expo-vector-icons
+  iconLibrary?: keyof typeof Icons;
   iconColor?: string;
   iconSize?: number;
   inputFontSize?: number;
+  rightIcon?: string;
+  rightIconLibrary?: keyof typeof Icons;
+  rightIconColor?: string;
+  rightIconSize?: number;
+  onRightIconPress?: () => void;
 }
