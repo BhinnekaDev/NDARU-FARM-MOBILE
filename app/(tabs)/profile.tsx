@@ -4,7 +4,7 @@ import { Text, View, Image, TouchableOpacity, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "@/components/Button";
-
+import SettingOption from "@/components/SettingOption";
 export default function Index() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
   const [isBiometricEnabled, setBiometricEnabled] = useState(false);
@@ -31,42 +31,28 @@ export default function Index() {
         <Text className="text-white text-lg font-bold mb-2">Pilihan Pengaturan</Text>
         <View className="bg-[#333836] p-4  rounded-lg ">
           {/* Opsi Notifikasi */}
-          <View>
-            <View className="flex-row justify-between items-center ">
-              <View className="flex-row items-center">
-                <MaterialIcons name="notifications" size={24} color="white" className="bg-black p-1 rounded-lg" />
-                <Text className="text-white ml-4">Notifikasi</Text>
-              </View>
-              <Switch
-                trackColor={{ false: "#000000", true: "#00822F" }}
-                thumbColor={isNotificationEnabled ? "#FFFFFF" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
-                value={isNotificationEnabled}
-                onValueChange={setNotificationEnabled}
-              />
-            </View>
-            <View className="border-b border-white" />
-          </View>
+          <SettingOption
+            iconName="notifications" //
+            label="Notifikasi"
+            value={isNotificationEnabled}
+            onToggle={setNotificationEnabled}
+            containerClassName=""
+            iconClassName=""
+            labelClassName=""
+            dividerClassName=""
+          />
 
           {/* Opsi Sidik Jari */}
-          <View>
-            <View className="flex-row justify-between items-center py-2">
-              <View className="flex-row items-center">
-                <MaterialIcons name="fingerprint" size={24} color="white" className="bg-black p-1 rounded-lg" />
-                <Text className="text-white ml-4">Sidik Jari Biometri</Text>
-              </View>
-              <Switch
-                trackColor={{ false: "#000000", true: "#00822F" }}
-                thumbColor={isBiometricEnabled ? "#FFFFFF" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
-                value={isBiometricEnabled}
-                onValueChange={setBiometricEnabled}
-              />
-            </View>
-            <View className="border-b border-white" />
-          </View>
+          <SettingOption
+            iconName="fingerprint" //
+            label="Sidik Jari Biometri"
+            value={isBiometricEnabled}
+            onToggle={setBiometricEnabled}
+            containerClassName=""
+            iconClassName=""
+            labelClassName=""
+            dividerClassName=""
+          />
 
           {/* Opsi Keluar */}
           <TouchableOpacity className="flex-row justify-between items-center py-4">
@@ -78,7 +64,11 @@ export default function Index() {
           <View className="border-b border-white" />
         </View>
       </View>
-      <Button className="bg-green-500 font-semibold" onPress={handleNavigation}>
+      <Button
+        textClassName="text-white text-base font-semibold" //
+        className="bg-green-500 font-semibold h-10 px-6 rounded-md  justify-center items-center"
+        onPress={handleNavigation}
+      >
         Go To Home Dawg
       </Button>
     </View>
