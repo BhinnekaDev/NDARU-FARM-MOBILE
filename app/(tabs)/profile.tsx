@@ -38,7 +38,7 @@ export default function Index() {
                 <Text className="text-white ml-4">Notifikasi</Text>
               </View>
               <Switch
-                trackColor={{ false: "#767577", true: "#00822F" }}
+                trackColor={{ false: "#000000", true: "#00822F" }}
                 thumbColor={isNotificationEnabled ? "#FFFFFF" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
                 style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
@@ -57,7 +57,7 @@ export default function Index() {
                 <Text className="text-white ml-4">Sidik Jari Biometri</Text>
               </View>
               <Switch
-                trackColor={{ false: "#767577", true: "#00822F" }}
+                trackColor={{ false: "#000000", true: "#00822F" }}
                 thumbColor={isBiometricEnabled ? "#FFFFFF" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
                 style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
