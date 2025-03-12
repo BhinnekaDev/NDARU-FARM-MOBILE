@@ -4,7 +4,7 @@ import { Text, View, Image, TouchableOpacity, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "@/components/Button";
-import SettingOption from "@/components/SettingOption";
+import SettingOption from "@/components/ButtonSwitch";
 export default function Index() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
   const [isBiometricEnabled, setBiometricEnabled] = useState(false);
@@ -58,7 +58,7 @@ export default function Index() {
           />
 
           {/* Opsi Keluar */}
-          <TouchableOpacity className="flex-row justify-between items-center py-4">
+          <TouchableOpacity className="flex-row justify-between items-center py-2">
             <View className="flex-row items-center">
               <MaterialIcons name="logout" size={24} color="white" className="bg-black p-1 rounded-lg" />
               <Text className="text-white ml-4">Keluar</Text>

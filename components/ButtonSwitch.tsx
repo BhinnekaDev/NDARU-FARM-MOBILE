@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Switch } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SettingOptionProps } from "@/interfaces/SettingOptionProps";
+import { SettingOptionProps } from "@/interfaces/ButtonSwitchProps";
 
 const SettingOption = ({
   iconName, //
