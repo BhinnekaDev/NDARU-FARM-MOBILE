@@ -22,9 +22,12 @@ export default function Index() {
       <Text className="text-gray-400 text-lg underline">emailPengguna@gmail.com</Text>
 
       {/* Edit Profile Button */}
-      <TouchableOpacity className="mt-8 bg-[#333836] px-6 py-2 rounded-lg">
-        <Text className="text-white font-semibold">Sunting Profil</Text>
-      </TouchableOpacity>
+      <Button
+        textClassName="text-white font-semibold" //
+        className="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
+      >
+        Sunting Profile
+      </Button>
 
       {/* Settings Options */}
       <View className="w-full px-6 mt-8 ">
