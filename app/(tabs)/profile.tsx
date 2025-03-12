@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Text, View, Image, TouchableOpacity, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import Button from "@/components/Elements/Button";
+import Button from "@/components/Button";
 
 export default function Index() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
