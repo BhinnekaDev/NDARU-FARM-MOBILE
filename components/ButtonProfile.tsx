@@ -1,10 +1,10 @@
 import { TouchableOpacity, Text } from "react-native";
 import { ButtonProps } from "@/interfaces/ButtonProfileProps";
 
-const Button = ({ children = "", className = "", textClassName = "", onPress }: ButtonProps) => {
+const Button = ({ children = "", classNameContainer = "", textClassName = "", onPress }: ButtonProps) => {
   return (
     /* Button Profile Component */
-    <TouchableOpacity className={className} onPress={onPress}>
+    <TouchableOpacity className={classNameContainer} onPress={onPress}>
       <Text className={textClassName}>{children}</Text>
     </TouchableOpacity>
   );

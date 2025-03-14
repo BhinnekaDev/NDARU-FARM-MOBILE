@@ -9,17 +9,17 @@ const SettingOption = ({
   value,
   onToggle,
   containerClassName = "",
-  iconClassName = "",
   labelClassName = "",
+  iconClassName = "",
   dividerClassName = "",
 }: SettingOptionProps) => {
   return (
     // Button Switch Profile Component
-    <View className={`${containerClassName} py-2`}>
+    <View className={`${containerClassName} `}>
       <View className="flex-row justify-between items-center">
         <View className="flex-row items-center">
-          <MaterialIcons name={iconName} size={24} color="white" className={`bg-black p-1 rounded-lg ${iconClassName}`} />
-          <Text className={`text-white ml-4 ${labelClassName}`}>{label}</Text>
+          <MaterialIcons name={iconName} size={24} color="white" className={iconClassName} />
+          <Text className={labelClassName}>{label}</Text>
         </View>
         <Switch
           trackColor={{ false: "#000000", true: "#00822F" }}
@@ -30,7 +30,7 @@ const SettingOption = ({
           onValueChange={onToggle}
         />
       </View>
-      <View className={`border-b border-white ${dividerClassName}`} />
+      <View className={dividerClassName} />
     </View>
   );
 };

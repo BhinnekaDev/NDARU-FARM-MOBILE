@@ -1,6 +1,6 @@
 export interface ButtonProps {
   children: React.ReactNode;
-  className?: string;
+  classNameContainer?: string;
   textClassName?: string;
   onPress?: () => void;
 }

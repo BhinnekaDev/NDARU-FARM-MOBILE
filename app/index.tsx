@@ -14,7 +14,7 @@ export default function Index() {
       <Text className="text-2xl text-black font-semibold">Welcome Everyone 👋</Text>
       <Button
         textClassName="text-white text-base font-semibold" //
-        className="bg-red-500 font-semibold h-10 px-6 rounded-md justify-center items-center"
+        classNameContainer="bg-red-500 font-semibold h-10 px-6 rounded-md justify-center items-center"
         onPress={handleNavigation}
       >
         Go To Profile Dawgs

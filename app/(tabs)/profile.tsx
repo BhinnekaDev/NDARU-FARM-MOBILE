@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -30,8 +30,8 @@ export default function Index() {
 
       {/* Edit Profile Button */}
       <Button
+        classNameContainer="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
         textClassName="text-white font-semibold" //
-        className="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
         onPress={handleEditProfile}
       >
         Sunting Profile
@@ -47,10 +47,10 @@ export default function Index() {
             label="Notifikasi"
             value={isNotificationEnabled}
             onToggle={setNotificationEnabled}
-            containerClassName=""
-            iconClassName=""
-            labelClassName=""
-            dividerClassName=""
+            containerClassName="py-2"
+            labelClassName="text-white ml-4"
+            iconClassName="bg-black p-1 rounded-lg "
+            dividerClassName="border-b border-white"
           />
 
           {/* Opsi Sidik Jari */}
@@ -59,10 +59,10 @@ export default function Index() {
             label="Sidik Jari Biometri"
             value={isBiometricEnabled}
             onToggle={setBiometricEnabled}
-            containerClassName=""
-            iconClassName=""
-            labelClassName=""
-            dividerClassName=""
+            containerClassName="py-2"
+            labelClassName="text-white ml-4"
+            iconClassName="bg-black p-1 rounded-lg "
+            dividerClassName="border-b border-white"
           />
 
           {/* Opsi Keluar */}
