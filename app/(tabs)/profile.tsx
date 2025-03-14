@@ -11,7 +11,7 @@ export default function Index() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
   const [isBiometricEnabled, setBiometricEnabled] = useState(false);
   const router = useRouter();
-  const handleNavigation = () => {
+  const handleEditProfile = () => {
     router.push("/screens/editProfile");
   };
   return (
@@ -27,7 +27,7 @@ export default function Index() {
       <Button
         textClassName="text-white font-semibold" //
         className="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
-        onPress={handleNavigation}
+        onPress={handleEditProfile}
       >
         Sunting Profile
       </Button>
