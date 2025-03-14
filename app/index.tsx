@@ -17,7 +17,7 @@ export default function Index() {
         className="bg-red-500 font-semibold h-10 px-6 rounded-md justify-center items-center"
         onPress={handleNavigation}
       >
-        Go To Profile Dawg
+        Go To Profile Dawgs
       </Button>
     </View>
   );
