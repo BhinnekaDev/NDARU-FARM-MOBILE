@@ -1,5 +1,5 @@
 import { TouchableOpacity, Text } from "react-native";
-import { ButtonProps } from "@/interfaces/ButtonProps";
+import { ButtonProps } from "@/interfaces/ButtonProfileProps";
 
 const Button = ({ children = "", className = "", textClassName = "", onPress }: ButtonProps) => {
   return (

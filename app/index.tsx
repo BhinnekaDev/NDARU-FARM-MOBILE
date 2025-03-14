@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import Button from "@/components/Button";
+import Button from "@/components/ButtonProfile";
 
 export default function Index() {
   const router = useRouter();
