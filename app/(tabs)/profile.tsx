@@ -1,16 +1,18 @@
-import "@/global.css";
 import React, { useState } from "react";
-import { Text, View, Image, TouchableOpacity, Switch } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
+
+// OUR COMPONENT
 import Button from "@/components/Button";
 import SettingOption from "@/components/ButtonSwitch";
+
 export default function Index() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
   const [isBiometricEnabled, setBiometricEnabled] = useState(false);
   const router = useRouter();
   const handleNavigation = () => {
-    router.push("/");
+    router.push("/screens/editProfile");
   };
   return (
     <View className="flex-1 justify-center items-center bg-black">
@@ -25,6 +27,7 @@ export default function Index() {
       <Button
         textClassName="text-white font-semibold" //
         className="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
+        onPress={handleNavigation}
       >
         Sunting Profile
       </Button>
@@ -64,7 +67,7 @@ export default function Index() {
               <Text className="text-white ml-4">Keluar</Text>
             </View>
           </TouchableOpacity>
-          <View className="border-b border-white" />
+          <View className="border-b border-white " />
         </View>
       </View>
     </View>
