@@ -1,6 +1,6 @@
 import "@/global.css";
 import { Stack } from "expo-router";
-import { useLoadFont } from "@/hooks/ClientSide/useLoadFonts";
+import { useLoadFont } from "@/hooks/Frontend/useLoadFonts";
 
 export default function RootLayout() {
   const fontLoaded = useLoadFont();

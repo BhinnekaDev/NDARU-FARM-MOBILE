@@ -1,219 +1,51 @@
-import { View, Animated, Easing } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { View, Animated } from "react-native";
 // COMPONENTS
 import MyButton from "@/components/button";
 // INTERFACES
 import { SelectScreenProps } from "@/interfaces/screenProps";
+// HOOKS
+import useSelectScreenAnimation from "@/hooks/Frontend/selectScreen/useSelectAnimation";
+import { useThemeListener } from "@/hooks/Frontend/useThemeListener";
 
 export default function SelectScreen({
   toRegister,
   toLogin,
 }: SelectScreenProps) {
-  const [isAnimExit, setIsAnimExit] = useState(false);
-  const [destination, setDestination] = useState<"register" | "login" | null>(
-    null
-  );
+  const theme = useThemeListener("select");
 
-  // Fungsi Animasi
-  const translateYAnim = useRef(new Animated.Value(-120)).current;
-  const translateXAnim = useRef(new Animated.Value(90)).current;
-  const rotateAnim = useRef(new Animated.Value(0)).current;
-  const farmerTranslateY = useRef(new Animated.Value(-60)).current;
-  const farmerOpacity = useRef(new Animated.Value(0)).current;
-  const textTranslateY = useRef(new Animated.Value(-60)).current;
-  const textOpacity = useRef(new Animated.Value(0)).current;
-  const descTranslateY = useRef(new Animated.Value(-50)).current;
-  const descOpacity = useRef(new Animated.Value(0)).current;
-  const buttonTranslateY = useRef(new Animated.Value(100)).current;
-  const buttonOpacity = useRef(new Animated.Value(0)).current;
-
-  //   Efek Animasi
-  useEffect(() => {
-    if (!isAnimExit) {
-      // Efek Animasi Shape Select
-      Animated.parallel([
-        Animated.timing(translateYAnim, {
-          toValue: -300,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateXAnim, {
-          toValue: -150,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: 0.3,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      // Efek Animasi Farmer
-      Animated.parallel([
-        Animated.timing(farmerTranslateY, {
-          toValue: 0,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(farmerOpacity, {
-          toValue: 1,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      // Efek Animasi Teks
-      Animated.timing(textTranslateY, {
-        toValue: 0,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      Animated.timing(textOpacity, {
-        toValue: 1,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      // Efek Animasi Teks Deskripsi
-      Animated.timing(descTranslateY, {
-        toValue: 0,
-        delay: 1200,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      Animated.timing(descOpacity, {
-        toValue: 1,
-        delay: 1200,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      // Efek Animasi Tombol
-      Animated.timing(buttonTranslateY, {
-        toValue: 0,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      Animated.timing(buttonOpacity, {
-        toValue: 1,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [isAnimExit]);
-
-  // Fungsi Tombol Animasi Keluar
-  const handleOutAnimation = (target: "register" | "login") => {
-    setIsAnimExit(true);
-    setDestination(target);
-
-    // Animasi Farmer
-    Animated.parallel([
-      Animated.timing(farmerTranslateY, {
-        toValue: -60,
-        duration: 600,
-        easing: Easing.in(Easing.ease),
-        useNativeDriver: true,
-      }),
-      Animated.timing(farmerOpacity, {
-        toValue: 0,
-        duration: 600,
-        easing: Easing.in(Easing.ease),
-        useNativeDriver: true,
-      }),
-    ]).start();
-
-    // Animasi Teks
-    Animated.timing(textTranslateY, {
-      toValue: -50,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(textOpacity, {
-      toValue: 0,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    // Animasi Teks Deskripsi
-    Animated.timing(descTranslateY, {
-      toValue: -50,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(descOpacity, {
-      toValue: 0,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    // Animasi Tombol
-    Animated.timing(buttonTranslateY, {
-      toValue: 50,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(buttonOpacity, {
-      toValue: 0,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    setTimeout(() => {
-      if (target === "register") {
-        toRegister();
-      } else {
-        toLogin();
-      }
-    }, 800);
-  };
-
-  //   Interpolasi Farmer
-  const rotateInterpolation = rotateAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "-10deg"],
-  });
+  const {
+    rotateAnim,
+    translateYAnim,
+    translateXAnim,
+    farmerTranslateY,
+    farmerOpacity,
+    textTranslateY,
+    textOpacity,
+    descTranslateY,
+    descOpacity,
+    buttonTranslateY,
+    buttonOpacity,
+    handleOutAnimation,
+  } = useSelectScreenAnimation();
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{ backgroundColor: theme.background }}>
       <View className="w-full h-1/2 mb-8">
         {/* Gambar Shape */}
         <Animated.Image
-          source={require("@/assets/images/select/select1.png")}
+          source={theme.selectImage}
           style={{
             width: "200%",
             height: "160%",
             transform: [
               { translateX: translateXAnim },
               { translateY: translateYAnim },
-              { rotate: rotateInterpolation },
+              {
+                rotate: rotateAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ["0deg", "-10deg"],
+                }),
+              },
             ],
           }}
           resizeMode="cover"
@@ -240,6 +72,7 @@ export default function SelectScreen({
             fontFamily: "LexBold",
             opacity: textOpacity,
             transform: [{ translateY: textTranslateY }],
+            color: theme.text,
           }}
         >
           Temukan Sayuran Segar Disini
@@ -252,6 +85,7 @@ export default function SelectScreen({
             fontFamily: "LexRegular",
             opacity: descOpacity,
             transform: [{ translateY: descTranslateY }],
+            color: theme.text,
           }}
         >
           Belanja sayuran segar langsung dari kebun, {"\n"}
@@ -273,8 +107,10 @@ export default function SelectScreen({
             myActiveOpacity={0.9}
             myClassName="w-1/2 rounded-tl-xl rounded-bl-xl py-5"
             myTextStyle="text-xl"
-            onPress={() => handleOutAnimation("register")}
+            myButtonColor={theme.mode === "dark" ? "#161E1B" : undefined}
+            onPress={() => handleOutAnimation("register", toRegister)}
           />
+
           {/* Tombol ke halaman Login Screen */}
           <MyButton
             fontFamily="LexBold"
@@ -282,8 +118,8 @@ export default function SelectScreen({
             myActiveOpacity={1}
             myClassName="w-1/2 rounded-tr-xl rounded-br-xl py-5"
             myTextStyle="text-xl"
-            myButtonColor="#093731"
-            onPress={() => handleOutAnimation("login")}
+            myButtonColor={theme.mode === "light" ? "#093731" : undefined}
+            onPress={() => handleOutAnimation("login", toLogin)}
           />
         </Animated.View>
       </View>

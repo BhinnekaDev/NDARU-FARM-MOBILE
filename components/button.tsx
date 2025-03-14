@@ -1,9 +1,9 @@
 import { useState } from "react";
 import * as Icons from "@expo/vector-icons";
-import { TouchableOpacity, Text, Animated } from "react-native";
+import { TouchableOpacity, Text, Animated, useColorScheme } from "react-native";
 import { ComponentType } from "react";
 // HOOKS
-import { useLoadFont } from "@/hooks/ClientSide/useLoadFonts";
+import { useLoadFont } from "@/hooks/Frontend/useLoadFonts";
 // INTERFACES
 import { buttonProps } from "@/interfaces/buttonProps";
 
@@ -13,7 +13,7 @@ export default function MyButton({
   myActiveOpacity,
   myClassName,
   myTextStyle,
-  myButtonColor = "#159778",
+  myButtonColor,
   onPress,
   icon,
   iconLibrary,
@@ -22,6 +22,7 @@ export default function MyButton({
   iconPosition,
 }: buttonProps) {
   const fontLoaded = useLoadFont();
+  const theme = useColorScheme();
   const [isPressed, setIsPressed] = useState(false);
   const backgroundColor = useState(new Animated.Value(0))[0];
 
@@ -32,6 +33,13 @@ export default function MyButton({
   const IconComponent = Icons[
     iconLibrary as keyof typeof Icons
   ] as ComponentType<any>;
+
+  const myButtonColorBright = "#159778";
+  const myButtonColorDark = "#333836";
+
+  const defaultButtonColor =
+    myButtonColor ||
+    (theme === "dark" ? myButtonColorDark : myButtonColorBright);
 
   // Fungsi Mengubah Warna BG Tombol
   const handlePressIn = () => {
@@ -54,7 +62,7 @@ export default function MyButton({
   // Interpolasi Warna BG Tombol
   const interpolatedColor = backgroundColor.interpolate({
     inputRange: [0, 1],
-    outputRange: [myButtonColor, "#161E1B"],
+    outputRange: [defaultButtonColor, "#161E1B"],
   });
 
   return (

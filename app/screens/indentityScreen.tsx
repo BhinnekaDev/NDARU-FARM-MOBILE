@@ -1,105 +1,31 @@
-import { View, Animated, Easing } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { View, Animated } from "react-native";
+// HOOKS
+import useIdentityAnimations from "@/hooks/Frontend/identityScreen/useIdentityAnimations";
+import { useThemeListener } from "@/hooks/Frontend/useThemeListener";
 // COMPONENTS
 import MyButton from "@/components/button";
 import MyInput from "@/components/input";
 
 export default function IdentityScreen() {
-  const [isAnimExit, setIsAnimExit] = useState(false);
+  const theme = useThemeListener("identity");
 
-  // Fungsi Animasi
-  const translateYAnim = useRef(new Animated.Value(-120)).current;
-  const translateXAnim = useRef(new Animated.Value(90)).current;
-  const rotateAnim = useRef(new Animated.Value(0)).current;
-  const farmerTranslateY = useRef(new Animated.Value(-60)).current;
-  const farmerOpacity = useRef(new Animated.Value(0)).current;
-  const itemOpacity = useRef(new Animated.Value(0)).current;
-  const buttonTranslateY = useRef(new Animated.Value(100)).current;
-  const buttonOpacity = useRef(new Animated.Value(0)).current;
-
-  //   Efek Animasi
-  useEffect(() => {
-    if (!isAnimExit) {
-      // Efek Animasi Shape Select
-      Animated.parallel([
-        Animated.timing(translateYAnim, {
-          toValue: -200,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateXAnim, {
-          toValue: -150,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: 0.3,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      // Efek Animasi Farmer
-      Animated.parallel([
-        Animated.timing(farmerTranslateY, {
-          toValue: 0,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(farmerOpacity, {
-          toValue: 1,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      // Efek Animasi Item
-      Animated.timing(itemOpacity, {
-        toValue: 1,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      // Efek Animasi Tombol
-      Animated.timing(buttonTranslateY, {
-        toValue: 0,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      Animated.timing(buttonOpacity, {
-        toValue: 1,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [isAnimExit]);
-
-  //   Interpolasi Farmer
-  const rotateInterpolation = rotateAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "-10deg"],
-  });
+  const {
+    translateYAnim,
+    translateXAnim,
+    rotateInterpolation,
+    farmerTranslateY,
+    farmerOpacity,
+    itemOpacity,
+    buttonTranslateY,
+    buttonOpacity,
+  } = useIdentityAnimations();
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{ backgroundColor: theme.background }}>
       <View className="w-full h-1/2">
         {/* Gambar Shape */}
         <Animated.Image
-          source={require("@/assets/images/identity/identity1.png")}
+          source={theme.identityImage}
           style={{
             width: "200%",
             height: "160%",
@@ -128,10 +54,11 @@ export default function IdentityScreen() {
       <View className="w-full h-full px-4">
         {/* Teks Header Besar */}
         <Animated.Text
-          className="text-3xl text-center text-white mb-8"
+          className="text-3xl text-center mb-8"
           style={{
             fontFamily: "LexBold",
             opacity: itemOpacity,
+            color: theme.text,
           }}
         >
           Lengkapi Identitas Anda

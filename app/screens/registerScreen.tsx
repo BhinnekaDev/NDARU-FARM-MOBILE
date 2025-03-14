@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { View, Animated, Easing, Text } from "react-native";
+import { View, Animated, Text } from "react-native";
 import { useRouter } from "expo-router";
 // COMPONENTS
 import MyButton from "@/components/button";
@@ -7,114 +6,27 @@ import MyButtonBack from "@/components/buttonBack";
 import MyInput from "@/components/input";
 // INTERFACES
 import { RegisterScreenProps } from "@/interfaces/screenProps";
+// HOOKS
+import useRegisterLoginAnimations from "@/hooks/Frontend/registerLoginScreen/useRegisterLoginAnimations";
+import { useThemeListener } from "@/hooks/Frontend/useThemeListener";
 
 export default function RegisterScreen({ onBack }: RegisterScreenProps) {
   const router = useRouter();
-  const [isAnimExit, setIsAnimExit] = useState(false);
+  const theme = useThemeListener("register");
 
-  // Fungsi Animasi
-  const translateYAnim = useRef(new Animated.Value(-300)).current;
-  const translateXAnim = useRef(new Animated.Value(-150)).current;
-  const rotateAnim = useRef(new Animated.Value(0.3)).current;
-  const buttonBackTranslateX = useRef(new Animated.Value(-100)).current;
-  const buttonBackOpacity = useRef(new Animated.Value(0)).current;
-  const farmerTranslateY = useRef(new Animated.Value(-60)).current;
-  const farmerOpacity = useRef(new Animated.Value(0)).current;
-  const itemOpacity = useRef(new Animated.Value(0)).current;
-  const buttonTranslateY = useRef(new Animated.Value(100)).current;
-  const buttonOpacity = useRef(new Animated.Value(0)).current;
-
-  //   Efek Animasi
-  useEffect(() => {
-    if (!isAnimExit) {
-      // Efek Animasi Shape
-      Animated.parallel([
-        Animated.timing(translateYAnim, {
-          toValue: -120,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateXAnim, {
-          toValue: 130,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: 0,
-          duration: 1000,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      // Efek Animasi Tombol Back
-      Animated.parallel([
-        Animated.timing(buttonBackTranslateX, {
-          toValue: 0,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(buttonBackOpacity, {
-          toValue: 1,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      // Efek Animasi Farmer
-      Animated.parallel([
-        Animated.timing(farmerTranslateY, {
-          toValue: 0,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(farmerOpacity, {
-          toValue: 1,
-          delay: 1000,
-          duration: 800,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]).start();
-
-      //   Efek Animasi Item
-      Animated.timing(itemOpacity, {
-        toValue: 1,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      // Efek Animasi Tombol
-      Animated.timing(buttonTranslateY, {
-        toValue: 0,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      Animated.timing(buttonOpacity, {
-        toValue: 1,
-        delay: 1000,
-        duration: 800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [isAnimExit]);
+  const {
+    buttonBackTranslateX,
+    buttonBackOpacity,
+    translateXAnim,
+    translateYAnim,
+    farmerTranslateY,
+    farmerOpacity,
+    itemOpacity,
+    buttonOpacity,
+  } = useRegisterLoginAnimations(false);
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{ backgroundColor: theme.background }}>
       {/* Tombol Kembali */}
       <Animated.View
         style={{
@@ -127,7 +39,6 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
           myActiveOpacity={0.5}
           myClassName="p-4"
           mySize={30}
-          myColor="black"
           onPress={onBack}
         />
       </Animated.View>
@@ -135,7 +46,7 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
       <View className="w-full h-1/2 absolute">
         {/* Gambar Shape */}
         <Animated.Image
-          source={require("@/assets/images/register/register1.png")}
+          source={theme.registerLoginImage}
           style={{
             width: "200%",
             height: "160%",
@@ -156,7 +67,7 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
             opacity: farmerOpacity,
             transform: [{ translateY: farmerTranslateY }],
           }}
-          source={require("@/assets/images/register/farmer.png")}
+          source={require("@/assets/images/registerLogin/farmer.png")}
         />
       </View>
 
@@ -216,9 +127,17 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
           style={{ opacity: itemOpacity }}
           className="flex-row justify-center items-center mx-28"
         >
-          <View className="h-px w-full bg-black" />
-          <Text style={{ fontFamily: "LexSemiBold" }}>Atau</Text>
-          <View className="h-px w-full bg-black" />
+          <View
+            className="h-px w-full"
+            style={{ backgroundColor: theme.text }}
+          />
+          <Text style={{ fontFamily: "LexSemiBold", color: theme.text }}>
+            Atau
+          </Text>
+          <View
+            className="h-px w-full"
+            style={{ backgroundColor: theme.text }}
+          />
         </Animated.View>
 
         {/* Tombol untuk Masuk dengan Google */}

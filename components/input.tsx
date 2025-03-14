@@ -1,11 +1,17 @@
-import { useState } from "react";
-import { TextInput, View, TouchableOpacity } from "react-native";
+import { useState, useRef } from "react";
+import {
+  TextInput,
+  View,
+  TouchableOpacity,
+  useColorScheme,
+  Animated,
+} from "react-native";
 import * as Icons from "@expo/vector-icons";
 import { ComponentType } from "react";
 // INTERFACEs
 import { inputProps } from "@/interfaces/inputProps";
 // HOOKS
-import { useLoadFont } from "@/hooks/ClientSide/useLoadFonts";
+import { useLoadFont } from "@/hooks/Frontend/useLoadFonts";
 
 export default function MyInput({
   myClassName,
@@ -23,6 +29,8 @@ export default function MyInput({
   placeholderFont,
   inputFontSize,
 }: inputProps) {
+  const theme = useColorScheme();
+  const defaultColor = theme === "dark" ? "white" : "black";
   const loadedFont = useLoadFont();
   const fontToUse = typeof loadedFont === "string" ? loadedFont : undefined;
   const IconComponent = iconLibrary
@@ -33,15 +41,37 @@ export default function MyInput({
     : null;
 
   const [secureText, setSecureText] = useState(type === "password");
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  const togglePasswordVisibility = () => {
+    Animated.sequence([
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 0,
+        useNativeDriver: true,
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    setSecureText(!secureText);
+  };
 
   return (
-    <View className="bg-transparent flex-row items-center border-b border-black px-3">
+    <View
+      className={`flex-row items-center border-b px-3 ${
+        theme === "dark" ? "border-white" : "border-black"
+      }`}
+    >
       {/* Left Icon */}
       {icon && IconComponent && (
         <IconComponent
           name={icon}
           size={iconSize}
-          color={iconColor}
+          color={iconColor || defaultColor}
           className="mr-3"
         />
       )}
@@ -49,9 +79,11 @@ export default function MyInput({
       {/* Input */}
       <TextInput
         placeholder={placeholder}
+        placeholderTextColor={defaultColor}
         style={{
           fontFamily: placeholderFont || fontToUse,
           fontSize: inputFontSize,
+          color: defaultColor,
         }}
         secureTextEntry={type === "password" ? secureText : false}
         keyboardType={
@@ -65,14 +97,16 @@ export default function MyInput({
         className={`flex-1 ${myClassName}`}
       />
 
-      {/* Right Icon (Toggle Eye for Password) */}
+      {/* Icon Mata Toggle dengan Animasi */}
       {type === "password" && (
-        <TouchableOpacity onPress={() => setSecureText(!secureText)}>
-          <Icons.Ionicons
-            name={secureText ? "eye-off" : "eye"}
-            size={24}
-            color="black"
-          />
+        <TouchableOpacity onPress={togglePasswordVisibility}>
+          <Animated.View style={{ opacity: fadeAnim }}>
+            <Icons.Ionicons
+              name={secureText ? "eye-off" : "eye"}
+              size={24}
+              color={defaultColor}
+            />
+          </Animated.View>
         </TouchableOpacity>
       )}
 
@@ -82,7 +116,7 @@ export default function MyInput({
           <RightIconComponent
             name={rightIcon}
             size={rightIconSize}
-            color={rightIconColor}
+            color={rightIconColor || defaultColor}
             className="ml-3"
           />
         </TouchableOpacity>

@@ -1,40 +1,20 @@
-import { useEffect } from "react";
 import { View, Animated } from "react-native";
+// HOOKS
+import { useThemeListener } from "@/hooks/Frontend/useThemeListener";
+import { useSplashAnimation } from "@/hooks/Frontend/splashScreen/useSplashAnimation";
 
 export default function SplashScreenComponent() {
-  const scaleAnim = new Animated.Value(1);
-  const fadeAnim = new Animated.Value(0);
-  const textScaleAnim = new Animated.Value(1);
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(scaleAnim, {
-        toValue: 5,
-        duration: 1100,
-        delay: 500,
-        useNativeDriver: true,
-      }),
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 1100,
-        delay: 500,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      Animated.timing(textScaleAnim, {
-        toValue: 0,
-        duration: 500,
-        delay: 500,
-        useNativeDriver: true,
-      }).start();
-    });
-  }, []);
+  const theme = useThemeListener("splash");
+  const { scaleAnim, fadeAnim, textScaleAnim } = useSplashAnimation();
 
   return (
-    <View className="flex-1 bg-white justify-center items-center p-10">
+    <View
+      style={{ backgroundColor: theme.background }}
+      className="flex-1 justify-center items-center p-10"
+    >
       {/* Gambar Splash */}
       <Animated.Image
-        source={require("@/assets/images/splash/splash1.png")}
+        source={theme.splashImage}
         style={{
           width: 300,
           height: 300,
@@ -42,7 +22,7 @@ export default function SplashScreenComponent() {
           transform: [{ scale: scaleAnim }],
         }}
       />
-      {/* Teks Splash Ndaru */}
+      {/* Teks Splash */}
       <Animated.Text
         className="text-5xl text-white absolute"
         style={{
