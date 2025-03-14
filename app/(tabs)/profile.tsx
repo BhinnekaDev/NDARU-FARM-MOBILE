@@ -6,6 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 // OUR COMPONENT
 import Button from "@/components/ButtonProfile";
 import SettingOption from "@/components/ButtonSwitchProfile";
+import UserProfile from "@/components/UserProfile";
 
 export default function Index() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
@@ -16,12 +17,12 @@ export default function Index() {
   };
   return (
     <View className="flex-1 justify-center items-center bg-black">
-      {/* Container Foto Profil */}
-      <View className="w-36 h-36 rounded-full border-4 border-gray-500 flex items-center justify-center mt-10 overflow-hidden">
-        <Image source={{ uri: "https://i.pravatar.cc/180" }} className="w-full h-full" />
-      </View>
-      <Text className="text-white text-xl font-bold mt-4">Adrian Musa Alfauzan</Text>
-      <Text className="text-gray-400 text-lg underline">emailPengguna@gmail.com</Text>
+      {/* Container User Profil */}
+      <UserProfile
+        imageUrl="https://i.pravatar.cc/180" //
+        name="Adrian Musa Alfauzan"
+        email="emailPengguna@gmail.com"
+      />
 
       {/* Edit Profile Button */}
       <Button

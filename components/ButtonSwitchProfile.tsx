@@ -14,6 +14,7 @@ const SettingOption = ({
   dividerClassName = "",
 }: SettingOptionProps) => {
   return (
+    // Button Switch Profile Component
     <View className={`${containerClassName} py-2`}>
       <View className="flex-row justify-between items-center">
         <View className="flex-row items-center">

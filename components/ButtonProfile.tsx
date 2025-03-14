@@ -3,7 +3,7 @@ import { ButtonProps } from "@/interfaces/ButtonProfileProps";
 
 const Button = ({ children = "", className = "", textClassName = "", onPress }: ButtonProps) => {
   return (
-    /* Button Component */
+    /* Button Profile Component */
     <TouchableOpacity className={className} onPress={onPress}>
       <Text className={textClassName}>{children}</Text>
     </TouchableOpacity>
