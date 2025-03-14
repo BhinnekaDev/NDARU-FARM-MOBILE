@@ -19,7 +19,11 @@ export default function Index() {
     <View className="flex-1 justify-center items-center bg-black">
       {/* Container User Profil */}
       <UserProfile
+        containerImageClassName="w-36 h-36 rounded-full border-4 border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
+        ImageClassName="w-full h-full"
         imageUrl="https://i.pravatar.cc/180" //
+        nameClassName="text-white text-xl font-bold mt-4"
+        emailClassName="text-gray-400 text-lg underline"
         name="Adrian Musa Alfauzan"
         email="emailPengguna@gmail.com"
       />

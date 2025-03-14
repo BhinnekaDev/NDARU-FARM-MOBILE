@@ -7,7 +7,7 @@ export default function TabNavigator() {
     <Tabs
       screenOptions={({ route }) => {
         let iconName: keyof typeof Ionicons.glyphMap;
-        let labelName: string = route.name.charAt(0).toUpperCase() + route.name.slice(1); // Kapitalisasi huruf pertama
+        let labelName: string = route.name.charAt(0).toUpperCase() + route.name.slice(1);
 
         switch (route.name) {
           case "home":
