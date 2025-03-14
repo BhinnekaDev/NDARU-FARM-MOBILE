@@ -67,13 +67,6 @@ export default function Index() {
           <View className="border-b border-white" />
         </View>
       </View>
-      <Button
-        textClassName="text-white text-base font-semibold" //
-        className="bg-green-500 font-semibold h-10 px-6 rounded-md  justify-center items-center"
-        onPress={handleNavigation}
-      >
-        Go To Home Dawg
-      </Button>
     </View>
   );
 }
