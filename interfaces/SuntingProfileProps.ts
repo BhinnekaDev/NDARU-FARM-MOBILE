@@ -1,11 +1,12 @@
-import { MaterialIcons } from "@expo/vector-icons";
-
+import { ReactNode } from "react";
 export interface SuntingProfileProps {
-  iconName: keyof typeof MaterialIcons.glyphMap;
-  label: string;
-  value?: string; // Untuk menampilkan nilai, bukan switch
+  value?: string;
+  label?: string;
+  text?: string;
   containerStyle?: string;
   labelStyle?: string;
   iconStyle?: string;
   dividerStyle?: string;
+  onPress?: () => void;
+  iconComponent?: ReactNode;
 }
