@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, useWindowDimensions, TouchableOpacity } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useRouter } from "expo-router";
 
 // OUR COMPONENT
 import Button from "@/components/ButtonProfile";
+import SuntingProfile from "@/components/SuntingProfile";
+
 import UserProfile from "@/components/UserProfile";
 
-// Dummy screen untuk setiap tab
 const ProfilScreen = () => (
-  <View className="flex-1 justify-center items-center bg-black">
-    <Text className="text-white">Profil Content</Text>
+  <View className="w-full px-6 mt-10">
+    {/* Sunting Profile */}
+    <SuntingProfile iconName="person" label="Nama Lengkap" value="John Doe" />
+    <SuntingProfile iconName="alternate-email" label="Nama Pengguna" value="@johndoe" />
+    <SuntingProfile iconName="location-on" label="Alamat" value="Jakarta, Indonesia" />
   </View>
 );
 
@@ -81,9 +85,9 @@ export default function Index() {
               style={{
                 backgroundColor: "black",
                 borderBottomWidth: 1,
-                borderBottomColor: "#4A4A4A",
+                borderBottomColor: "#333836",
               }}
-              indicatorStyle={{ backgroundColor: "white", height: 3 }}
+              indicatorStyle={{ backgroundColor: "white", height: 1 }}
               activeColor="white"
               inactiveColor="gray"
             />
