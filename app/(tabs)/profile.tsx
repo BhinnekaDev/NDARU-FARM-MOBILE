@@ -22,10 +22,10 @@ export default function Index() {
         containerImageClassName="w-36 h-36 rounded-full border-4 border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
         ImageClassName="w-full h-full"
         imageUrl="https://i.pravatar.cc/180" //
-        nameClassName="text-white text-xl font-bold mt-4"
-        emailClassName="text-gray-400 text-lg underline"
         name="Adrian Musa Alfauzan"
+        nameClassName="text-white text-xl font-bold mt-4"
         email="emailPengguna@gmail.com"
+        emailClassName="text-gray-400 text-lg underline"
       />
 
       {/* Edit Profile Button */}
@@ -38,9 +38,9 @@ export default function Index() {
       </Button>
 
       {/* Settings Options */}
-      <View className="w-full px-6 mt-8 ">
+      <View className="w-full px-6 mt-16 ">
         <Text className="text-white text-lg font-bold mb-2">Pilihan Pengaturan</Text>
-        <View className="bg-[#333836] p-4  rounded-lg ">
+        <View className="bg-[#333836] p-4  rounded-lg -pt-safe-offset-14 ">
           {/* Opsi Notifikasi */}
           <SettingOption
             iconName="notifications" //
@@ -66,12 +66,12 @@ export default function Index() {
           />
 
           {/* Opsi Keluar */}
-          <TouchableOpacity className="flex-row justify-between items-center py-2">
+          <Button classNameContainer="flex-row justify-between items-center py-2" onPress={() => router.push("/(tabs)/profile")}>
             <View className="flex-row items-center">
               <MaterialIcons name="logout" size={24} color="white" className="bg-black p-1 rounded-lg" />
               <Text className="text-white ml-4">Keluar</Text>
             </View>
-          </TouchableOpacity>
+          </Button>
           <View className="border-b border-white " />
         </View>
       </View>

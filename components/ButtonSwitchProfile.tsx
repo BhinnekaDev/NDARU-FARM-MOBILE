@@ -15,8 +15,8 @@ const SettingOption = ({
 }: SettingOptionProps) => {
   return (
     // Button Switch Profile Component
-    <View className={`${containerClassName} `}>
-      <View className="flex-row justify-between items-center">
+    <View className={containerClassName}>
+      <View className="flex-row justify-between items-center ">
         <View className="flex-row items-center">
           <MaterialIcons name={iconName} size={24} color="white" className={iconClassName} />
           <Text className={labelClassName}>{label}</Text>
