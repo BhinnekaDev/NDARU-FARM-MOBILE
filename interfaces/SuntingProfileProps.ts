@@ -4,9 +4,10 @@ export interface SuntingProfileProps {
   label?: string;
   text?: string;
   containerStyle?: string;
-  labelStyle?: string;
+  labelClassName?: string;
   iconStyle?: string;
   dividerStyle?: string;
   onPress?: () => void;
   iconComponent?: ReactNode;
+  isWrapperButton?: boolean;
 }

@@ -9,38 +9,74 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 // OUR COMPONENT
 import Button from "@/components/ButtonProfile";
 import SuntingProfile from "@/components/SuntingProfile";
-
 import UserProfile from "@/components/UserProfile";
 
 const ProfilScreen = () => (
   <View className="w-full px-6 mt-10">
-    {/* Sunting Profile */}
+    {/* UID */}
     <SuntingProfile
       label="UID" //
       text="19YRCBHBDA"
       iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
+      onPress={() => console.log("Ditekan!")}
+      isWrapperButton={false} //
     />
+
+    {/* Nama Lengkap */}
     <SuntingProfile
-      label="Nama Lengkap" //
+      label="Nama Lengkap"
       text="Nama Lengkap"
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+      isWrapperButton={true} //
+      onPress={() => console.log("Edit Nama Lengkap")}
     />
+
+    {/* Nama Pengguna */}
     <SuntingProfile
-      label="Nama Pengguna" //
+      label="Nama Pengguna"
       text="Nama Pengguna"
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+      isWrapperButton={true} //
+      onPress={() => console.log("Edit Nama Pengguna")}
     />
+
+    {/* Alamat Pengguna */}
     <SuntingProfile
-      label="Alamat" //
+      label="Alamat"
       text="Alamat Pengguna..."
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+      isWrapperButton={true} //
     />
   </View>
 );
 
 const KeamananScreen = () => (
-  <View className="flex-1 justify-center items-center bg-black">
-    <Text className="text-white">Keamanan Content</Text>
+  <View className="w-full px-6 mt-10">
+    {/* UID */}
+    <SuntingProfile
+      label="Kode PIN" //
+      text="555555"
+      iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
+      onPress={() => console.log("Ditekan!")}
+      isWrapperButton={false} //
+    />
+
+    {/* Nama Lengkap */}
+    <SuntingProfile
+      label="Nomor Telepon"
+      text="+62 823 1843 1843"
+      iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+      isWrapperButton={true} //
+      onPress={() => console.log("Edit Nama Lengkap")}
+    />
+
+    {/* Nama Pengguna */}
+    <SuntingProfile
+      label="Tutup Akun"
+      iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+      isWrapperButton={true} //
+      onPress={() => console.log("Edit Nama Pengguna")}
+    />
   </View>
 );
 
@@ -114,11 +150,14 @@ export default function Index() {
         />
       </View>
 
-      {/* Edit Profile Button */}
-      <View className="items-center pb-6">
-        <Button classNameContainer="mt-4 bg-[#333836] px-6 py-2 rounded-lg" textClassName="text-white font-semibold" onPress={() => router.push("/(tabs)/profile")}>
-          Back
-        </Button>
+      {/* Keluar Sunting Profil */}
+      <View className="w-full px-6 mt-10">
+        <SuntingProfile
+          labelClassName="text-[#9E0505] font-semibold text-lg"
+          label="Keluar"
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton={true} //
+        />
       </View>
     </View>
   );
