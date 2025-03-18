@@ -46,7 +46,7 @@ export default function MyInput({
   const togglePasswordVisibility = () => {
     Animated.sequence([
       Animated.timing(fadeAnim, {
-        toValue: 0,
+        toValue: 0.8,
         duration: 0,
         useNativeDriver: true,
       }),

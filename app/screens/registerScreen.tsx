@@ -1,4 +1,4 @@
-import { View, Animated, Text } from "react-native";
+import { View, Animated, Text, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 // COMPONENTS
 import MyButton from "@/components/button";
@@ -71,7 +71,7 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
         />
       </View>
 
-      <View className="w-full h-full px-6 gap-6 justify-center mt-44">
+      <View className="w-full h-full px-6 gap-6 justify-end pb-10">
         {/* Input */}
         <Animated.View className="gap-7" style={{ opacity: itemOpacity }}>
           {/* Input Nomor Telepon */}

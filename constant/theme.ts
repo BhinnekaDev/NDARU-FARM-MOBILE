@@ -1,3 +1,11 @@
+export const statusBarLightTheme = {
+  background: "#FFFFFF",
+};
+
+export const statusBarDarkTheme = {
+  background: "#131514",
+};
+
 export const splashLightTheme = {
   background: "#FFFFFF",
   splashImage: require("@/assets/images/splash/splashBright.png"),
