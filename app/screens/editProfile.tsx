@@ -85,29 +85,22 @@ const KeamananScreen = () => (
 );
 
 const NotifikasiScreen = () => (
-  <View className="w-full px-6 mt-16 ">
-    <Text className="text-white text-lg font-bold mb-2">Pilihan Pengaturan</Text>
-    <View className="bg-[#333836] p-4  rounded-lg -pt-safe-offset-14 ">
-      {/* Opsi Notifikasi */}
-      <SettingSwitchOptions
-        iconName="notifications" //
-        label="Notifikasi"
-        containerClassName="py-2"
-        labelClassName="text-white ml-4"
-        iconClassName="bg-black p-1 rounded-lg "
-        dividerClassName="border-b border-white"
-      />
+  <View className="w-full px-6  ">
+    {/* Opsi Notifikasi */}
+    <SettingSwitchOptions
+      label="Pemberitahuan" //
+      containerClassName="py-2"
+      labelClassName="text-white ml-4"
+      iconClassName="bg-black p-1 rounded-lg "
+    />
 
-      {/* Opsi Sidik Jari */}
-      <SettingSwitchOptions
-        iconName="fingerprint" //
-        label="Sidik Jari Biometri"
-        containerClassName="py-2"
-        labelClassName="text-white ml-4"
-        iconClassName="bg-black p-1 rounded-lg "
-        dividerClassName="border-b border-white"
-      />
-    </View>
+    {/* Opsi Sidik Jari */}
+    <SettingSwitchOptions
+      label="Email" //
+      containerClassName="py-2"
+      labelClassName="text-white ml-4"
+      iconClassName="bg-black p-1 rounded-lg "
+    />
   </View>
 );
 

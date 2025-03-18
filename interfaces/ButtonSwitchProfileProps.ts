@@ -9,4 +9,8 @@ export interface SettingOptionProps {
   iconClassName?: string;
   labelClassName?: string;
   dividerClassName?: string;
+  trackColorFalse?: string;
+  trackColorTrue?: string;
+  thumbColorOn?: string;
+  thumbColorOff?: string;
 }
