@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { SuntingProfileProps } from "@/interfaces/SuntingProfileProps";
-import ButtonProfile from "@/components/ButtonProfile";
+import { SuntingProfileProps } from "@/interfaces/EditProfileProps";
+import ButtonProfile from "@/components/ButtonCustomProfile";
 
 const SuntingProfile = ({
   label,
@@ -14,13 +14,19 @@ const SuntingProfile = ({
   const WrapperButton = isWrapperButton ? TouchableOpacity : View;
 
   return (
-    <WrapperButton onPress={isWrapperButton ? onPress : undefined} className="flex-row items-center justify-between py-2">
-      {/* Gunakan labelClassName */}
+    // Edit Profile Component
+    <WrapperButton
+      onPress={isWrapperButton ? onPress : undefined} //
+      className="flex-row items-center justify-between py-2"
+    >
       <Text className={labelClassName}>{label}</Text>
-
       <View className="flex-row items-center space-x-2">
         <Text className="text-white font-bold text-lg pr-4">{text}</Text>
-        <ButtonProfile classNameContainer="px-2 py-2 rounded-lg" textClassName="text-white font-semibold" onPress={onPress}>
+        <ButtonProfile
+          classNameContainer="px-2 py-2 rounded-lg" //
+          textClassName="text-white font-semibold"
+          onPress={onPress}
+        >
           {iconComponent}
         </ButtonProfile>
       </View>

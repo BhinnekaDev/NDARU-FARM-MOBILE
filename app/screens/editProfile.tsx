@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { View, Text, useWindowDimensions } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useRouter } from "expo-router";
 
+// OUR ICON
+import { MaterialIcons } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 // OUR COMPONENT
-import Button from "@/components/ButtonProfile";
-import SuntingProfile from "@/components/SuntingProfile";
+import Button from "@/components/ButtonCustomProfile";
+import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
+import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
 
 const ProfilScreen = () => (
+  // Sunting Profil
   <View className="w-full px-6 mt-10">
     {/* UID */}
-    <SuntingProfile
+    <EditProfiles
       label="UID" //
       text="19YRCBHBDA"
       iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
@@ -23,7 +26,7 @@ const ProfilScreen = () => (
     />
 
     {/* Nama Lengkap */}
-    <SuntingProfile
+    <EditProfiles
       label="Nama Lengkap"
       text="Nama Lengkap"
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
@@ -32,7 +35,7 @@ const ProfilScreen = () => (
     />
 
     {/* Nama Pengguna */}
-    <SuntingProfile
+    <EditProfiles
       label="Nama Pengguna"
       text="Nama Pengguna"
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
@@ -41,7 +44,7 @@ const ProfilScreen = () => (
     />
 
     {/* Alamat Pengguna */}
-    <SuntingProfile
+    <EditProfiles
       label="Alamat"
       text="Alamat Pengguna..."
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
@@ -51,9 +54,10 @@ const ProfilScreen = () => (
 );
 
 const KeamananScreen = () => (
+  // Sunting Keamanan
   <View className="w-full px-6 mt-10">
     {/* UID */}
-    <SuntingProfile
+    <EditProfiles
       label="Kode PIN" //
       text="555555"
       iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
@@ -62,7 +66,7 @@ const KeamananScreen = () => (
     />
 
     {/* Nama Lengkap */}
-    <SuntingProfile
+    <EditProfiles
       label="Nomor Telepon"
       text="+62 823 1843 1843"
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
@@ -71,7 +75,7 @@ const KeamananScreen = () => (
     />
 
     {/* Nama Pengguna */}
-    <SuntingProfile
+    <EditProfiles
       label="Tutup Akun"
       iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
       isWrapperButton={true} //
@@ -81,8 +85,29 @@ const KeamananScreen = () => (
 );
 
 const NotifikasiScreen = () => (
-  <View className="flex-1 justify-center items-center bg-black">
-    <Text className="text-white">Notifikasi Content</Text>
+  <View className="w-full px-6 mt-16 ">
+    <Text className="text-white text-lg font-bold mb-2">Pilihan Pengaturan</Text>
+    <View className="bg-[#333836] p-4  rounded-lg -pt-safe-offset-14 ">
+      {/* Opsi Notifikasi */}
+      <SettingSwitchOptions
+        iconName="notifications" //
+        label="Notifikasi"
+        containerClassName="py-2"
+        labelClassName="text-white ml-4"
+        iconClassName="bg-black p-1 rounded-lg "
+        dividerClassName="border-b border-white"
+      />
+
+      {/* Opsi Sidik Jari */}
+      <SettingSwitchOptions
+        iconName="fingerprint" //
+        label="Sidik Jari Biometri"
+        containerClassName="py-2"
+        labelClassName="text-white ml-4"
+        iconClassName="bg-black p-1 rounded-lg "
+        dividerClassName="border-b border-white"
+      />
+    </View>
   </View>
 );
 
@@ -93,7 +118,7 @@ const renderScene = SceneMap({
   notifikasi: NotifikasiScreen,
 });
 
-export default function Index() {
+export default function EditProfileScreen() {
   const router = useRouter();
   const layout = useWindowDimensions();
 
@@ -152,7 +177,7 @@ export default function Index() {
 
       {/* Keluar Sunting Profil */}
       <View className="w-full px-6 mt-10">
-        <SuntingProfile
+        <EditProfiles
           labelClassName="text-[#9E0505] font-semibold text-lg"
           label="Keluar"
           iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}

@@ -4,11 +4,11 @@ import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 
 // OUR COMPONENT
-import Button from "@/components/ButtonProfile";
-import SettingOption from "@/components/ButtonSwitchProfile";
+import ButtonProfile from "@/components/ButtonCustomProfile";
+import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
 import UserProfile from "@/components/UserProfile";
 
-export default function Index() {
+export default function ProfileTabs() {
   const [isNotificationEnabled, setNotificationEnabled] = useState(false);
   const [isBiometricEnabled, setBiometricEnabled] = useState(false);
   const router = useRouter();
@@ -29,20 +29,20 @@ export default function Index() {
       />
 
       {/* Edit Profile Button */}
-      <Button
+      <ButtonProfile
         classNameContainer="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
         textClassName="text-white font-semibold" //
         onPress={handleEditProfile}
       >
         Sunting Profile
-      </Button>
+      </ButtonProfile>
 
-      {/* Settings Options */}
+      {/* Settings Switch Options */}
       <View className="w-full px-6 mt-16 ">
         <Text className="text-white text-lg font-bold mb-2">Pilihan Pengaturan</Text>
         <View className="bg-[#333836] p-4  rounded-lg -pt-safe-offset-14 ">
           {/* Opsi Notifikasi */}
-          <SettingOption
+          <SettingSwitchOptions
             iconName="notifications" //
             label="Notifikasi"
             value={isNotificationEnabled}
@@ -54,7 +54,7 @@ export default function Index() {
           />
 
           {/* Opsi Sidik Jari */}
-          <SettingOption
+          <SettingSwitchOptions
             iconName="fingerprint" //
             label="Sidik Jari Biometri"
             value={isBiometricEnabled}
@@ -66,12 +66,12 @@ export default function Index() {
           />
 
           {/* Opsi Keluar */}
-          <Button classNameContainer="flex-row justify-between items-center py-2" onPress={() => router.push("/(tabs)/profile")}>
+          <ButtonProfile classNameContainer="flex-row justify-between items-center py-2" onPress={() => router.push("/(tabs)/profile")}>
             <View className="flex-row items-center">
               <MaterialIcons name="logout" size={24} color="white" className="bg-black p-1 rounded-lg" />
               <Text className="text-white ml-4">Keluar</Text>
             </View>
-          </Button>
+          </ButtonProfile>
           <View className="border-b border-white " />
         </View>
       </View>
