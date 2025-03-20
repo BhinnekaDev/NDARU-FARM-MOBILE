@@ -12,6 +12,7 @@ import Button from "@/components/ButtonCustomProfile";
 import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
+import HeaderWithBackButton from "@/components/HeaderBackButton";
 
 // OUR PROPS
 import { AnimationProps } from "@/interfaces/AnimationProps";
@@ -69,7 +70,13 @@ const ProfilScreen = ({ isActive }: AnimationProps) => {
   const router = useRouter();
   return (
     <View className="w-full px-6 ">
-      <EditProfiles label="UID" text="19YRCBHBDA" iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />} onPress={() => console.log("Ditekan!")} isWrapperButton={false} />
+      <EditProfiles
+        label="UID" //
+        text="19YRCBHBDA"
+        iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
+        onPress={() => console.log("Ditekan!")}
+        isWrapperButton={false}
+      />
       <AnimatedTab isActive={isActive}>
         <Fragment>
           <EditProfiles
@@ -172,16 +179,12 @@ export default function EditProfileScreen() {
 
   return (
     <View className="flex-1 bg-black">
-      <View className="flex-row items-center mt-8 ml-4">
-        <Button
-          classNameContainer="px-3 py-2 rounded-lg" //
-          textClassName="text-white font-semibold"
-          onPress={() => router.push("/(tabs)/profile")}
-        >
-          <Ionicons name="arrow-undo" size={43} color="white" />
-        </Button>
-        <Text className="text-white font-bold ml-2 text-lg">Sunting Profil</Text>
-      </View>
+      <HeaderWithBackButton
+        icon={<Ionicons name="arrow-undo" size={43} color="white" />} //
+        onPress={() => router.push("/(tabs)/profile")}
+        title="Sunting Profil"
+      />
+
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
           containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"

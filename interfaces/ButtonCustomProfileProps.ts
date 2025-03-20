@@ -3,4 +3,5 @@ export interface ButtonProps {
   classNameContainer?: string;
   textClassName?: string;
   onPress?: () => void;
+  icon?: React.ReactNode;
 }

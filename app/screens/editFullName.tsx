@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 // OUR COMPONENT
 import Button from "@/components/ButtonCustomProfile";
+import HeaderWithBackButton from "@/components/HeaderBackButton";
 
 export default function EditFullName() {
   const router = useRouter();
@@ -36,16 +37,11 @@ export default function EditFullName() {
 
   return (
     <View className="flex-1 bg-black">
-      <View className="flex-row items-center mt-8 ml-4">
-        <Button
-          classNameContainer="px-3 py-2 rounded-lg" //
-          textClassName="text-white font-semibold"
-          onPress={() => router.push("/screens/editProfile")}
-        >
-          <Ionicons name="arrow-undo" size={43} color="white" />
-        </Button>
-        <Text className="text-white font-bold ml-2 text-lg">Sunting Nama Lengkap</Text>
-      </View>
+      <HeaderWithBackButton
+        icon={<Ionicons name="arrow-undo" size={43} color="white" />} //
+        onPress={() => router.push("/screens/editProfile")}
+        title="Sunting Nama Lengkap"
+      />
 
       {/* Subtitle */}
       <View className="flex justify-center items-center ">
@@ -86,7 +82,7 @@ export default function EditFullName() {
               style={{ height: 40 }}
             />
           </View>
-          {/* Edit Profile Button */}
+          {/* Button Sunting Simpan */}
           <Button
             classNameContainer="mt-8 bg-[#333836] px-6 py-2 rounded-lg items-center"
             textClassName="text-white font-semibold text-lg" //
