@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
+
+// OUR ICON
 import { MaterialIcons } from "@expo/vector-icons";
 
 // OUR COMPONENT
@@ -19,7 +21,7 @@ export default function ProfileTabs() {
     <View className="flex-1 justify-center items-center bg-black">
       {/* Container User Profil */}
       <UserProfile
-        containerImageClassName="w-36 h-36 rounded-full border-4 border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
+        containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
         ImageClassName="w-full h-full"
         imageUrl="https://i.pravatar.cc/180" //
         name="Adrian Musa Alfauzan"

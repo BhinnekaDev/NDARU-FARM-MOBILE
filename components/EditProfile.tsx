@@ -21,7 +21,7 @@ const SuntingProfile = ({
     >
       <Text className={labelClassName}>{label}</Text>
       <View className="flex-row items-center space-x-2">
-        <Text className="text-white font-bold text-lg pr-4">{text}</Text>
+        <Text className="text-white font-semibold text-lg pr-4">{text}</Text>
         <ButtonProfile
           classNameContainer="px-2 py-2 rounded-lg" //
           textClassName="text-white font-semibold"
