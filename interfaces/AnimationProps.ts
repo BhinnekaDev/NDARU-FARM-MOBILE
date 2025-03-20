@@ -1,5 +1,6 @@
+import { ReactNode } from "react";
 export interface AnimationProps {
-  children: React.ReactNode;
+  children?: ReactNode;
   isActive: boolean;
   direction?: "up" | "down";
 }

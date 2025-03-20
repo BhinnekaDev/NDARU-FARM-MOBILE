@@ -1,4 +1,4 @@
-interface RenderSceneProps {
+export interface RenderSceneProps {
   route: {
     key: string;
   };

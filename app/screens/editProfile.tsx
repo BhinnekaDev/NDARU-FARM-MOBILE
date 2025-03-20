@@ -13,8 +13,12 @@ import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
 
+// OUR PROPS
+import { AnimationProps } from "@/interfaces/AnimationProps";
+import { RenderSceneProps } from "@/interfaces/RenderSceneProps";
+
 // Animasi dari bawah ke atas
-const AnimatedTab = ({ children, isActive }) => {
+const AnimatedTab = ({ children, isActive }: AnimationProps) => {
   const translateY = useRef(new Animated.Value(isActive ? 0 : 50)).current;
   const opacity = useRef(new Animated.Value(isActive ? 1 : 0)).current;
 
@@ -38,7 +42,7 @@ const AnimatedTab = ({ children, isActive }) => {
 };
 
 // Animasi dari atas ke bawah
-const AnimatedTab2 = ({ children, isActive }) => {
+const AnimatedTab2 = ({ children, isActive }: AnimationProps) => {
   const translateY = useRef(new Animated.Value(isActive ? 0 : -50)).current;
   const opacity = useRef(new Animated.Value(isActive ? 1 : 0)).current;
 
@@ -61,31 +65,77 @@ const AnimatedTab2 = ({ children, isActive }) => {
   return <Animated.View style={{ transform: [{ translateY }], opacity }}>{children}</Animated.View>;
 };
 
-const ProfilScreen = ({ isActive }) => (
+const ProfilScreen = ({ isActive }: AnimationProps) => (
   <View className="w-full px-6 ">
     <EditProfiles label="UID" text="19YRCBHBDA" iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />} onPress={() => console.log("Ditekan!")} isWrapperButton={false} />
     <AnimatedTab isActive={isActive}>
-      <EditProfiles label="Nama Lengkap" text="Nama Lengkap" iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton onPress={() => console.log("Edit Nama Lengkap")} />
-      <EditProfiles label="Nama Pengguna" text="Nama Pengguna" iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton onPress={() => console.log("Edit Nama Pengguna")} />
-      <EditProfiles label="Alamat" text="Alamat Pengguna..." iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton />
+      <>
+        <EditProfiles
+          label="Nama Lengkap"
+          text="Nama Lengkap" //
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton
+          onPress={() => console.log("Edit Nama Lengkap")}
+        />
+        <EditProfiles
+          label="Nama Pengguna"
+          text="Nama Pengguna" //
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton
+          onPress={() => console.log("Edit Nama Pengguna")}
+        />
+        <EditProfiles label="Alamat" text="Alamat Pengguna.//.." iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton />
+      </>
     </AnimatedTab>
   </View>
 );
 
-const KeamananScreen = ({ isActive }) => (
+const KeamananScreen = ({ isActive }: AnimationProps) => (
   <View className="w-full px-6 ">
     <AnimatedTab2 isActive={isActive}>
-      <EditProfiles label="Kode PIN" text="555555" iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton={false} />
-      <EditProfiles label="Nomor Telepon" text="+62 823 1843 1843" iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton onPress={() => console.log("Edit Nomor Telepon")} />
-      <EditProfiles label="Tutup Akun" iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />} isWrapperButton onPress={() => console.log("Tutup Akun")} />
+      <>
+        <EditProfiles
+          label="Kode PIN" //
+          text="555555"
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton={false}
+        />
+        <EditProfiles
+          label="Nomor Telepon" //
+          text="+62 823 1843 1843"
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton
+          onPress={() => console.log("Edit Nomor Telepon")}
+        />
+        <EditProfiles
+          label="Tutup Akun" //
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton
+          onPress={() => console.log("Tutup Akun")}
+        />
+      </>
     </AnimatedTab2>
   </View>
 );
 
-const NotifikasiScreen = ({ isActive }) => (
+const NotifikasiScreen = ({ isActive }: AnimationProps) => (
   <AnimatedTab isActive={isActive}>
-    <SettingSwitchOptions label="Pemberitahuan" containerClassName="py-2" labelClassName="text-white font-semibold text-lg ml-4" iconClassName="bg-black p-1 rounded-lg " trackColorFalse="#333836" />
-    <SettingSwitchOptions label="Email" containerClassName="py-2" labelClassName="text-white font-semibold text-lg ml-4" iconClassName="bg-black p-1 rounded-lg " trackColorFalse="#333836" />
+    <>
+      <SettingSwitchOptions
+        label="Pemberitahuan" //
+        containerClassName="py-2"
+        labelClassName="text-white font-semibold text-lg ml-4"
+        iconClassName="bg-black p-1 rounded-lg "
+        trackColorFalse="#333836"
+      />
+      <SettingSwitchOptions
+        label="Email" //
+        containerClassName="py-2"
+        labelClassName="text-white font-semibold text-lg ml-4"
+        iconClassName="bg-black p-1 rounded-lg "
+        trackColorFalse="#333836"
+      />
+    </>
   </AnimatedTab>
 );
 
@@ -99,7 +149,7 @@ export default function EditProfileScreen() {
     { key: "notifikasi", title: "Notifikasi" },
   ]);
 
-  const renderScene = ({ route }) => {
+  const renderScene = ({ route }: RenderSceneProps) => {
     switch (route.key) {
       case "profil":
         return <ProfilScreen isActive={index === 0} />;
@@ -122,13 +172,13 @@ export default function EditProfileScreen() {
       </View>
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
-          containerImageClassName="w-36 h-36 rounded-full border-gray-500"
+          containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
           ImageClassName="w-full h-full"
-          imageUrl="https://i.pravatar.cc/190"
-          nameClassName="text-white text-xl font-bold mt-4"
-          emailClassName="text-gray-400 text-lg underline"
+          imageUrl="https://i.pravatar.cc/180" //
           name="Adrian Musa Alfauzan"
+          nameClassName="text-white text-xl font-bold mt-4"
           email="emailPengguna@gmail.com"
+          emailClassName="text-gray-400 text-lg underline"
         />
         <Button classNameContainer="absolute bottom-24 right-40 bg-[#333836] px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg" onPress={() => console.log("Edit Foto Profil")}>
           <Ionicons name="pencil" size={24} color="white" />
