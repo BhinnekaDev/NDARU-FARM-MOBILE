@@ -6,7 +6,7 @@ export default function Index() {
   const router = useRouter();
 
   const handleNavigation = () => {
-    router.push("/(tabs)/profile");
+    router.push("/screens/editProfile");
   };
 
   return (

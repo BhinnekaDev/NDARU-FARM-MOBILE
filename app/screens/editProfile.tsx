@@ -91,13 +91,14 @@ const ProfilScreen = ({ isActive }: AnimationProps) => {
             text="Nama Pengguna"
             iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
             isWrapperButton
-            onPress={() => console.log("Edit Nama Pengguna")}
+            onPress={() => router.push("/screens/editUsername")}
           />
           <EditProfiles
             label="Alamat" //
             text="Alamat Pengguna..."
             iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
             isWrapperButton
+            onPress={() => router.push("/screens/editAddress")}
           />
         </Fragment>
       </AnimatedTab>
@@ -218,6 +219,15 @@ export default function EditProfileScreen() {
               inactiveColor="gray"
             />
           )}
+        />
+      </View>
+      {/* Keluar Sunting Profil */}
+      <View className="w-full px-6 mt-10">
+        <EditProfiles
+          labelClassName="text-[#9E0505] font-semibold text-lg" //
+          label="Keluar"
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          isWrapperButton={true}
         />
       </View>
     </View>
