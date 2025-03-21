@@ -11,9 +11,9 @@ import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
-export default function editUsernameScreen() {
+export default function editPhoneNumberScreen() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
     <View className="flex-1 bg-black ">
@@ -21,18 +21,18 @@ export default function editUsernameScreen() {
       <HeaderBackButton
         icon={<Ionicons name="arrow-undo" size={43} color="white" />} //
         onPress={() => router.push("/screens/editProfile")}
-        title="Sunting Nama Pengguna"
+        title="Sunting Nomor Telepon"
       />
 
       {/* Judul Form*/}
       <View className="flex justify-center items-center">
-        <SectionTitle title="Sunting Nama Pengguna (Gunakan Huruf & Angka Tanpa Spasi)" visible />
+        <SectionTitle title="Silakan Masukkan Nomor Telepon Anda (Gunakan angka tanpa spasi atau simbol)" />
       </View>
 
       {/*Form*/}
       <View className="flex justify-center items-center ">
-        {/* Form Nama Pengguna*/}
-        <FloatingLabelInput label="Nama Pengguna" value={username} onChangeText={setUsername} />
+        {/*Form Nomor Telepon*/}
+        <FloatingLabelInput label="Nomor Telepon" value={phoneNumber} onChangeText={setPhoneNumber} />
 
         {/* Button Simpan*/}
         <Button

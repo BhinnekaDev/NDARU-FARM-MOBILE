@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { View, TextInput, Animated } from "react-native";
+import { EditFormProps } from "@/interfaces/EditFormProps";
 
-const FloatingLabelInput = ({ label, value, onChangeText }: any) => {
+const FloatingLabelInput = ({ label, value, onChangeText }: EditFormProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current;
 

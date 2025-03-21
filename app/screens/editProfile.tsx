@@ -74,8 +74,8 @@ const ProfilScreen = ({ isActive }: AnimationProps) => {
         label="UID" //
         text="19YRCBHBDA"
         iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
-        onPress={() => console.log("Ditekan!")}
         isWrapperButton={false}
+        onPress={() => console.log("Ditekan!")}
       />
       <AnimatedTab isActive={isActive}>
         <Fragment>
@@ -83,21 +83,21 @@ const ProfilScreen = ({ isActive }: AnimationProps) => {
             label="Nama Lengkap" //
             text="Nama Lengkap"
             iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton
+            isWrapperButton={true}
             onPress={() => router.push("/screens/editFullName")}
           />
           <EditProfiles
             label="Nama Pengguna" //
             text="Nama Pengguna"
             iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton
+            isWrapperButton={true}
             onPress={() => router.push("/screens/editUsername")}
           />
           <EditProfiles
             label="Alamat" //
             text="Alamat Pengguna..."
             iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton
+            isWrapperButton={true}
             onPress={() => router.push("/screens/editAddress")}
           />
         </Fragment>
@@ -106,33 +106,37 @@ const ProfilScreen = ({ isActive }: AnimationProps) => {
   );
 };
 
-const KeamananScreen = ({ isActive }: AnimationProps) => (
-  <View className="w-full px-6 ">
-    <AnimatedTab2 isActive={isActive}>
-      <Fragment>
-        <EditProfiles
-          label="Kode PIN" //
-          text="555555"
-          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-          isWrapperButton={false}
-        />
-        <EditProfiles
-          label="Nomor Telepon" //
-          text="+62 823 1843 1843"
-          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-          isWrapperButton
-          onPress={() => console.log("Edit Nomor Telepon")}
-        />
-        <EditProfiles
-          label="Tutup Akun" //
-          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-          isWrapperButton
-          onPress={() => console.log("Tutup Akun")}
-        />
-      </Fragment>
-    </AnimatedTab2>
-  </View>
-);
+const KeamananScreen = ({ isActive }: AnimationProps) => {
+  const router = useRouter();
+  return (
+    <View className="w-full px-6 ">
+      <AnimatedTab2 isActive={isActive}>
+        <Fragment>
+          <EditProfiles
+            label="Kode PIN" //
+            text="555555"
+            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+            isWrapperButton={true}
+            onPress={() => router.push("/screens/editPinCode")}
+          />
+          <EditProfiles
+            label="Nomor Telepon" //
+            text="+62 823 1843 1843"
+            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+            isWrapperButton={true}
+            onPress={() => router.push("/screens/editPhoneNumber")}
+          />
+          <EditProfiles
+            label="Tutup Akun" //
+            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+            isWrapperButton={true}
+            onPress={() => console.log("Tutup Akun")}
+          />
+        </Fragment>
+      </AnimatedTab2>
+    </View>
+  );
+};
 
 const NotifikasiScreen = ({ isActive }: AnimationProps) => (
   <AnimatedTab isActive={isActive}>

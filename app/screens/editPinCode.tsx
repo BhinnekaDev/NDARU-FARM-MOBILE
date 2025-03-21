@@ -11,9 +11,9 @@ import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
-export default function editUsernameScreen() {
+export default function editPinCodeScreen() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [pinCode, setPinCode] = useState("");
 
   return (
     <View className="flex-1 bg-black ">
@@ -26,13 +26,13 @@ export default function editUsernameScreen() {
 
       {/* Judul Form*/}
       <View className="flex justify-center items-center">
-        <SectionTitle title="Sunting Nama Pengguna (Gunakan Huruf & Angka Tanpa Spasi)" visible />
+        <SectionTitle title="Sunting Kode Pin (Gunakan angka tanpa spasi)" />
       </View>
 
       {/*Form*/}
       <View className="flex justify-center items-center ">
-        {/* Form Nama Pengguna*/}
-        <FloatingLabelInput label="Nama Pengguna" value={username} onChangeText={setUsername} />
+        {/*Form Kode Pin*/}
+        <FloatingLabelInput label="Kode Pin" value={pinCode} onChangeText={setPinCode} />
 
         {/* Button Simpan*/}
         <Button
