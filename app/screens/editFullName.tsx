@@ -25,7 +25,7 @@ export default function editFullNameScreen() {
       />
       {/* Judul Form*/}
       <View className="flex justify-center items-center">
-        <SectionTitle title="Sunting Nama Lengkap (Pisahkan dengan Spasi untuk Nama Depan & Belakang)" visible />
+        <SectionTitle title="Sunting Nama Lengkap (Pisahkan dengan Spasi untuk Nama Depan & Belakang)" />
       </View>
 
       {/*Form*/}
