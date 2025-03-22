@@ -13,6 +13,7 @@ import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
 import HeaderWithBackButton from "@/components/HeaderBackButton";
+import AccountCloseAlert from "@/components/AccountCloseAlert";
 
 // OUR PROPS
 import { AnimationProps } from "@/interfaces/AnimationProps";
@@ -108,6 +109,7 @@ const ProfilScreen = ({ isActive }: AnimationProps) => {
 
 const KeamananScreen = ({ isActive }: AnimationProps) => {
   const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View className="w-full px-6 ">
       <AnimatedTab2 isActive={isActive}>
@@ -130,10 +132,19 @@ const KeamananScreen = ({ isActive }: AnimationProps) => {
             label="Tutup Akun" //
             iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
             isWrapperButton={true}
-            onPress={() => console.log("Tutup Akun")}
+            onPress={() => setModalVisible(true)}
           />
         </Fragment>
       </AnimatedTab2>
+      {/* Gunakan AccountCloseAlert */}
+      <AccountCloseAlert
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onConfirm={() => {
+          console.log("Akun Ditutup"); // Tambahkan logika tutup akun
+          setModalVisible(false);
+        }}
+      />
     </View>
   );
 };
