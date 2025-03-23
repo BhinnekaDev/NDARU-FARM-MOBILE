@@ -1,4 +1,6 @@
 import { TouchableOpacity, Text } from "react-native";
+
+// OUR INTERFACES
 import { ButtonProps } from "@/interfaces/ButtonCustomProfileProps";
 
 const ButtonProfile = ({ children = "", classNameContainer = "", textClassName = "", onPress }: ButtonProps) => {

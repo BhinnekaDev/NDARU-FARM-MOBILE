@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, Switch } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+
+// OUR INTERFACES
 import { SettingOptionProps } from "@/interfaces/ButtonSwitchProfileProps";
 
 const SettingOption = ({
@@ -20,10 +22,13 @@ const SettingOption = ({
   return (
     <View className={containerClassName}>
       <View className="flex-row justify-between items-center">
+        {/* ICON & LABEL */}
         <View className="flex-row items-center">
           <MaterialIcons name={iconName} size={24} color="white" className={iconClassName} />
           <Text className={labelClassName}>{label}</Text>
         </View>
+
+        {/* BUTTON SWITCH */}
         <Switch
           trackColor={{ false: trackColorFalse, true: trackColorTrue }}
           thumbColor={value ? thumbColorOn : thumbColorOff}
@@ -33,6 +38,8 @@ const SettingOption = ({
           onValueChange={onToggle}
         />
       </View>
+
+      {/* BORDER BOTTOM */}
       <View className={dividerClassName} />
     </View>
   );

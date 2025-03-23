@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import { View, TextInput, Animated } from "react-native";
+
+// OUR INTERFACES
 import { AnimateFormProps } from "@/interfaces/AnimationFormProps";
 
 const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
@@ -28,6 +30,7 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
 
   return (
     <View className="border-b border-white relative">
+      {/* Animated Label */}
       <Animated.Text
         style={{
           position: "absolute",
@@ -46,6 +49,7 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
       >
         {label}
       </Animated.Text>
+      {/* Text Input */}
       <TextInput
         className="text-white text-lg h-10 pb-1" //
         value={value}

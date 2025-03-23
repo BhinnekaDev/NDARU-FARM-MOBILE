@@ -1,9 +1,15 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import Modal from "react-native-modal";
+
+// OUR ICON
 import { MaterialIcons } from "@expo/vector-icons";
-import { AccountCloseAlertProps } from "@/interfaces/AccountCloseAlertProps";
+
+// OUR COMPONENT
 import ButtonProfile from "@/components/ButtonCustomProfile";
+
+// OUR INTERFACES
+import { AccountCloseAlertProps } from "@/interfaces/AccountCloseAlertProps";
 
 const AccountCloseAlert = ({ visible, onClose, onConfirm }: AccountCloseAlertProps) => {
   return (
