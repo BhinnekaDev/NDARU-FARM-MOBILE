@@ -211,7 +211,10 @@ export default function EditProfileScreen() {
           email="emailPengguna@gmail.com"
           emailClassName="text-gray-400 text-lg underline"
         />
-        <Button classNameContainer="absolute bottom-24 right-40 bg-[#333836] px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg" onPress={() => console.log("Edit Foto Profil")}>
+        <Button
+          classNameContainer="absolute bottom-24 right-40 bg-[#333836] px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg" //
+          onPress={() => console.log("Edit Foto Profil")}
+        >
           <Ionicons name="pencil" size={24} color="white" />
         </Button>
       </View>

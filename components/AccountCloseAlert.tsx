@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, Image } from "react-native";
 import Modal from "react-native-modal";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AccountCloseAlertProps } from "@/interfaces/AccountCloseAlertProps";
+import ButtonProfile from "@/components/ButtonCustomProfile";
 
-const AccountCloseAlert = ({ visible, onClose, onConfirm }) => {
+const AccountCloseAlert = ({ visible, onClose, onConfirm }: AccountCloseAlertProps) => {
   return (
     <Modal
       isVisible={visible} //
@@ -15,16 +17,22 @@ const AccountCloseAlert = ({ visible, onClose, onConfirm }) => {
       backdropOpacity={0.5}
       style={{ justifyContent: "flex-end", margin: 0 }}
     >
-      <View className="bg-[#333836] w-full rounded-t-2xl">
+      <View className="bg-[#333836] w-full h-4/6 rounded-t-2xl">
         {/* Header dengan garis bawah */}
-        <View className="flex-row items-center justify-between px-4 py-3 border-b-[0.5px] border-white">
-          <TouchableOpacity onPress={onClose}>
+        <View className="flex-row items-center justify-center px-4 py-3 border-b-[0.5px] border-white">
+          <Text className="text-white text-base uppercase font-extrabold">Tutup Akun</Text>
+          <ButtonProfile
+            classNameContainer="absolute right-4"
+            textClassName="text-white font-bold text-center text-2xl" //
+            onPress={onClose}
+          >
             <MaterialIcons name="close" size={20} color="white" />
-          </TouchableOpacity>
-          <Text className="text-white text-base uppercase flex-1 text-center font-extrabold">Tutup Akun</Text>
-          <TouchableOpacity onPress={onClose}>
-            <MaterialIcons name="close" size={20} color="white" />
-          </TouchableOpacity>
+          </ButtonProfile>
+        </View>
+
+        {/* Gambar Peringatan */}
+        <View className="items-center mt-4">
+          <Image source={require("@/assets/images/ImageCloseAccount.png")} className="w-72 h-72" />
         </View>
 
         {/* Pesan konfirmasi */}
@@ -34,11 +42,15 @@ const AccountCloseAlert = ({ visible, onClose, onConfirm }) => {
             Setelah Akun Dihapus
           </Text>
 
-          {/* Tombol Aksi */}
+          {/* Tombol Aksi Hapus */}
           <View className="mt-6">
-            <TouchableOpacity className="bg-[#EB1A1D] py-3 rounded-lg" onPress={onConfirm}>
-              <Text className="text-white font-bold text-center text-2xl">Hapus Akun</Text>
-            </TouchableOpacity>
+            <ButtonProfile
+              classNameContainer="bg-[#EB1A1D] py-3 rounded-lg active:bg-black"
+              textClassName="text-white font-bold text-center text-2xl" //
+              onPress={onConfirm}
+            >
+              Hapus Akun
+            </ButtonProfile>
           </View>
         </View>
       </View>
