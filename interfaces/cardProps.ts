@@ -10,4 +10,6 @@ export interface MyCardProps {
   onPress?: () => void;
   id?: string;
   detailType?: "vegetable" | "news" | "service" | "facility";
+  buttonType?: string;
+  buttonTitle?: string;
 }

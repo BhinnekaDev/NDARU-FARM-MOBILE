@@ -139,6 +139,7 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
         >
           <MyButton
             title="Masuk Dengan Google"
+            buttonType="icon"
             icon="google"
             iconColor="white"
             iconSize={20}

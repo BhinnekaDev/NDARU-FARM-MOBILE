@@ -1,4 +1,5 @@
 import { View, Animated } from "react-native";
+import { useRouter } from "expo-router";
 // HOOKS
 import { useThemeListener } from "@/hooks/Frontend/useThemeListener";
 import { useStartScreenAnimation } from "@/hooks/Frontend/startScreen/useStartAnimation";
@@ -8,6 +9,7 @@ import MyButton from "@/components/button";
 import { StartScreenProps } from "@/interfaces/screenProps";
 
 export default function StartScreen({ onExit }: StartScreenProps) {
+  const router = useRouter();
   const theme = useThemeListener("start");
   const anim = useStartScreenAnimation();
 

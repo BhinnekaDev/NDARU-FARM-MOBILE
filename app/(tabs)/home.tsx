@@ -5,12 +5,14 @@ import MyText from "@/components/text";
 import MySearch from "@/components/search";
 import MyButtonCategory from "@/components/buttonCategory";
 import MyCard from "@/components/card";
-// HOOKS
+// HOOKSFE
 import useHomeInterpolate from "@/hooks/Frontend/homeScreen/useHomeInterpolate";
+import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
 
 export default function Home() {
   const colorScheme = useColorScheme() ?? "light";
-  const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const { selectedCategory, setSelectedCategory, filteredProducts } =
+    useProducts();
 
   const {
     scrollY,
@@ -142,35 +144,22 @@ export default function Home() {
           />
         </Animated.View>
 
-        {/* Body Konten */}
+        {/* Body Card Konten */}
         <View className="w-full gap-8">
-          {/* Card Sayuran */}
-          <MyCard
-            image={require("@/assets/images/lettuce.png")}
-            imageStyle="w-36 h-36"
-            name="Selada"
-            description="Lorem ipsum dolor sit amet."
-            price="Rp5.000"
-            quantity="1KG"
-            detailType="vegetable"
-          />
-
-          {/* Card Berita */}
-          <MyCard
-            image={require("@/assets/images/news.png")}
-            name="Viral Selada adalah sayuran yang"
-            description="Lorem ipsum dolor sit amet."
-            date="12 Februari 2024"
-          />
-
-          {/* Card Sarana Pertanian */}
-          <MyCard
-            image={require("@/assets/images/sarana.png")}
-            name="Fungisida Tebukonazol"
-            description="Produk ini merupakan gabungan dari fungisida methoxyacrylate trifloxystrobin dan fungisida triazole tebuconazole."
-            price="Rp75.000"
-            quantity="1PCS"
-          />
+          {filteredProducts.map((item) => (
+            <MyCard
+              key={item.id}
+              image={item.image}
+              name={item.name}
+              description={item.description}
+              price={item.price}
+              quantity={item.quantity}
+              detailType={item.detailType}
+              buttonType={item.buttonType}
+              buttonTitle={item.buttonTitle}
+              date={item.date}
+            />
+          ))}
         </View>
       </Animated.ScrollView>
     </View>

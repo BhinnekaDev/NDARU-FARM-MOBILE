@@ -14,4 +14,5 @@ export interface buttonProps {
   iconSize?: number;
   iconColor?: string;
   iconPosition?: "left" | "right";
+  buttonType?: string;
 }

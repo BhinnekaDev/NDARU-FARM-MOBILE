@@ -149,6 +149,7 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
         >
           <MyButton
             title="Daftar Dengan Google"
+            buttonType="icon"
             icon="google"
             iconColor="white"
             iconSize={20}

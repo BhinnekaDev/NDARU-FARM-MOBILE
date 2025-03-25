@@ -20,6 +20,8 @@ const MyCard: React.FC<MyCardProps> = ({
   detailType,
   id,
   onPress,
+  buttonType = "default",
+  buttonTitle,
 }) => {
   const router = useRouter();
   const [isFavorited, setIsFavorited] = useState(false);
@@ -29,10 +31,10 @@ const MyCard: React.FC<MyCardProps> = ({
   // Handle Click Detail Produk
   const onDetail = () => {
     const routes = {
-      vegetable: "/screens/vegetabledetailsScreens",
-      news: "/screens/newsDetailsScreen",
-      service: "/screens/serviceDetailsScreen",
-      facility: "/screens/facilityDetailsScreen",
+      vegetable: "/screens/vegetableDetailScreen",
+      news: "/screens/newsDetailScreen",
+      service: "/screens/servicesDetailScreen",
+      facility: "/screens/facilityDetailScreen",
     } as const;
 
     const path = detailType
@@ -125,7 +127,8 @@ const MyCard: React.FC<MyCardProps> = ({
 
             {/* Tombol Pesan Sekarang */}
             <MyButton
-              title="Pesan Sekarang"
+              title={buttonTitle ?? "Pesan Sekarang"}
+              buttonType={buttonType}
               icon="cart-outline"
               iconLibrary="Ionicons"
               iconSize={20}

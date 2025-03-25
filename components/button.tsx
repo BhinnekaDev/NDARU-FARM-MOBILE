@@ -21,6 +21,7 @@ export default function MyButton({
   iconSize,
   iconColor,
   iconPosition,
+  buttonType = "default",
 }: buttonProps) {
   const fontLoaded = useLoadFont();
   const theme = useColorScheme();
@@ -79,15 +80,28 @@ export default function MyButton({
         onPressOut={handlePressOut}
         onPress={onPress}
       >
-        {icon && iconPosition === "left" && IconComponent && (
-          <IconComponent name={icon} size={iconSize} color={iconColor} />
-        )}
+        {buttonType === "icon" &&
+          icon &&
+          iconPosition === "left" &&
+          IconComponent && (
+            <IconComponent name={icon} size={iconSize} color={iconColor} />
+          )}
+
         <Text style={{ fontFamily }} className={`text-white ${myTextStyle}`}>
           {title}
         </Text>
-        {icon && iconPosition === "right" && IconComponent && (
-          <IconComponent name={icon} size={iconSize} color={iconColor} />
-        )}
+
+        {buttonType === "icon" &&
+          icon &&
+          iconPosition === "right" &&
+          IconComponent && (
+            <IconComponent
+              name={icon}
+              size={iconSize}
+              color={iconColor}
+              style={{ marginLeft: 8 }}
+            />
+          )}
       </TouchableOpacity>
     </Animated.View>
   );
