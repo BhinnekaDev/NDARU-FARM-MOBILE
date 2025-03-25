@@ -1,4 +1,5 @@
 import { View, Animated } from "react-native";
+import { useRouter } from "expo-router";
 // HOOKS
 import useIdentityAnimations from "@/hooks/Frontend/identityScreen/useIdentityAnimations";
 import { useThemeListener } from "@/hooks/Frontend/useThemeListener";
@@ -7,6 +8,7 @@ import MyButton from "@/components/button";
 import MyInput from "@/components/input";
 
 export default function IdentityScreen() {
+  const router = useRouter();
   const theme = useThemeListener("identity");
 
   const {
@@ -112,6 +114,7 @@ export default function IdentityScreen() {
             myActiveOpacity={0.9}
             myClassName="w-full rounded-xl py-3"
             myTextStyle="text-xl"
+            onPress={() => router.replace("/(tabs)/home")}
           />
         </Animated.View>
       </View>

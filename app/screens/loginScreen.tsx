@@ -147,6 +147,7 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
             fontFamily="LexBold"
             myActiveOpacity={0.9}
             myClassName="w-full rounded-xl py-3"
+            myTouchStyle="gap-4"
             myTextStyle="text-xl"
             onPress={() => router.push("/screens/indentityScreen")}
           />

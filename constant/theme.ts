@@ -1,9 +1,31 @@
+export const LightTheme = {
+  background: "#FFFFFF",
+  text: "#000000",
+};
+
+export const DarkTheme = {
+  background: "#131514",
+  text: "#FFFFFF",
+};
+
 export const statusBarLightTheme = {
   background: "#FFFFFF",
 };
 
 export const statusBarDarkTheme = {
   background: "#131514",
+};
+
+export const tabsBarLightTheme = {
+  background: "#FFFFFF",
+  iconActive: "black",
+  iconInActive: "gray",
+};
+
+export const tabsBarDarkTheme = {
+  background: "#131514",
+  iconActive: "white",
+  iconInActive: "gray",
 };
 
 export const splashLightTheme = {
@@ -54,7 +76,7 @@ export const registerLoginDarkTheme = {
 
 export const identityLightTheme = {
   background: "#FFFFFF",
-  text: "#000000",
+  text: "#FFFFFF",
   identityImage: require("@/assets/images/identity/identityBright.png"),
 };
 

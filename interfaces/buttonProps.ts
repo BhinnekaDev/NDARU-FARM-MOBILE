@@ -5,6 +5,7 @@ export interface buttonProps {
   fontFamily?: string;
   myActiveOpacity?: number;
   myClassName?: string;
+  myTouchStyle?: string;
   myTextStyle?: string;
   myButtonColor?: string;
   onPress?: () => void;

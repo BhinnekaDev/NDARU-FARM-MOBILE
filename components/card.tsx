@@ -1,0 +1,147 @@
+import React, { useState } from "react";
+import { useRouter } from "expo-router";
+import { View, Image, TouchableOpacity, useColorScheme } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+// COMPONENTS
+import MyText from "@/components/text";
+import MyButton from "@/components/button";
+// INTERFACES
+import { MyCardProps } from "@/interfaces/cardProps";
+
+const MyCard: React.FC<MyCardProps> = ({
+  image,
+  bgImageStyle,
+  imageStyle,
+  name,
+  description,
+  price,
+  quantity,
+  date,
+  detailType,
+  id,
+  onPress,
+}) => {
+  const router = useRouter();
+  const [isFavorited, setIsFavorited] = useState(false);
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
+
+  // Handle Click Detail Produk
+  const onDetail = () => {
+    const routes = {
+      vegetable: "/screens/vegetabledetailsScreens",
+      news: "/screens/newsDetailsScreen",
+      service: "/screens/serviceDetailsScreen",
+      facility: "/screens/facilityDetailsScreen",
+    } as const;
+
+    const path = detailType
+      ? routes[detailType as keyof typeof routes]
+      : undefined;
+
+    if (!path) {
+      console.error("Unknown detailType:", detailType);
+      return;
+    }
+
+    router.push(path as any);
+  };
+
+  return (
+    <TouchableOpacity activeOpacity={0.8} onPress={onDetail}>
+      <View
+        className={`p-4 w-full rounded-3xl shadow-md ${
+          isDarkMode ? "bg-[#84BCA1]" : "bg-[#093731]"
+        }`}
+      >
+        <View className="flex-row items-center">
+          {/* Tombol Love Favorite */}
+          <TouchableOpacity
+            onPress={() => setIsFavorited(!isFavorited)}
+            className="w-10 flex items-center justify-center absolute top-0"
+            activeOpacity={0.3}
+          >
+            <Ionicons
+              name={isFavorited ? "heart" : "heart-outline"}
+              size={23}
+              color={isFavorited ? "#FF3B30" : "#888"}
+              className="bg-white rounded-full p-1"
+            />
+          </TouchableOpacity>
+
+          {/* Gambar Produk */}
+          <View className="w-2/5 flex-row items-center h-full justify-center">
+            <View
+              className={`w-[95px] h-[95px] absolute rounded-lg ${bgImageStyle} `}
+              style={{
+                backgroundColor: isDarkMode ? "#B9E7D1" : "#159778",
+                transform: [{ rotate: "-20deg" }],
+              }}
+            />
+            <Image
+              source={image}
+              className={`w-24 h-24 rounded-xl ${imageStyle} `}
+              resizeMode="cover"
+            />
+          </View>
+
+          <View className="flex-1 h-full">
+            {/* Teks Nama Produk */}
+            <MyText fontSize={26} fontFamily="LexBlack" color="white">
+              {name.length > 11 ? `${name.slice(0, 11)}...` : name}
+            </MyText>
+
+            {/* Teks Deskripsi Produk */}
+            <MyText
+              fontSize={15}
+              fontFamily="LexMedium"
+              color="white"
+              textstyle="ml-4"
+            >
+              {description.length > 17
+                ? description.slice(0, 17) + " ..."
+                : description}
+            </MyText>
+            {/* Teks Harga atau Tanggal Produk */}
+            {price ? (
+              <View className="flex-row justify-center items-center my-5">
+                <MyText fontSize={20} fontFamily="LexBlack" color="white">
+                  {price}
+                </MyText>
+                <MyText fontSize={15} fontFamily="LexLight" color="white">
+                  /{quantity}
+                </MyText>
+              </View>
+            ) : date ? (
+              <MyText
+                fontSize={20}
+                fontFamily="LexBlack"
+                color="white"
+                textstyle="text-center my-5"
+              >
+                {date}
+              </MyText>
+            ) : null}
+
+            {/* Tombol Pesan Sekarang */}
+            <MyButton
+              title="Pesan Sekarang"
+              icon="cart-outline"
+              iconLibrary="Ionicons"
+              iconSize={20}
+              iconColor="white"
+              iconPosition="left"
+              fontFamily="LexSemiBold"
+              myClassName="rounded-3xl py-1"
+              myTouchStyle="gap-4"
+              myButtonColor={isDarkMode ? "#333836" : "transparent"}
+              onPress={onPress}
+            />
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default MyCard;

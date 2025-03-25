@@ -157,7 +157,8 @@ export default function RegisterScreen({ onBack }: RegisterScreenProps) {
             fontFamily="LexBold"
             myActiveOpacity={0.9}
             myClassName="w-full rounded-xl py-3"
-            myTextStyle="text-xl"
+            myTouchStyle="gap-4"
+            myTextStyle="text-lg"
             onPress={() => router.push("/screens/indentityScreen")}
           />
         </Animated.View>

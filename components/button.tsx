@@ -12,6 +12,7 @@ export default function MyButton({
   fontFamily,
   myActiveOpacity,
   myClassName,
+  myTouchStyle,
   myTextStyle,
   myButtonColor,
   onPress,
@@ -72,19 +73,14 @@ export default function MyButton({
       style={{ backgroundColor: interpolatedColor }}
     >
       <TouchableOpacity
-        className="w-full flex-row justify-center items-center gap-3"
+        className={`w-full flex-row justify-center items-center ${myTouchStyle}`}
         activeOpacity={myActiveOpacity}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         onPress={onPress}
       >
         {icon && iconPosition === "left" && IconComponent && (
-          <IconComponent
-            name={icon}
-            size={iconSize}
-            color={iconColor}
-            style={{ marginRight: 8 }}
-          />
+          <IconComponent name={icon} size={iconSize} color={iconColor} />
         )}
         <Text style={{ fontFamily }} className={`text-white ${myTextStyle}`}>
           {title}
