@@ -19,7 +19,7 @@ export default function ProfileTabs() {
   };
   return (
     <View className="flex-1 justify-center items-center bg-black">
-      {/* Container User Profil */}
+      {/* PEMBUNGKUS USER PROFIL*/}
       <UserProfile
         containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
         ImageClassName="w-full h-full"
@@ -30,7 +30,7 @@ export default function ProfileTabs() {
         emailClassName="text-gray-400 text-lg underline"
       />
 
-      {/* Edit Profile Button */}
+      {/* EDIT BUTTON PROFIL */}
       <ButtonProfile
         classNameContainer="mt-8 bg-[#333836] px-6 py-2 rounded-lg"
         textClassName="text-white font-semibold" //
@@ -39,11 +39,11 @@ export default function ProfileTabs() {
         Sunting Profile
       </ButtonProfile>
 
-      {/* Settings Switch Options */}
+      {/* OPSI PENGATURAN SWITCH */}
       <View className="w-full px-6 mt-16 ">
         <Text className="text-white text-lg font-bold mb-2">Pilihan Pengaturan</Text>
         <View className="bg-[#333836] p-4  rounded-lg -pt-safe-offset-14 ">
-          {/* Opsi Notifikasi */}
+          {/* OPSI NOTIFIKASI */}
           <SettingSwitchOptions
             iconName="notifications" //
             label="Notifikasi"
@@ -55,7 +55,7 @@ export default function ProfileTabs() {
             dividerClassName="border-b border-white"
           />
 
-          {/* Opsi Sidik Jari */}
+          {/* OPSI SIDIK JARI */}
           <SettingSwitchOptions
             iconName="fingerprint" //
             label="Sidik Jari Biometri"
@@ -67,7 +67,7 @@ export default function ProfileTabs() {
             dividerClassName="border-b border-white"
           />
 
-          {/* Opsi Keluar */}
+          {/* OPSI KELUAR */}
           <ButtonProfile classNameContainer="flex-row justify-between items-center py-2" onPress={() => router.push("/(tabs)/profile")}>
             <View className="flex-row items-center">
               <MaterialIcons name="logout" size={24} color="white" className="bg-black p-1 rounded-lg" />

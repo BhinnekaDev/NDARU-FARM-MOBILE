@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-export interface AnimationProps {
+export interface AnimationFadeInFadeOutProps {
   children?: ReactNode;
   isActive: boolean;
-  direction?: "up" | "down";
+  direction?: "in" | "out";
 }

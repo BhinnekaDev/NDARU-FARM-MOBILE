@@ -1,13 +1,12 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
-import { View, Text, useWindowDimensions, Animated, Easing } from "react-native";
-import { TabView, TabBar } from "react-native-tab-view";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, TouchableOpacity, Animated, Dimensions, Easing } from "react-native";
 import { useRouter } from "expo-router";
 
-// OUR ICON
-import { MaterialIcons } from "@expo/vector-icons";
+// OUR ICONS
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-// OUR COMPONENT
+// OUR COMPONENTS
 import Button from "@/components/ButtonCustomProfile";
 import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
@@ -15,231 +14,179 @@ import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
 import HeaderWithBackButton from "@/components/HeaderBackButton";
 import AccountCloseAlert from "@/components/AccountCloseAlert";
 
+// OUR UTILS
+import AnimationUpAndDown from "@/utils/animationUpAndDown";
+import AnimationFadeInFadeOut from "@/utils/animationFadeInFadeOut";
+
 // OUR PROPS
-import { AnimationProps } from "@/interfaces/AnimationProps";
-import { RenderSceneProps } from "@/interfaces/RenderSceneProps";
+interface AnimatedBarProps {
+  translateX: Animated.Value;
+  tabWidth: number;
+}
+const { width } = Dimensions.get("window");
 
-// Animasi dari bawah ke atas
-const AnimatedTab = ({ children, isActive }: AnimationProps) => {
-  const translateY = useRef(new Animated.Value(isActive ? 0 : 50)).current;
-  const opacity = useRef(new Animated.Value(isActive ? 1 : 0)).current;
-
-  useEffect(() => {
-    Animated.timing(translateY, {
-      toValue: isActive ? 0 : 50,
-      duration: 300,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(opacity, {
-      toValue: isActive ? 1 : 0,
-      duration: 300,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  }, [isActive]);
-
-  return <Animated.View style={{ transform: [{ translateY }], opacity }}>{children}</Animated.View>;
-};
-
-// Animasi dari atas ke bawah
-const AnimatedTab2 = ({ children, isActive }: AnimationProps) => {
-  const translateY = useRef(new Animated.Value(isActive ? 0 : -50)).current;
-  const opacity = useRef(new Animated.Value(isActive ? 1 : 0)).current;
-
-  useEffect(() => {
-    Animated.timing(translateY, {
-      toValue: isActive ? 0 : -50,
-      duration: 300,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(opacity, {
-      toValue: isActive ? 1 : 0,
-      duration: 300,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  }, [isActive]);
-
-  return <Animated.View style={{ transform: [{ translateY }], opacity }}>{children}</Animated.View>;
-};
-
-const ProfilScreen = ({ isActive }: AnimationProps) => {
-  const router = useRouter();
-  return (
-    <View className="w-full px-6 ">
-      <EditProfiles
-        label="UID" //
-        text="19YRCBHBDA"
-        iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
-        isWrapperButton={false}
-        onPress={() => console.log("Ditekan!")}
-      />
-      <AnimatedTab isActive={isActive}>
-        <Fragment>
-          <EditProfiles
-            label="Nama Lengkap" //
-            text="Nama Lengkap"
-            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton={true}
-            onPress={() => router.push("/screens/editFullName")}
-          />
-          <EditProfiles
-            label="Nama Pengguna" //
-            text="Nama Pengguna"
-            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton={true}
-            onPress={() => router.push("/screens/editUsername")}
-          />
-          <EditProfiles
-            label="Alamat" //
-            text="Alamat Pengguna..."
-            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton={true}
-            onPress={() => router.push("/screens/editAddress")}
-          />
-        </Fragment>
-      </AnimatedTab>
-    </View>
-  );
-};
-
-const KeamananScreen = ({ isActive }: AnimationProps) => {
-  const router = useRouter();
-  const [modalVisible, setModalVisible] = useState(false);
-  return (
-    <View className="w-full px-6 ">
-      <AnimatedTab2 isActive={isActive}>
-        <Fragment>
-          <EditProfiles
-            label="Kode PIN" //
-            text="555555"
-            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton={true}
-            onPress={() => router.push("/screens/editPinCode")}
-          />
-          <EditProfiles
-            label="Nomor Telepon" //
-            text="+62 823 1843 1843"
-            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton={true}
-            onPress={() => router.push("/screens/editPhoneNumber")}
-          />
-          <EditProfiles
-            label="Tutup Akun" //
-            iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
-            isWrapperButton={true}
-            onPress={() => setModalVisible(true)}
-          />
-        </Fragment>
-      </AnimatedTab2>
-      {/* Gunakan AccountCloseAlert */}
-      <AccountCloseAlert
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onConfirm={() => {
-          console.log("Akun Ditutup"); // Tambahkan logika tutup akun
-          setModalVisible(false);
-        }}
-      />
-    </View>
-  );
-};
-
-const NotifikasiScreen = ({ isActive }: AnimationProps) => (
-  <AnimatedTab isActive={isActive}>
-    <Fragment>
-      <SettingSwitchOptions
-        label="Pemberitahuan" //
-        containerClassName="py-2"
-        labelClassName="text-white font-semibold text-lg ml-4"
-        iconClassName="bg-black p-1 rounded-lg "
-        trackColorFalse="#333836"
-      />
-      <SettingSwitchOptions
-        label="Email" //
-        containerClassName="py-2"
-        labelClassName="text-white font-semibold text-lg ml-4"
-        iconClassName="bg-black p-1 rounded-lg "
-        trackColorFalse="#333836"
-      />
-    </Fragment>
-  </AnimatedTab>
+// ANIMATED BAR
+const AnimatedBar = ({ translateX, tabWidth }: AnimatedBarProps) => (
+  <View className="absolute bottom-0 w-full h-[5%] bg-gray-600">
+    <Animated.View
+      style={{
+        position: "absolute",
+        width: tabWidth,
+        height: "60%", //
+        backgroundColor: "white",
+        transform: [{ translateX }],
+      }}
+    />
+  </View>
 );
 
-export default function EditProfileScreen() {
+const EditProfile = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const translateX = useRef(new Animated.Value(0)).current;
   const router = useRouter();
-  const layout = useWindowDimensions();
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: "profil", title: "Profil" },
-    { key: "keamanan", title: "Keamanan" },
-    { key: "notifikasi", title: "Notifikasi" },
-  ]);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const renderScene = ({ route }: RenderSceneProps) => {
-    switch (route.key) {
-      case "profil":
-        return <ProfilScreen isActive={index === 0} />;
-      case "keamanan":
-        return <KeamananScreen isActive={index === 1} />;
-      case "notifikasi":
-        return <NotifikasiScreen isActive={index === 2} />;
-      default:
-        return null;
-    }
+  // Daftar tab (bisa ditambah)
+  const tabs = ["Profil", "Keamanan", "Notifikasi"];
+  const tabWidth = width / tabs.length;
+
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
+    Animated.timing(translateX, {
+      toValue: index * tabWidth,
+      duration: 300,
+      easing: Easing.out(Easing.exp),
+      useNativeDriver: true,
+    }).start();
   };
 
   return (
     <View className="flex-1 bg-black">
+      {/* HEADER */}
       <HeaderWithBackButton
         icon={<Ionicons name="arrow-undo" size={43} color="white" />} //
         onPress={() => router.push("/(tabs)/profile")}
         title="Sunting Profil"
       />
 
+      {/* USER PROFILE */}
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
-          containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
+          containerImageClassName="w-36 h-36 rounded-full border-gray-500 flex items-center justify-center mt-1 overflow-hidden"
           ImageClassName="w-full h-full"
-          imageUrl="https://i.pravatar.cc/180" //
+          imageUrl="https://i.pravatar.cc/180"
           name="Adrian Musa Alfauzan"
           nameClassName="text-white text-xl font-bold mt-4"
           email="emailPengguna@gmail.com"
           emailClassName="text-gray-400 text-lg underline"
         />
-        <Button
-          classNameContainer="absolute bottom-24 right-40 bg-[#333836] px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg" //
-          onPress={() => console.log("Edit Foto Profil")}
-        >
-          <Ionicons name="pencil" size={24} color="white" />
-        </Button>
       </View>
-      <View className="flex-1">
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={(props) => (
-            <TabBar
-              {...props}
-              style={{
-                backgroundColor: "black", //
-                borderBottomWidth: 1,
-                borderBottomColor: "#333836",
-              }}
-              indicatorStyle={{ backgroundColor: "white", height: 1 }}
-              activeColor="white"
-              inactiveColor="gray"
-            />
-          )}
-        />
+
+      {/* TAB BAR */}
+      <View className="relative w-full h-12 border-b-2 flex-row">
+        <AnimatedBar translateX={translateX} tabWidth={tabWidth} />
+        {tabs.map((title, index) => (
+          <TouchableOpacity key={index} className="flex-1 justify-center items-center" onPress={() => handleTabPress(index)}>
+            <Text className={activeTab === index ? "text-white font-bold text-lg" : "text-gray-400 text-lg"}>{title}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
-      {/* Keluar Sunting Profil */}
+
+      {/* KONTEN DINAMIS SESUAI TAB */}
+      <View className="flex-1 mt-4 px-4">
+        {activeTab === 0 && (
+          <View className="py-2 space-y-3">
+            <AnimationFadeInFadeOut isActive={activeTab === 0} direction="in">
+              <EditProfiles
+                label="UID" //
+                text="19YRCBHBDA"
+                isWrapperButton={false}
+                iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
+                onPress={() => console.log("Ditekan!")}
+              />
+            </AnimationFadeInFadeOut>
+            <AnimationUpAndDown isActive={activeTab === 0} direction="up">
+              <EditProfiles
+                label="Nama Lengkap" //
+                text="Nama Lengkap"
+                isWrapperButton={true}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                onPress={() => router.push("/screens/editFullName")}
+              />
+              <EditProfiles
+                label="Nama Pengguna" //
+                text="Nama Pengguna"
+                isWrapperButton={true}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                onPress={() => router.push("/screens/editUsername")}
+              />
+              <EditProfiles
+                label="Alamat" //
+                text="Alamat Pengguna..."
+                isWrapperButton={true}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                onPress={() => router.push("/screens/editAddress")}
+              />
+            </AnimationUpAndDown>
+          </View>
+        )}
+        {activeTab === 1 && (
+          <AnimationUpAndDown isActive={activeTab === 1} direction="down">
+            <View className="py-2 space-y-3">
+              <EditProfiles
+                label="Kode PIN" //
+                text="555555"
+                isWrapperButton={true}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                onPress={() => router.push("/screens/editPinCode")}
+              />
+              <EditProfiles
+                label="Nomor Telepon" //
+                text="+62 823 1843 1843"
+                isWrapperButton={true}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                onPress={() => router.push("/screens/editPhoneNumber")}
+              />
+              <EditProfiles
+                label="Tutup Akun" //
+                isWrapperButton={true}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                onPress={() => setModalVisible(true)}
+              />
+              {/* MODAL TUTUP AKUN */}
+              <AccountCloseAlert
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onConfirm={() => {
+                  console.log("Akun Ditutup");
+                  setModalVisible(false);
+                }}
+              />
+            </View>
+          </AnimationUpAndDown>
+        )}
+        {activeTab === 2 && (
+          <AnimationFadeInFadeOut isActive={activeTab === 2} direction="in">
+            <View className="py-2 space-y-3">
+              <SettingSwitchOptions
+                label="Pemberitahuan" //
+                containerClassName="py-2"
+                labelClassName="text-white font-semibold text-lg "
+                iconClassName="bg-black  rounded-lg "
+                trackColorFalse="#333836"
+              />
+              <SettingSwitchOptions
+                label="Email" //
+                containerClassName="py-2"
+                labelClassName="text-white font-semibold text-lg "
+                iconClassName="bg-black  rounded-lg "
+                trackColorFalse="#333836"
+              />
+            </View>
+          </AnimationFadeInFadeOut>
+        )}
+      </View>
+      {/* KELUAR SUNTING PROFILE */}
       <View className="w-full px-6 mt-10">
         <EditProfiles
           labelClassName="text-[#9E0505] font-semibold text-lg" //
@@ -250,4 +197,6 @@ export default function EditProfileScreen() {
       </View>
     </View>
   );
-}
+};
+
+export default EditProfile;
