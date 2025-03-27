@@ -1,9 +1,8 @@
 import { View, Text } from "react-native";
 
 // OUR INTERFACES
-import { EditFormTitleProps } from "@/interfaces/EditFormTitleProps";
 
-const SectionTitle = ({ title }: EditFormTitleProps) => {
+const SectionTitle = ({ title }: { title: string }) => {
   return (
     // JUDUL FORM
     <View className="py-6 w-96">

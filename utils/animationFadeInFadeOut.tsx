@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Animated, Easing } from "react-native";
 import { AnimationFadeInFadeOutProps } from "@/interfaces/AnimationFadeInFadeOutProps";
 
-const AnimationFadeInFadeOut = ({ children, isActive, direction = "in" }: AnimationFadeInFadeOutProps) => {
+const animationFadeInFadeOut = ({ children, isActive, direction = "in" }: AnimationFadeInFadeOutProps) => {
   const opacity = useState(new Animated.Value(direction === "in" ? 0 : 1))[0];
 
   useEffect(() => {
@@ -17,4 +17,4 @@ const AnimationFadeInFadeOut = ({ children, isActive, direction = "in" }: Animat
   return <Animated.View style={{ opacity }}>{children}</Animated.View>;
 };
 
-export default AnimationFadeInFadeOut;
+export default animationFadeInFadeOut;

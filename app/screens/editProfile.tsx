@@ -7,7 +7,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 // OUR COMPONENTS
-import Button from "@/components/ButtonCustomProfile";
+import ButtonBar from "@/components/ButtonCustomProfile";
 import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
@@ -17,37 +17,17 @@ import AccountCloseAlert from "@/components/AccountCloseAlert";
 // OUR UTILS
 import AnimationUpAndDown from "@/utils/animationUpAndDown";
 import AnimationFadeInFadeOut from "@/utils/animationFadeInFadeOut";
-
-// OUR PROPS
-interface AnimatedBarProps {
-  translateX: Animated.Value;
-  tabWidth: number;
-}
-const { width } = Dimensions.get("window");
-
-// ANIMATED BAR
-const AnimatedBar = ({ translateX, tabWidth }: AnimatedBarProps) => (
-  <View className="absolute bottom-0 w-full h-[5%] bg-gray-600">
-    <Animated.View
-      style={{
-        position: "absolute",
-        width: tabWidth,
-        height: "60%", //
-        backgroundColor: "white",
-        transform: [{ translateX }],
-      }}
-    />
-  </View>
-);
+import AnimationBar from "@/utils/animationBar";
 
 const EditProfile = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const translateX = useRef(new Animated.Value(0)).current;
   const router = useRouter();
   const [modalVisible, setModalVisible] = useState(false);
 
+  const [activeTab, setActiveTab] = useState(0);
+  const translateX = useRef(new Animated.Value(0)).current;
   // Daftar tab (bisa ditambah)
   const tabs = ["Profil", "Keamanan", "Notifikasi"];
+  const { width } = Dimensions.get("window");
   const tabWidth = width / tabs.length;
 
   const handleTabPress = (index: number) => {
@@ -84,17 +64,23 @@ const EditProfile = () => {
 
       {/* TAB BAR */}
       <View className="relative w-full h-12 border-b-2 flex-row">
-        <AnimatedBar translateX={translateX} tabWidth={tabWidth} />
+        <AnimationBar translateX={translateX} tabWidth={tabWidth} />
         {tabs.map((title, index) => (
-          <TouchableOpacity key={index} className="flex-1 justify-center items-center" onPress={() => handleTabPress(index)}>
-            <Text className={activeTab === index ? "text-white font-bold text-lg" : "text-gray-400 text-lg"}>{title}</Text>
-          </TouchableOpacity>
+          <ButtonBar
+            key={index} //
+            classNameContainer="flex-1 justify-center items-center"
+            textClassName={activeTab === index ? "text-white font-bold text-lg" : "text-gray-400 text-lg"}
+            onPress={() => handleTabPress(index)}
+          >
+            {title}
+          </ButtonBar>
         ))}
       </View>
 
-      {/* KONTEN DINAMIS SESUAI TAB */}
+      {/* TAB KONTEN */}
       <View className="flex-1 mt-4 px-4">
         {activeTab === 0 && (
+          // PROFIL
           <View className="py-2 space-y-3">
             <AnimationFadeInFadeOut isActive={activeTab === 0} direction="in">
               <EditProfiles
@@ -131,6 +117,7 @@ const EditProfile = () => {
           </View>
         )}
         {activeTab === 1 && (
+          // KEAMANAN
           <AnimationUpAndDown isActive={activeTab === 1} direction="down">
             <View className="py-2 space-y-3">
               <EditProfiles
@@ -166,6 +153,7 @@ const EditProfile = () => {
           </AnimationUpAndDown>
         )}
         {activeTab === 2 && (
+          // NOTIFIKASI
           <AnimationFadeInFadeOut isActive={activeTab === 2} direction="in">
             <View className="py-2 space-y-3">
               <SettingSwitchOptions

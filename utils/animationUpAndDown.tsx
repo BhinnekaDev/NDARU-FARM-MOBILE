@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Animated, Easing } from "react-native";
 import { AnimationUpAndDownProps } from "@/interfaces/AnimationUpAndDownProps";
 
-const AnimationUpAndDown = ({ children, isActive, direction = "up" }: AnimationUpAndDownProps) => {
+const animationUpAndDown = ({ children, isActive, direction = "up" }: AnimationUpAndDownProps) => {
   const translateY = useState(new Animated.Value(direction === "up" ? -50 : 50))[0];
   const opacity = useState(new Animated.Value(0))[0];
 
@@ -26,4 +26,4 @@ const AnimationUpAndDown = ({ children, isActive, direction = "up" }: AnimationU
   return <Animated.View style={{ transform: [{ translateY }], opacity }}>{children}</Animated.View>;
 };
 
-export default AnimationUpAndDown;
+export default animationUpAndDown;
