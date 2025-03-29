@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 
 // OUR ICONS
@@ -7,7 +7,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 // OUR COMPONENTS
-import ButtonBar from "@/components/ButtonCustomProfile";
 import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
@@ -21,16 +20,18 @@ import AnimationFadeInFadeOut from "@/utils/animationFadeInFadeOut";
 
 const EditProfile = () => {
   const router = useRouter();
+  const isDarkMode = useColorScheme() === "dark";
+
+  const [activeTab, setActiveTab] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [isAnnouncementEnabled, setAnnouncementEnabled] = useState(false);
   const [isEmailEnabled, setEmailEnabled] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <View className="flex-1 bg-black">
+    <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* HEADER */}
       <HeaderWithBackButton
-        icon={<Ionicons name="arrow-undo" size={43} color="white" />} //
+        icon={<Ionicons name="arrow-undo" size={43} color={isDarkMode ? "white" : "black"} />} //
         onPress={() => router.push("/(tabs)/profile")}
         title="Sunting Profil"
       />
@@ -38,13 +39,13 @@ const EditProfile = () => {
       {/* USER PROFILE */}
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
-          containerImageClassName="w-36 h-36 rounded-full border-gray-500 flex items-center justify-center mt-1 overflow-hidden"
+          containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
           ImageClassName="w-full h-full"
-          imageUrl="https://i.pravatar.cc/180"
+          imageUrl="https://i.pravatar.cc/180" //
           name="Adrian Musa Alfauzan"
-          nameClassName="text-white text-xl font-bold mt-4"
+          nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
           email="emailPengguna@gmail.com"
-          emailClassName="text-gray-400 text-lg underline"
+          emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
         />
       </View>
 
@@ -63,9 +64,9 @@ const EditProfile = () => {
             <AnimationFadeInFadeOut isActive={activeTab === 0} direction="in">
               <EditProfiles
                 label="UID" //
-                text="19YRCBHBDA"
+                text="************"
                 isWrapperButton={false}
-                iconComponent={<Ionicons name="clipboard-outline" size={24} color="white" />}
+                iconComponent={<Ionicons name="clipboard-outline" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => console.log("Ditekan!")}
               />
             </AnimationFadeInFadeOut>
@@ -74,21 +75,21 @@ const EditProfile = () => {
                 label="Nama Lengkap" //
                 text="Nama Lengkap"
                 isWrapperButton={true}
-                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => router.push("/screens/editFullName")}
               />
               <EditProfiles
                 label="Nama Pengguna" //
                 text="Nama Pengguna"
                 isWrapperButton={true}
-                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => router.push("/screens/editUsername")}
               />
               <EditProfiles
                 label="Alamat" //
                 text="Alamat Pengguna..."
                 isWrapperButton={true}
-                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => router.push("/screens/editAddress")}
               />
             </AnimationUpAndDown>
@@ -100,22 +101,22 @@ const EditProfile = () => {
             <View className="py-2 space-y-3">
               <EditProfiles
                 label="Kode PIN" //
-                text="555555"
+                text="******"
                 isWrapperButton={true}
-                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => router.push("/screens/editPinCode")}
               />
               <EditProfiles
                 label="Nomor Telepon" //
-                text="+62 823 1843 1843"
+                text="***********"
                 isWrapperButton={true}
-                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => router.push("/screens/editPhoneNumber")}
               />
               <EditProfiles
                 label="Tutup Akun" //
                 isWrapperButton={true}
-                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+                iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => setModalVisible(true)}
               />
               {/* MODAL TUTUP AKUN */}
@@ -137,18 +138,12 @@ const EditProfile = () => {
               <SettingSwitchOptions
                 label="Pemberitahuan" //
                 containerClassName="py-2"
-                labelClassName="text-white font-semibold text-lg "
-                iconClassName="bg-black  rounded-lg "
-                trackColorFalse="#333836"
                 value={isAnnouncementEnabled}
                 onToggle={setAnnouncementEnabled}
               />
               <SettingSwitchOptions
                 label="Email" //
                 containerClassName="py-2"
-                labelClassName="text-white font-semibold text-lg "
-                iconClassName="bg-black  rounded-lg "
-                trackColorFalse="#333836"
                 value={isEmailEnabled}
                 onToggle={setEmailEnabled}
               />
@@ -157,11 +152,11 @@ const EditProfile = () => {
         )}
       </View>
       {/* KELUAR SUNTING PROFILE */}
-      <View className="w-full px-6 mt-10">
+      <View className="w-full px-6 mb-4">
         <EditProfiles
-          labelClassName="text-[#9E0505] font-semibold text-lg" //
+          labelClassName={`${isDarkMode ? "text-[#9E0505]" : "text-[#9E0505]"} font-semibold text-lg`} //
           label="Keluar"
-          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color="white" />}
+          iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={isDarkMode ? "#FFFFFF" : "#000000"} />}
           isWrapperButton={true}
         />
       </View>

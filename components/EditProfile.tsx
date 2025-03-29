@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, useColorScheme } from "react-native";
 
 // OUR COMPONENT
 import ButtonProfile from "@/components/ButtonCustomProfile";
 
-//
+// OUR PROPS
 import { SuntingProfileProps } from "@/interfaces/EditProfileProps";
 
 const SuntingProfile = ({
@@ -13,8 +13,9 @@ const SuntingProfile = ({
   onPress,
   iconComponent,
   isWrapperButton = false,
-  labelClassName = "text-white font-semibold text-lg", //
+  labelClassName, //
 }: SuntingProfileProps) => {
+  const isDarkMode = useColorScheme() === "dark";
   const WrapperButton = isWrapperButton ? TouchableOpacity : View;
 
   return (
@@ -24,11 +25,10 @@ const SuntingProfile = ({
       className="flex-row items-center justify-between py-2"
     >
       {/* LABEL */}
-      <Text className={labelClassName}>{label}</Text>
-
+      <Text className={`${labelClassName || (isDarkMode ? "text-white" : "text-black")} font-semibold text-lg`}>{label}</Text>
       <View className="flex-row items-center space-x-2">
         {/* TEXT */}
-        <Text className="text-white font-semibold text-lg pr-4">{text}</Text>
+        <Text className={`${isDarkMode ? "text-white" : "text-black"} opacity-50 font-semibold text-lg pr-4`}>{text}</Text>
 
         {/* BUTTON SUNTING PROFILE*/}
         <ButtonProfile

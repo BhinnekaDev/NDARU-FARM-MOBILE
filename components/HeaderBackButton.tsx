@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, useColorScheme } from "react-native";
 
 // OUR COMPONENT
 import Button from "@/components/ButtonCustomProfile";
@@ -12,6 +12,8 @@ export default function HeaderBackButton({
   onPress,
   icon,
 }: HeaderBackButtonProps) {
+  const darkMode = useColorScheme();
+  const isDarkMode = darkMode === "dark";
   return (
     <View className="flex-row items-center mt-8 ml-4">
       {/* HEADER BUTTON KEMBALI */}
@@ -24,7 +26,7 @@ export default function HeaderBackButton({
       </Button>
 
       {/* TITLE HEADER BACK */}
-      <Text className="text-white font-bold ml-2 text-lg">{title}</Text>
+      <Text className={`${isDarkMode ? "text-white" : "text-black"} font-bold ml-2 text-lg`}>{title}</Text>
     </View>
   );
 }

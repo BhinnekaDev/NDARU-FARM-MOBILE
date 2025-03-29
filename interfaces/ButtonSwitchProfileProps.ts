@@ -1,16 +1,17 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { ReactNode } from "react";
 
 export interface SettingOptionProps {
-  iconName?: keyof typeof MaterialIcons.glyphMap;
+  iconComponent?: ReactNode;
+
   label: string;
   value?: boolean;
   onToggle?: (newValue: boolean) => void;
   containerClassName?: string;
-  iconClassName?: string;
   labelClassName?: string;
   dividerClassName?: string;
-  trackColorFalse?: string;
-  trackColorTrue?: string;
-  thumbColorOn?: string;
-  thumbColorOff?: string;
+  backgroundButtonOff?: string;
+  backgroundButtonOn?: string;
+  backgroundCircleButtonOn?: string;
+  backgroundCircleButtonOff?: string;
 }

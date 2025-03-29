@@ -1,38 +1,38 @@
 import React from "react";
-import { View, Text, Switch } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { View, Text, Switch, useColorScheme } from "react-native";
 
 // OUR INTERFACES
 import { SettingOptionProps } from "@/interfaces/ButtonSwitchProfileProps";
 
 const SettingOption = ({
-  iconName,
+  iconComponent,
   label,
   value,
   onToggle,
   containerClassName = "",
   labelClassName = "",
-  iconClassName = "",
   dividerClassName = "",
-  trackColorFalse = "#000000", // Hitam (Default)
-  trackColorTrue = "#00822F", // hijau Tua (Default)
-  thumbColorOn = "#FFFFFF", // Putih (default)
-  thumbColorOff = "#f4f3f4", // Abu Muda (Default)
+  backgroundCircleButtonOn = "",
+  backgroundButtonOn = "",
+  backgroundCircleButtonOff = "",
+  backgroundButtonOff = "",
 }: SettingOptionProps) => {
+  const isDarkMode = useColorScheme() === "dark";
+
   return (
     <View className={containerClassName}>
       <View className="flex-row justify-between items-center">
         {/* ICON & LABEL */}
         <View className="flex-row items-center">
-          <MaterialIcons name={iconName} size={24} color="white" className={iconClassName} />
-          <Text className={labelClassName}>{label}</Text>
+          {iconComponent}
+          <Text className={`${labelClassName || (isDarkMode ? "text-white" : "text-black")} font-semibold text-lg`}>{label}</Text>
         </View>
 
         {/* BUTTON SWITCH */}
         <Switch
-          trackColor={{ false: trackColorFalse, true: trackColorTrue }}
-          thumbColor={value ? thumbColorOn : thumbColorOff}
-          ios_backgroundColor="#3e3e3e"
+          trackColor={{ false: backgroundButtonOff || "#000000", true: backgroundButtonOn || "#00822F" }}
+          thumbColor={value ? backgroundCircleButtonOn || "#FFFFFF" : backgroundCircleButtonOff || "#f4f3f4"}
+          ios_backgroundColor={backgroundButtonOff || isDarkMode ? "#000000" : "white"}
           style={[{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
           value={value}
           onValueChange={onToggle}

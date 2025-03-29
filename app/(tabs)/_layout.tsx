@@ -1,8 +1,11 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useColorScheme } from "react-native";
 import { Tabs } from "expo-router";
 
 export default function TabNavigator() {
+  const isDarkMode = useColorScheme() === "dark";
+
   return (
     <Tabs
       screenOptions={({ route }) => {
@@ -38,12 +41,12 @@ export default function TabNavigator() {
               color={color}
             />
           ),
-          tabBarActiveTintColor: "white",
+          tabBarActiveTintColor: isDarkMode ? "white" : "black",
           tabBarInactiveTintColor: "gray",
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: "black",
-            height: 60,
+            backgroundColor: isDarkMode ? "black" : "white",
+            height: 70,
             borderTopWidth: 1,
           },
           tabBarLabelStyle: {

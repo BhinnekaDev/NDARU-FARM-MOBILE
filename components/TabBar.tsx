@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View, Animated, Dimensions, Easing } from "react-native";
+import { View, Animated, Dimensions, Easing, useColorScheme } from "react-native";
 import AnimationBar from "@/utils/animationBar";
 import ButtonBar from "@/components/ButtonCustomProfile";
 import { TabBarProps } from "@/interfaces/TabBarProps";
@@ -12,6 +12,7 @@ const TabBar = ({
   const { width } = Dimensions.get("window");
   const tabWidth = width / tabs.length;
   const translateX = useRef(new Animated.Value(0)).current;
+  const isDarkMode = useColorScheme() === "dark"; // Deteksi mode
 
   const handleTabPress = (index: number) => {
     setActiveTab(index);
@@ -24,10 +25,15 @@ const TabBar = ({
   };
 
   return (
-    <View className="relative w-full h-12 border-b-2 flex-row">
+    <View className="relative w-full h-12  flex-row">
       <AnimationBar translateX={translateX} tabWidth={tabWidth} />
       {tabs.map((title, index) => (
-        <ButtonBar key={index} classNameContainer="flex-1 justify-center items-center" textClassName={activeTab === index ? "text-white font-bold text-lg" : "text-gray-400 text-lg"} onPress={() => handleTabPress(index)}>
+        <ButtonBar
+          key={index} //
+          classNameContainer="flex-1 justify-center items-center"
+          textClassName={`font-bold text-lg ${activeTab === index ? (isDarkMode ? "text-white" : "text-black") : "text-gray-400"}`}
+          onPress={() => handleTabPress(index)}
+        >
           {title}
         </ButtonBar>
       ))}
