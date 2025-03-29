@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, Text, TouchableOpacity, Animated, Dimensions, Easing } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import { useRouter } from "expo-router";
 
 // OUR ICONS
@@ -13,32 +13,18 @@ import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
 import HeaderWithBackButton from "@/components/HeaderBackButton";
 import AccountCloseAlert from "@/components/AccountCloseAlert";
+import TabBar from "@/components/TabBar";
 
 // OUR UTILS
 import AnimationUpAndDown from "@/utils/animationUpAndDown";
 import AnimationFadeInFadeOut from "@/utils/animationFadeInFadeOut";
-import AnimationBar from "@/utils/animationBar";
 
 const EditProfile = () => {
   const router = useRouter();
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [isAnnouncementEnabled, setAnnouncementEnabled] = useState(false);
+  const [isEmailEnabled, setEmailEnabled] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-  const translateX = useRef(new Animated.Value(0)).current;
-  // Daftar tab (bisa ditambah)
-  const tabs = ["Profil", "Keamanan", "Notifikasi"];
-  const { width } = Dimensions.get("window");
-  const tabWidth = width / tabs.length;
-
-  const handleTabPress = (index: number) => {
-    setActiveTab(index);
-    Animated.timing(translateX, {
-      toValue: index * tabWidth,
-      duration: 300,
-      easing: Easing.out(Easing.exp),
-      useNativeDriver: true,
-    }).start();
-  };
 
   return (
     <View className="flex-1 bg-black">
@@ -63,19 +49,11 @@ const EditProfile = () => {
       </View>
 
       {/* TAB BAR */}
-      <View className="relative w-full h-12 border-b-2 flex-row">
-        <AnimationBar translateX={translateX} tabWidth={tabWidth} />
-        {tabs.map((title, index) => (
-          <ButtonBar
-            key={index} //
-            classNameContainer="flex-1 justify-center items-center"
-            textClassName={activeTab === index ? "text-white font-bold text-lg" : "text-gray-400 text-lg"}
-            onPress={() => handleTabPress(index)}
-          >
-            {title}
-          </ButtonBar>
-        ))}
-      </View>
+      <TabBar
+        activeTab={activeTab} //
+        setActiveTab={setActiveTab}
+        tabs={["Profil", "Keamanan", "Notifikasi"]}
+      />
 
       {/* TAB KONTEN */}
       <View className="flex-1 mt-4 px-4">
@@ -162,6 +140,8 @@ const EditProfile = () => {
                 labelClassName="text-white font-semibold text-lg "
                 iconClassName="bg-black  rounded-lg "
                 trackColorFalse="#333836"
+                value={isAnnouncementEnabled}
+                onToggle={setAnnouncementEnabled}
               />
               <SettingSwitchOptions
                 label="Email" //
@@ -169,6 +149,8 @@ const EditProfile = () => {
                 labelClassName="text-white font-semibold text-lg "
                 iconClassName="bg-black  rounded-lg "
                 trackColorFalse="#333836"
+                value={isEmailEnabled}
+                onToggle={setEmailEnabled}
               />
             </View>
           </AnimationFadeInFadeOut>

@@ -1,18 +1,19 @@
 import { View, Animated } from "react-native";
 import { AnimationBarProps } from "@/interfaces/AnimationBarProps";
 
-const animationBar = ({ translateX, tabWidth }: AnimationBarProps) => (
-  <View className="absolute bottom-0 w-full h-[5%] bg-gray-600">
+const AnimationBar = ({ translateX, tabWidth }: AnimationBarProps) => (
+  <View style={{ position: "absolute", bottom: 0, width: "100%", height: "5%", backgroundColor: "#333836" }}>
     <Animated.View
       style={{
         position: "absolute",
         width: tabWidth,
-        height: "60%", //
+        height: "60%",
         backgroundColor: "white",
         transform: [{ translateX }],
+        borderRadius: 10,
       }}
     />
   </View>
 );
 
-export default animationBar;
+export default AnimationBar;
