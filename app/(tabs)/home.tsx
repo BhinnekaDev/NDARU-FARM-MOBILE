@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useColorScheme, View, Animated } from "react-native";
 // COMPONENTS
 import MyText from "@/components/text";
@@ -11,6 +11,8 @@ import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
 
 export default function Home() {
   const colorScheme = useColorScheme() ?? "light";
+  const textColor = colorScheme === "dark" ? "#FFFFFF" : "#000000";
+
   const { selectedCategory, setSelectedCategory, filteredProducts } =
     useProducts();
 
@@ -33,7 +35,7 @@ export default function Home() {
     <View
       style={{
         flex: 1,
-        backgroundColor: colorScheme === "dark" ? "black" : "white",
+        backgroundColor: colorScheme === "dark" ? "#131514" : "white",
       }}
     >
       {/* Header Fixed Konten */}
@@ -64,7 +66,7 @@ export default function Home() {
               fontSize: fontSizeAnim,
               textTransform: "uppercase",
               fontFamily: "LexBold",
-              color: "white",
+              color: textColor,
               opacity: headerTextOpacity,
             }}
           >
@@ -110,7 +112,7 @@ export default function Home() {
             style={{
               fontSize: fontSizeAnim,
               textTransform: "uppercase",
-              color: "white",
+              color: textColor,
               fontFamily: "LexBold",
               opacity: textOpacity,
             }}

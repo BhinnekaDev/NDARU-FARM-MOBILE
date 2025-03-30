@@ -9,7 +9,7 @@ export interface MyCardProps {
   date?: string;
   onPress?: () => void;
   id?: string;
-  detailType?: "vegetable" | "news" | "service" | "facility";
+  detailType?: "vegetable" | "service" | "news" | "facility";
   buttonType?: string;
   buttonTitle?: string;
 }

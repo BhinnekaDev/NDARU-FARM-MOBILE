@@ -1,9 +1,8 @@
 import { useRef } from "react";
-import { Animated } from "react-native";
-import { LightTheme, DarkTheme } from "@/constant/theme";
+import { Animated, useColorScheme } from "react-native";
 
 export default function useHomeInterpolate(colorScheme: string) {
-  const theme = colorScheme === "dark" ? DarkTheme : LightTheme;
+  const theme = useColorScheme();
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const fontSizeAnim = scrollY.interpolate({
@@ -38,9 +37,13 @@ export default function useHomeInterpolate(colorScheme: string) {
 
   const headerBackgroundColor = scrollY.interpolate({
     inputRange: [140, 150],
-    outputRange: ["rgba(0,0,0,0)", theme.background],
+    outputRange: [
+      useColorScheme() === "dark" ? "rgba(19,21,20,0)" : "rgba(255,255,255,0)",
+      useColorScheme() === "dark" ? "#131514" : "white",
+    ],
     extrapolate: "clamp",
-  });
+  }); 
+  
 
   const headerBorderWidth = scrollY.interpolate({
     inputRange: [150, 160],

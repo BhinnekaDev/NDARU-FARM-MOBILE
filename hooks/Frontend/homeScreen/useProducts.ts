@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { MyCardProps } from "@/interfaces/cardProps";
 
-// Data Produk
 const products: MyCardProps[] = [
   {
     id: "1",
@@ -21,7 +20,7 @@ const products: MyCardProps[] = [
     price: "Rp275.000",
     quantity: "1Bulan",
     detailType: "service",
-    buttonTitle: "Baca Selengkapnya",
+    buttonType: "icon",
   },
   {
     id: "3",
@@ -30,7 +29,7 @@ const products: MyCardProps[] = [
     description: "Lorem ipsum dolor sit amet.",
     date: "12 Februari 2024",
     detailType: "news",
-    buttonType: "icon",
+    buttonTitle: "Baca Selengkapnya",
   },
   {
     id: "4",
@@ -45,7 +44,6 @@ const products: MyCardProps[] = [
   },
 ];
 
-// Mapping Kategori
 const categoryMap: Record<
   string,
   "vegetable" | "news" | "facility" | "service" | undefined
@@ -59,7 +57,6 @@ const categoryMap: Record<
 export default function useProducts() {
   const [selectedCategory, setSelectedCategory] = useState("Semua");
 
-  // Filter Produk berdasarkan Kategori
   const filteredProducts = products.filter(
     (item: MyCardProps) =>
       selectedCategory === "Semua" ||

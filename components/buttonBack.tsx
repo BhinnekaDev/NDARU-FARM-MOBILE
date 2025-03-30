@@ -1,7 +1,11 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useColorScheme } from "react-native";
 import { buttonBackProps } from "@/interfaces/buttonBackProps";
+
+interface MyButtonBackProps extends buttonBackProps {
+  style?: ViewStyle;
+}
 
 export default function MyButtonBack({
   onPress,
@@ -9,7 +13,9 @@ export default function MyButtonBack({
   mySize,
   myColor,
   myActiveOpacity,
-}: buttonBackProps) {
+  style,
+  iconStyle,
+}: MyButtonBackProps) {
   const theme = useColorScheme();
   const defaultColor = theme === "dark" ? "white" : "black";
 
@@ -18,11 +24,13 @@ export default function MyButtonBack({
       activeOpacity={myActiveOpacity}
       className={myClassName}
       onPress={onPress}
+      style={[style]}
     >
       <Ionicons
         name="arrow-undo"
         size={mySize}
         color={myColor || defaultColor}
+        style={[iconStyle]}
       />
     </TouchableOpacity>
   );
