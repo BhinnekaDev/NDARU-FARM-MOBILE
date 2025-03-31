@@ -10,7 +10,7 @@ const AnimationBar = ({ translateX, tabWidth }: AnimationBarProps) => {
         position: "absolute",
         bottom: 0,
         width: "100%",
-        height: "6%",
+        height: "4%",
         backgroundColor: isDarkMode ? "#333836" : "#159778", // Latar belakang hijau saat terang, gelap saat mode gelap
       }}
     >

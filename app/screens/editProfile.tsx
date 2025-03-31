@@ -31,8 +31,7 @@ const EditProfile = () => {
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* HEADER */}
       <HeaderWithBackButton
-        icon={<Ionicons name="arrow-undo" size={43} color={isDarkMode ? "white" : "black"} />} //
-        onPress={() => router.push("/(tabs)/profile")}
+        onPress={() => router.push("/(tabs)/profile")} //
         title="Sunting Profil"
       />
 
@@ -140,12 +139,16 @@ const EditProfile = () => {
                 containerClassName="py-2"
                 value={isAnnouncementEnabled}
                 onToggle={setAnnouncementEnabled}
+                backgroundButtonOn={isDarkMode ? "#00822F" : "#00822F"}
+                backgroundCircleButtonOff={isDarkMode ? "" : "#000000"}
               />
               <SettingSwitchOptions
                 label="Email" //
                 containerClassName="py-2"
                 value={isEmailEnabled}
                 onToggle={setEmailEnabled}
+                backgroundButtonOn={isDarkMode ? "#00822F" : "#00822F"}
+                backgroundCircleButtonOff={isDarkMode ? "" : "#000000"}
               />
             </View>
           </AnimationFadeInFadeOut>

@@ -10,7 +10,11 @@ import { EditFormProps } from "@/interfaces/EditFormProps";
 const FloatingLabelInput = ({ label, value, onChangeText }: EditFormProps) => {
   return (
     <View className="py-4 w-96">
-      <AnimateForm label={label} value={value} onChangeText={onChangeText} />
+      <AnimateForm
+        label={label} //
+        value={value}
+        onChangeText={onChangeText}
+      />
     </View>
   );
 };

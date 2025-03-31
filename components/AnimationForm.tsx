@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
-import { View, TextInput, Animated } from "react-native";
+import { View, TextInput, Animated, useColorScheme } from "react-native";
 
 // OUR INTERFACES
 import { AnimateFormProps } from "@/interfaces/AnimationFormProps";
 
 const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
+  const isDarkMode = useColorScheme() === "dark";
   const [isFocused, setIsFocused] = useState(false);
   const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current;
 
@@ -29,7 +30,7 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
   };
 
   return (
-    <View className="border-b border-white relative">
+    <View className={`border-b ${isDarkMode ? "border-white" : "border-black"} relative`}>
       {/* Animated Label */}
       <Animated.Text
         style={{
@@ -43,12 +44,13 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
             inputRange: [0, 1],
             outputRange: [5, -15],
           }),
-          color: isFocused ? "white" : "gray",
+          color: isFocused ? (isDarkMode ? "white" : "black") : "gray", // Warna menyesuaikan mode
           fontWeight: "bold",
         }}
       >
         {label}
       </Animated.Text>
+
       {/* Text Input */}
       <TextInput
         className="text-white text-lg h-10 pb-1" //

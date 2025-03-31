@@ -9,10 +9,10 @@ const TabBar = ({
   setActiveTab,
   tabs = [],
 }: TabBarProps) => {
+  const isDarkMode = useColorScheme() === "dark";
   const { width } = Dimensions.get("window");
   const tabWidth = width / tabs.length;
   const translateX = useRef(new Animated.Value(0)).current;
-  const isDarkMode = useColorScheme() === "dark"; // Deteksi mode
 
   const handleTabPress = (index: number) => {
     setActiveTab(index);

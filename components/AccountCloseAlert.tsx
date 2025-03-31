@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, useColorScheme } from "react-native";
 import Modal from "react-native-modal";
 
 // OUR ICON
@@ -12,6 +12,8 @@ import ButtonProfile from "@/components/ButtonCustomProfile";
 import { AccountCloseAlertProps } from "@/interfaces/AccountCloseAlertProps";
 
 const AccountCloseAlert = ({ visible, onClose, onConfirm }: AccountCloseAlertProps) => {
+  const isDarkMode = useColorScheme() === "dark";
+
   return (
     <Modal
       isVisible={visible} //
@@ -23,10 +25,10 @@ const AccountCloseAlert = ({ visible, onClose, onConfirm }: AccountCloseAlertPro
       backdropOpacity={0.5}
       style={{ justifyContent: "flex-end", margin: 0 }}
     >
-      <View className="bg-[#333836] w-full h-4/6 rounded-t-2xl">
+      <View className={`${isDarkMode ? "bg-[#333836]" : "bg-[#159778]"} w-full h-4/6 rounded-t-2xl`}>
         {/* Header dengan garis bawah */}
-        <View className="flex-row items-center justify-center px-4 py-3 border-b-[0.5px] border-white">
-          <Text className="text-white text-base uppercase font-extrabold">Tutup Akun</Text>
+        <View className="flex-row items-center justify-center px-4 py-5 border-b-[0.5px] border-white">
+          <Text className="text-white text-lg uppercase font-extrabold ">Tutup Akun</Text>
           <ButtonProfile
             classNameContainer="absolute right-4"
             textClassName="text-white font-bold text-center text-2xl" //

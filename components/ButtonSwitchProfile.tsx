@@ -25,7 +25,7 @@ const SettingOption = ({
         {/* ICON & LABEL */}
         <View className="flex-row items-center">
           {iconComponent}
-          <Text className={`${labelClassName || (isDarkMode ? "text-white" : "text-black")} font-semibold text-lg`}>{label}</Text>
+          <Text className={`${labelClassName || (isDarkMode ? "text-white font-semibold" : "text-black font-semibold")}  text-lg ml-4`}>{label}</Text>
         </View>
 
         {/* BUTTON SWITCH */}

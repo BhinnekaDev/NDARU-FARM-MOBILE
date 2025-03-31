@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { View } from "react-native";
-
-// OUR ICON
-import { Ionicons } from "@expo/vector-icons";
+import { View, useColorScheme } from "react-native";
 
 // OUR COMPONENT
 import HeaderBackButton from "@/components/HeaderBackButton";
@@ -12,21 +9,22 @@ import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
 export default function editUsernameScreen() {
+  const isDarkMode = useColorScheme() === "dark";
+
   const router = useRouter();
   const [username, setUsername] = useState("");
 
   return (
-    <View className="flex-1 bg-black ">
+    <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* Header Button Kembali */}
       <HeaderBackButton
-        icon={<Ionicons name="arrow-undo" size={43} color="white" />} //
-        onPress={() => router.push("/screens/editProfile")}
+        onPress={() => router.push("/screens/editProfile")} //
         title="Sunting Nama Pengguna"
       />
 
       {/* Judul Form*/}
       <View className="flex justify-center items-center">
-        <SectionTitle title="Sunting Nama Pengguna (Gunakan Huruf & Angka Tanpa Spasi)" visible />
+        <SectionTitle title="Sunting Nama Pengguna (Gunakan Huruf & Angka Tanpa Spasi)" />
       </View>
 
       {/*Form*/}
@@ -36,7 +34,7 @@ export default function editUsernameScreen() {
 
         {/* Button Simpan*/}
         <Button
-          classNameContainer="mt-4 bg-[#333836] px-6 py-2 rounded-lg items-center w-96"
+          classNameContainer={`${isDarkMode ? "bg-[#333836]" : "bg-[#159778]"} mt-4  px-6 py-2 rounded-lg items-center w-96`}
           textClassName="text-white font-semibold text-lg" //
         >
           Simpan
