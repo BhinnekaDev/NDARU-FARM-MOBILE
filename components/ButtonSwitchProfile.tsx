@@ -33,7 +33,7 @@ const SettingOption = ({
           trackColor={{ false: backgroundButtonOff || "#000000", true: backgroundButtonOn || "#00822F" }}
           thumbColor={value ? backgroundCircleButtonOn || "#FFFFFF" : backgroundCircleButtonOff || "#f4f3f4"}
           ios_backgroundColor={backgroundButtonOff || isDarkMode ? "#000000" : "white"}
-          style={[{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
+          style={[{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }]}
           value={value}
           onValueChange={onToggle}
         />

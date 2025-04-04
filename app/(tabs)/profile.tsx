@@ -40,7 +40,7 @@ export default function ProfileTabs() {
       {/* OPSI PENGATURAN SWITCH */}
       <View className="w-full px-6 mt-16 ">
         <Text className={` ${isDarkMode ? "text-white" : "text-black"} text-xl font-extrabold mb-2`}>Pilihan Pengaturan</Text>
-        <View className={`${isDarkMode ? "bg-[#333836]" : "bg-[#093731]"} p-4 rounded-lg `}>
+        <View className={`${isDarkMode ? "bg-[#333836]" : "bg-[#093731]"} px-4 pb-4 rounded-lg `}>
           {/* OPSI NOTIFIKASI */}
           <SettingSwitchOptions
             containerClassName="py-4"
