@@ -7,6 +7,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 // OUR COMPONENTS
+import Button from "@/components/ButtonCustomProfile";
 import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
 import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
@@ -38,14 +39,20 @@ const EditProfile = () => {
       {/* USER PROFILE */}
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
-          containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
-          ImageClassName="w-full h-full"
+          containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
+          ImageClassName="w-full h-full bg-red-500 "
           imageUrl="https://i.pravatar.cc/180" //
           name="Adrian Musa Alfauzan"
           nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
           email="emailPengguna@gmail.com"
           emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
         />
+        <Button
+          classNameContainer="absolute bottom-24 right-40 bg-[#333836] px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg" //
+          onPress={() => console.log("Edit Foto Profil")}
+        >
+          <Ionicons name="pencil" size={24} color="white" />
+        </Button>
       </View>
 
       {/* TAB BAR */}

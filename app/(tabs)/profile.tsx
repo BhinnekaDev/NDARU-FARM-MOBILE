@@ -23,7 +23,7 @@ export default function ProfileTabs() {
     <View className={`flex-1 justify-center  items-center ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* PEMBUNGKUS USER PROFIL*/}
       <UserProfile
-        containerImageClassName="w-36 h-36 rounded-full  border-gray-500 flex items-center justify-center mt-10 overflow-hidden"
+        containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
         ImageClassName="w-full h-full"
         imageUrl="https://i.pravatar.cc/180" //
         name="Adrian Musa Alfauzan"
