@@ -5,9 +5,9 @@ import { View, Text, Image } from "react-native";
 import { UserProfileProps } from "@/interfaces/UserProfileProps";
 
 const UserProfile = ({
-  imageUrl, //
-  name,
-  email,
+  imageUrl = "https://i.pravatar.cc/100", // Default image
+  name = "Adrian Musa Alfauzan", // Default name
+  email = "emailPengguna@gmail.com", // Default email
   containerImageClassName = "",
   ImageClassName = "",
   nameClassName = "",

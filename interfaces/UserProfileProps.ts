@@ -1,7 +1,7 @@
 export interface UserProfileProps {
-  imageUrl: string;
-  name: string;
-  email: string;
+  imageUrl?: string;
+  name?: string;
+  email?: string;
   containerImageClassName?: string;
   ImageClassName?: string;
   nameClassName?: string;

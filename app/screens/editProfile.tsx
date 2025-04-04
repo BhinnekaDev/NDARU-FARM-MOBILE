@@ -40,15 +40,12 @@ const EditProfile = () => {
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
           containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
-          ImageClassName="w-full h-full bg-red-500 "
-          imageUrl="https://i.pravatar.cc/180" //
-          name="Adrian Musa Alfauzan"
+          ImageClassName="w-full h-full"
           nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
-          email="emailPengguna@gmail.com"
           emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
         />
         <Button
-          classNameContainer="absolute bottom-24 right-40 bg-[#333836] px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg" //
+          classNameContainer={`${isDarkMode ? "bg-[#333836]" : "bg-[#159778]"} absolute bottom-24 right-40  px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg`} //
           onPress={() => console.log("Edit Foto Profil")}
         >
           <Ionicons name="pencil" size={24} color="white" />

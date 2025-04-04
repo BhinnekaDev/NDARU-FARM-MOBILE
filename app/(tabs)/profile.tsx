@@ -25,10 +25,7 @@ export default function ProfileTabs() {
       <UserProfile
         containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
         ImageClassName="w-full h-full"
-        imageUrl="https://i.pravatar.cc/180" //
-        name="Adrian Musa Alfauzan"
         nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
-        email="emailPengguna@gmail.com"
         emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
       />
       {/* EDIT BUTTON PROFIL */}
