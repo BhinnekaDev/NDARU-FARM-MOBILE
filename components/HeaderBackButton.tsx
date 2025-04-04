@@ -28,7 +28,7 @@ export default function HeaderBackButton({
       </Button>
 
       {/* TITLE HEADER BACK */}
-      <Text className={`${isDarkMode ? "text-white" : "text-black"} font-bold ml-2 text-lg`}>{title}</Text>
+      <Text className={`${isDarkMode ? "text-white" : "text-black"} font-extrabold ml-2 text-2xl`}>{title}</Text>
     </View>
   );
 }
