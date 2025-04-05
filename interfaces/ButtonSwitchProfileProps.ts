@@ -1,7 +1,6 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 
-export interface SettingOptionProps {
+export interface ButtonSwitchProfileProps {
   iconComponent?: ReactNode;
 
   label: string;

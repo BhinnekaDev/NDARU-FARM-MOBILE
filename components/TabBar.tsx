@@ -1,8 +1,14 @@
 import React, { useRef } from "react";
 import { View, Animated, Dimensions, Easing, useColorScheme } from "react-native";
-import AnimationBar from "@/utils/animationBar";
+
+// OUR COMPONENTS
 import ButtonBar from "@/components/ButtonCustomProfile";
+
+// OUR INTERFACES
 import { TabBarProps } from "@/interfaces/TabBarProps";
+
+// OUR UTILS
+import AnimationBar from "@/utils/animationBar";
 
 const TabBar = ({
   activeTab, //

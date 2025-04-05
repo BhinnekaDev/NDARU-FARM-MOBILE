@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-// OUR COMPONENT
+// OUR COMPONENTS
 import Button from "@/components/ButtonCustomProfile";
 
 // OUR INTERFACES

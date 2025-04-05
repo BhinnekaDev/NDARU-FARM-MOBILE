@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import { useColorScheme, View } from "react-native";
 
-// OUR ICON
-import { Ionicons } from "@expo/vector-icons";
-
-// OUR COMPONENT
+// OUR COMPONENTS
 import HeaderBackButton from "@/components/HeaderBackButton";
 import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";

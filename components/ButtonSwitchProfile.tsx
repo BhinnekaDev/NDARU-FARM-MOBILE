@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, Switch, useColorScheme } from "react-native";
 
 // OUR INTERFACES
-import { SettingOptionProps } from "@/interfaces/ButtonSwitchProfileProps";
+import { ButtonSwitchProfileProps } from "@/interfaces/ButtonSwitchProfileProps";
 
-const SettingOption = ({
+const ButtonSwitchProfile = ({
   iconComponent,
   label,
   value,
@@ -16,7 +16,7 @@ const SettingOption = ({
   backgroundButtonOn = "",
   backgroundCircleButtonOff = "",
   backgroundButtonOff = "",
-}: SettingOptionProps) => {
+}: ButtonSwitchProfileProps) => {
   const isDarkMode = useColorScheme() === "dark";
 
   return (
@@ -45,4 +45,4 @@ const SettingOption = ({
   );
 };
 
-export default SettingOption;
+export default ButtonSwitchProfile;

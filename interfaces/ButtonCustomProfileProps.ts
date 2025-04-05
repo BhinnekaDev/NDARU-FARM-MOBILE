@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 export interface ButtonProps {
-  children: React.ReactNode;
+  children: ReactNode;
   classNameContainer?: string;
   textClassName?: string;
   onPress?: () => void;

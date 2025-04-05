@@ -1,4 +1,6 @@
 import { View, Animated, useColorScheme } from "react-native";
+
+// OUR INTERFACES
 import { AnimationBarProps } from "@/interfaces/AnimationBarProps";
 
 const AnimationBar = ({ translateX, tabWidth }: AnimationBarProps) => {

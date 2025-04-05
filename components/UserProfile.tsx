@@ -5,11 +5,11 @@ import { View, Text, Image } from "react-native";
 import { UserProfileProps } from "@/interfaces/UserProfileProps";
 
 const UserProfile = ({
-  imageUrl = "https://i.pravatar.cc/100", // Default image
-  name = "Adrian Musa Alfauzan", // Default name
-  email = "emailPengguna@gmail.com", // Default email
+  imageUrl = "https://i.pravatar.cc/100",
+  name = "Adrian Musa Alfauzan",
+  email = "emailPengguna@gmail.com",
   containerImageClassName = "",
-  ImageClassName = "",
+  imageClassName = "",
   nameClassName = "",
   emailClassName = "",
 }: UserProfileProps) => {
@@ -18,7 +18,7 @@ const UserProfile = ({
     <Fragment>
       {/* IMAGE */}
       <View className={containerImageClassName}>
-        <Image source={{ uri: imageUrl }} className={ImageClassName} />
+        <Image source={{ uri: imageUrl }} className={imageClassName} />
       </View>
 
       {/* NAME */}

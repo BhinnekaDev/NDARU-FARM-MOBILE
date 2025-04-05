@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-export interface SuntingProfileProps {
+export interface EditProfileProps {
   value?: string;
   label?: string;
   text?: string;

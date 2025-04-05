@@ -3,7 +3,7 @@ export interface UserProfileProps {
   name?: string;
   email?: string;
   containerImageClassName?: string;
-  ImageClassName?: string;
+  imageClassName?: string;
   nameClassName?: string;
   emailClassName?: string;
 }

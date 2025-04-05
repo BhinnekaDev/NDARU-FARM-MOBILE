@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Text, View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
-import { Platform, SafeAreaView } from "react-native";
-// OUR ICON
+
+// OUR ICONS
 import { MaterialIcons } from "@expo/vector-icons";
 
-// OUR COMPONENT
+// OUR COMPONENTS
 import ButtonProfile from "@/components/ButtonCustomProfile";
-import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
+import ButtonSwitchProfile from "@/components/ButtonSwitchProfile";
 import UserProfile from "@/components/UserProfile";
 
 export default function ProfileTabs() {
@@ -24,7 +24,7 @@ export default function ProfileTabs() {
       {/* PEMBUNGKUS USER PROFIL*/}
       <UserProfile
         containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
-        ImageClassName="w-full h-full"
+        imageClassName="w-full h-full"
         nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
         emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
       />
@@ -42,7 +42,7 @@ export default function ProfileTabs() {
         <Text className={` ${isDarkMode ? "text-white" : "text-black"} text-xl font-extrabold mb-2`}>Pilihan Pengaturan</Text>
         <View className={`${isDarkMode ? "bg-[#333836]" : "bg-[#093731]"} px-4 pb-4 rounded-lg `}>
           {/* OPSI NOTIFIKASI */}
-          <SettingSwitchOptions
+          <ButtonSwitchProfile
             containerClassName="py-4"
             iconComponent={<MaterialIcons name="notifications" size={28} color="white" className="bg-black p-1 rounded-lg " />}
             label="Notifikasi"
@@ -55,7 +55,7 @@ export default function ProfileTabs() {
           />
 
           {/* OPSI SIDIK JARI */}
-          <SettingSwitchOptions
+          <ButtonSwitchProfile
             containerClassName="py-4"
             iconComponent={<MaterialIcons name="fingerprint" size={28} color="white" className="bg-black p-1 rounded-lg " />}
             label="Sidik Jari Biometri"

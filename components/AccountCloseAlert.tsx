@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text, Image, useColorScheme } from "react-native";
 import Modal from "react-native-modal";
 
-// OUR ICON
+// OUR ICONS
 import { MaterialIcons } from "@expo/vector-icons";
 
-// OUR COMPONENT
+// OUR COMPONENTS
 import ButtonProfile from "@/components/ButtonCustomProfile";
 
 // OUR INTERFACES

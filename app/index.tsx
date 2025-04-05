@@ -1,5 +1,7 @@
 import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
+
+// OUR COMPONENTS
 import Button from "@/components/ButtonCustomProfile";
 
 export default function Index() {

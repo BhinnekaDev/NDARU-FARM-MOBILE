@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Animated, Easing } from "react-native";
+
+// OUR INTERFACES
 import { AnimationUpAndDownProps } from "@/interfaces/AnimationUpAndDownProps";
 
 const animationUpAndDown = ({ children, isActive, direction = "up" }: AnimationUpAndDownProps) => {

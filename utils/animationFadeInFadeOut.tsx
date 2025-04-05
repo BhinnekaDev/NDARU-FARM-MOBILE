@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Animated, Easing } from "react-native";
+
+// OUR INTERFACES
 import { AnimationFadeInFadeOutProps } from "@/interfaces/AnimationFadeInFadeOutProps";
 
 const animationFadeInFadeOut = ({ children, isActive, direction = "in" }: AnimationFadeInFadeOutProps) => {

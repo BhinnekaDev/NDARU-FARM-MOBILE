@@ -1,20 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, useColorScheme } from "react-native";
 
-// OUR COMPONENT
+// OUR COMPONENTS
 import ButtonProfile from "@/components/ButtonCustomProfile";
 
 // OUR PROPS
-import { SuntingProfileProps } from "@/interfaces/EditProfileProps";
+import { EditProfileProps } from "@/interfaces/EditProfileProps";
 
-const SuntingProfile = ({
+const EditProfile = ({
   label,
   text,
   onPress,
   iconComponent,
   isWrapperButton = false,
   labelClassName, //
-}: SuntingProfileProps) => {
+}: EditProfileProps) => {
   const isDarkMode = useColorScheme() === "dark";
   const WrapperButton = isWrapperButton ? TouchableOpacity : View;
 
@@ -43,4 +43,4 @@ const SuntingProfile = ({
   );
 };
 
-export default SuntingProfile;
+export default EditProfile;

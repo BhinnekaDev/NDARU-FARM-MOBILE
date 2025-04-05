@@ -10,8 +10,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Button from "@/components/ButtonCustomProfile";
 import EditProfiles from "@/components/EditProfile";
 import UserProfile from "@/components/UserProfile";
-import SettingSwitchOptions from "@/components/ButtonSwitchProfile";
-import HeaderWithBackButton from "@/components/HeaderBackButton";
+import ButtonSwitchProfile from "@/components/ButtonSwitchProfile";
+import HeaderBackButton from "@/components/HeaderBackButton";
 import AccountCloseAlert from "@/components/AccountCloseAlert";
 import TabBar from "@/components/TabBar";
 
@@ -31,7 +31,7 @@ const EditProfile = () => {
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* HEADER */}
-      <HeaderWithBackButton
+      <HeaderBackButton
         onPress={() => router.push("/(tabs)/profile")} //
         title="Sunting Profil"
       />
@@ -40,7 +40,7 @@ const EditProfile = () => {
       <View className="items-center pt-20 pb-4 relative">
         <UserProfile
           containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
-          ImageClassName="w-full h-full"
+          imageClassName="w-full h-full"
           nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
           emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
         />
@@ -138,7 +138,7 @@ const EditProfile = () => {
           // NOTIFIKASI
           <AnimationFadeInFadeOut isActive={activeTab === 2} direction="in">
             <View className="py-2 space-y-3">
-              <SettingSwitchOptions
+              <ButtonSwitchProfile
                 label="Pemberitahuan" //
                 containerClassName="py-2"
                 value={isAnnouncementEnabled}
@@ -146,7 +146,7 @@ const EditProfile = () => {
                 backgroundButtonOn={isDarkMode ? "#00822F" : "#00822F"}
                 backgroundCircleButtonOff={isDarkMode ? "" : "#000000"}
               />
-              <SettingSwitchOptions
+              <ButtonSwitchProfile
                 label="Email" //
                 containerClassName="py-2"
                 value={isEmailEnabled}

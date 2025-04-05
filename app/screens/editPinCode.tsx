@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import { View, useColorScheme } from "react-native";
 
-// OUR COMPONENT
+// OUR COMPONENTS
 import HeaderBackButton from "@/components/HeaderBackButton";
 import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
