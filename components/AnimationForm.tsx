@@ -53,7 +53,7 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
 
       {/* Text Input */}
       <TextInput
-        className="text-white text-lg h-10 pb-1" //
+        className={`${isDarkMode ? "border-white" : "border-black"} text-lg h-10 pb-1`} //
         value={value}
         onChangeText={onChangeText}
         onFocus={handleFocus}
