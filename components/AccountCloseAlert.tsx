@@ -23,6 +23,9 @@ const AccountCloseAlert = ({ visible, onClose, onConfirm }: AccountCloseAlertPro
       animationIn="slideInUp"
       animationOut="slideOutDown"
       backdropOpacity={0.5}
+      useNativeDriver={true}
+      animationInTiming={500}
+      animationOutTiming={800}
       style={{ justifyContent: "flex-end", margin: 0 }}
     >
       <View className={`${isDarkMode ? "bg-[#333836]" : "bg-[#159778]"} w-full h-4/6 rounded-t-2xl`}>
