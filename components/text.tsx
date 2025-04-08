@@ -11,6 +11,7 @@ const MyText: React.FC<MyTextProps> = ({
   fontSize = 14,
   color,
   textstyle,
+  style,
 }) => {
   const fontLoaded = useLoadFont();
   const colorScheme = useColorScheme();
@@ -23,7 +24,14 @@ const MyText: React.FC<MyTextProps> = ({
 
   return (
     <RNText
-      style={[{ fontFamily, fontSize, color: textColor }]}
+      style={[
+        {
+          fontFamily,
+          fontSize,
+          color: textColor,
+        },
+        style,
+      ]}
       className={textstyle}
     >
       {children}
