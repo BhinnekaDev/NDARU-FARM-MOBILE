@@ -49,12 +49,33 @@ const MyCard: React.FC<MyCardProps> = ({
     router.push(path as any);
   };
 
+  const getCardBackgroundColor = () => {
+    const bgColors: Record<string, string> = {
+      vegetable: "#093731",
+      news: "#3D081C",
+      service: "#071758",
+      facility: "#074558",
+    };
+
+    return bgColors[detailType ?? "facility"];
+  };
+
+  const getBgImageColor = () => {
+    const bgColors: Record<string, string> = {
+      vegetable: "#159778",
+      news: "#5A0B29",
+      service: "#1C2D6F",
+      facility: "#248EAE",
+    };
+
+    return bgColors[detailType ?? "vegetable"];
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onDetail}>
       <View
-        className={`p-4 w-full rounded-3xl shadow-md ${
-          isDarkMode ? "bg-[#84BCA1]" : "bg-[#093731]"
-        }`}
+        className="p-4 w-full rounded-3xl shadow-md"
+        style={{ backgroundColor: getCardBackgroundColor() }}
       >
         <View className="flex-row items-center">
           {/* Tombol Love Favorite */}
@@ -76,7 +97,7 @@ const MyCard: React.FC<MyCardProps> = ({
             <View
               className={`w-[95px] h-[95px] absolute rounded-lg ${bgImageStyle} `}
               style={{
-                backgroundColor: isDarkMode ? "#B9E7D1" : "#159778",
+                backgroundColor: getBgImageColor(),
                 transform: [{ rotate: "-20deg" }],
               }}
             />
@@ -137,7 +158,7 @@ const MyCard: React.FC<MyCardProps> = ({
               fontFamily="LexSemiBold"
               myClassName="rounded-3xl py-1.5"
               myTouchStyle="gap-4"
-              myButtonColor={isDarkMode ? "#333836" : "transparent"}
+              myButtonColor={getBgImageColor()}
               onPress={onPress}
             />
           </View>
