@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "expo-router";
 import {
   View,
@@ -45,12 +45,12 @@ function newsDetailScreen() {
 
   // SELURUH FUNGSI SECARA TERPISAH
   const {
+    AnimInFloating,
     translateY,
     scrollText,
     panResponder,
     opacityBadgeHeader,
     opacityTitleHeader,
-    opacityDescHeader,
     opacityBadgeFloating,
     opacityTitleFloating,
     opacityDescFloating,
@@ -101,17 +101,6 @@ function newsDetailScreen() {
                 : "VIRAL SALADA SEGAR ASLI BANDUNG PISAN".slice(0, 16) + "..."}
             </Animated.Text>
           </View>
-
-          {/* TEKS DESKRIPSI HEADER */}
-          <Animated.View style={{ opacity: opacityDescHeader }}>
-            <MyText
-              fontFamily="LexMedium"
-              fontSize={16}
-              style={{ color: "white" }}
-            >
-              Trending . 2 Jam Yang Lalu
-            </MyText>
-          </Animated.View>
         </View>
 
         {/* TEKS BADGE HEADER */}
@@ -119,7 +108,7 @@ function newsDetailScreen() {
           <MyText
             fontFamily="LexMedium"
             fontSize={14}
-            textstyle="rounded-full px-2 py-1 text-center absolute z-10 -top-6 left-2"
+            textstyle="rounded-full px-2 py-1 text-center absolute z-10 -top-3 left-2 border border-white"
             style={{
               backgroundColor: colorScheme === "dark" ? "#333836" : "#093731",
               color: "white",
@@ -137,13 +126,14 @@ function newsDetailScreen() {
       />
 
       {/* FLOATING KONTEN */}
-      <View
+      <Animated.View
         style={{
           position: "absolute",
-          top: -30,
+          top: -50,
           left: 0,
           right: 0,
           bottom: 0,
+          transform: [{ translateY: AnimInFloating }],
         }}
       >
         <Animated.View
@@ -330,7 +320,7 @@ function newsDetailScreen() {
             ))}
           </View>
         </Animated.View>
-      </View>
+      </Animated.View>
     </View>
   );
 }

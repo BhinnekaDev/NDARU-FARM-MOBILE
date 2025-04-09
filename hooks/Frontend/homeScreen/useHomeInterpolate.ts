@@ -1,13 +1,25 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Animated, useColorScheme } from "react-native";
 
 export default function useHomeInterpolate(colorScheme: string) {
   const theme = useColorScheme();
   const scrollY = useRef(new Animated.Value(0)).current;
+  const translateXIconCart = useRef(new Animated.Value(0)).current;
+  const buttonCartWidth = useRef(new Animated.Value(60)).current;
+  const [isTextVisible, setIsTextVisible] = useState(false);
+  const fadeInOpacity = useRef(new Animated.Value(0)).current;
+  const textCartOpacity = useRef(new Animated.Value(0)).current;
+  const fadeOutOpacity = useRef(new Animated.Value(1)).current;
 
   const fontSizeAnim = scrollY.interpolate({
     inputRange: [130, 140],
     outputRange: [32, 20],
+    extrapolate: "clamp",
+  });
+
+  const floatingButtonCartOpacity = scrollY.interpolate({
+    inputRange: [100, 130],
+    outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
@@ -44,7 +56,6 @@ export default function useHomeInterpolate(colorScheme: string) {
     extrapolate: "clamp",
   }); 
   
-
   const headerBorderWidth = scrollY.interpolate({
     inputRange: [150, 160],
     outputRange: [0, 1],
@@ -74,6 +85,67 @@ export default function useHomeInterpolate(colorScheme: string) {
     outputRange: [1, 1, 0],
     extrapolate: "clamp",
   });
+    
+    useEffect(() => {
+      Animated.sequence([
+        Animated.timing(fadeInOpacity, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.parallel([
+          Animated.timing(translateXIconCart, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(buttonCartWidth, {
+            toValue: 150,
+            duration: 500,
+            useNativeDriver: false,
+          }),
+        ]),
+      ]).start(() => {
+        setIsTextVisible(true);
+        Animated.timing(textCartOpacity, {
+          toValue: 1,
+          duration: 400,
+          useNativeDriver: true,
+        }).start();
+  
+        setTimeout(() => {
+          startExitAnimation();
+        }, 2000);
+      });
+    }, []);
+  
+    const startExitAnimation = () => {
+      Animated.timing(textCartOpacity, {
+        toValue: 0,
+        duration: 400,
+        useNativeDriver: true,
+      }).start(() => {
+        setIsTextVisible(false);
+        Animated.parallel([
+          Animated.timing(buttonCartWidth, {
+            toValue: 60,
+            duration: 500,
+            useNativeDriver: false,
+          }),
+          Animated.timing(translateXIconCart, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+        ]).start(() => {
+          Animated.timing(fadeOutOpacity, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }).start();
+        });
+      });
+    };
 
   return {
     scrollY,
@@ -88,5 +160,10 @@ export default function useHomeInterpolate(colorScheme: string) {
     headerSearchOpacity,
     headerCategoryOpacity,
     CategoryOpacity,
+    floatingButtonCartOpacity,
+    translateXIconCart,
+    buttonCartWidth,
+    isTextVisible,
+    textCartOpacity,
   };
 }

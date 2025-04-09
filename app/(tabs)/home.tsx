@@ -1,5 +1,11 @@
 import React from "react";
-import { useColorScheme, View, Animated } from "react-native";
+import {
+  useColorScheme,
+  View,
+  Animated,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 // COMPONENTS
 import MyText from "@/components/text";
 import MySearch from "@/components/search";
@@ -8,11 +14,13 @@ import MyCard from "@/components/card";
 // HOOKSFE
 import useHomeInterpolate from "@/hooks/Frontend/homeScreen/useHomeInterpolate";
 import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 export default function Home() {
   const colorScheme = useColorScheme() ?? "light";
   const textColor = colorScheme === "dark" ? "#FFFFFF" : "#000000";
-
+  const jumlahItemDiKeranjang = 1;
   const { selectedCategory, setSelectedCategory, filteredProducts } =
     useProducts();
 
@@ -29,6 +37,11 @@ export default function Home() {
     headerSearchOpacity,
     headerCategoryOpacity,
     CategoryOpacity,
+    floatingButtonCartOpacity,
+    translateXIconCart,
+    buttonCartWidth,
+    isTextVisible,
+    textCartOpacity,
   } = useHomeInterpolate(colorScheme);
 
   return (
@@ -53,13 +66,7 @@ export default function Home() {
           borderBottomColor: "rgba(255,255,255,0.7)",
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <View className="flex-row items-center justify-between">
           {/* Header Fixed Text */}
           <Animated.Text
             style={{
@@ -73,11 +80,48 @@ export default function Home() {
             Ndaru Farm
           </Animated.Text>
 
-          {/* Header Fixed Tombol Cari */}
+          {/* Header Fixed Tombol Keranjang dan Cari */}
           <Animated.View
-            style={{ flex: 1, marginLeft: 10, opacity: headerSearchOpacity }}
+            style={{ opacity: headerSearchOpacity }}
+            className="flex-row gap-6"
           >
-            <MySearch />
+            {/* Cart dengan badge */}
+            <TouchableOpacity activeOpacity={0.3}>
+              <View className="relative">
+                {/* Icon Keranjang */}
+                <Ionicons name="cart-outline" size={28} color={textColor} />
+
+                {/* Badge */}
+                {jumlahItemDiKeranjang > 0 && (
+                  <View
+                    className="absolute -top-1.5 -right-1.5 bg-red-500 rounded-full items-center justify-center"
+                    style={{
+                      minWidth: 16,
+                      height: 16,
+                      paddingHorizontal: 3,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 10,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {jumlahItemDiKeranjang}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+
+            {/* Search icon */}
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={() => router.push("/screens/searchScreen")}
+            >
+              <Ionicons name="search-outline" size={28} color={textColor} />
+            </TouchableOpacity>
           </Animated.View>
         </View>
 
@@ -90,6 +134,81 @@ export default function Home() {
             onSelectCategory={setSelectedCategory}
           />
         </Animated.View>
+      </Animated.View>
+
+      {/* Floating Button Keranjang */}
+      <Animated.View
+        style={{
+          position: "absolute",
+          bottom: 35,
+          right: 35,
+          zIndex: 10,
+          opacity: floatingButtonCartOpacity,
+        }}
+      >
+        <TouchableOpacity activeOpacity={0.4}>
+          <Animated.View
+            style={{
+              backgroundColor: "#18b48f",
+              paddingVertical: 12,
+              borderRadius: 50,
+              flexDirection: "row",
+              alignItems: "center",
+              width: buttonCartWidth,
+              overflow: "hidden",
+              paddingHorizontal: 13,
+              gap: 10,
+            }}
+          >
+            {/* Icon dengan badge */}
+            <Animated.View
+              style={{ transform: [{ translateX: translateXIconCart }] }}
+            >
+              <View style={{ position: "relative" }}>
+                <Ionicons name="cart-outline" size={30} color="white" />
+
+                {jumlahItemDiKeranjang > 0 && (
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: -6,
+                      right: -6,
+                      backgroundColor: "red",
+                      borderRadius: 10,
+                      minWidth: 18,
+                      height: 18,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      paddingHorizontal: 4,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 10,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {jumlahItemDiKeranjang}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </Animated.View>
+            {/* Teks */}
+            {isTextVisible && (
+              <Animated.Text
+                style={{
+                  opacity: textCartOpacity,
+                  color: "white",
+                  fontFamily: "LexBold",
+                }}
+              >
+                Keranjang
+              </Animated.Text>
+            )}
+          </Animated.View>
+        </TouchableOpacity>
       </Animated.View>
 
       {/* Header Konten */}
