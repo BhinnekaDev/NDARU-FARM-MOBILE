@@ -36,7 +36,7 @@ export default function EditPhoneNumberScreen() {
         <FloatingLabelInput
           label="Nomor Telepon" //
           value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(formatPhoneNumber(text))}
+          onChangeText={(input) => setPhoneNumber(formatPhoneNumber(input))}
         />
 
         {/* Button Simpan */}
