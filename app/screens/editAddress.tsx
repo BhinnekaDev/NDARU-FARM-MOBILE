@@ -34,7 +34,7 @@ export default function editAddressScreen() {
           {/* Header Button Kembali */}
           <HeaderBackButton
             onPress={() => router.push("/screens/editProfile")} //
-            title="Sunting Nama Lengkap"
+            title="Sunting Alamat"
           />
           <View className="flex-1 ">
             <ScrollView
