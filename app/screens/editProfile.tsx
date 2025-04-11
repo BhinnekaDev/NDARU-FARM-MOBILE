@@ -90,7 +90,7 @@ const EditProfile = () => {
               />
               <EditProfiles
                 label="Alamat" //
-                text="Alamat Pengguna..."
+                text="Alamat Pengguna..." //
                 isWrapperButton={true}
                 iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={`${isDarkMode ? "white" : "black"}`} />}
                 onPress={() => router.push("/screens/editAddress")}
