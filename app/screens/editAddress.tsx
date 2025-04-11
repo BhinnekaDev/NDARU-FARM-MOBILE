@@ -7,10 +7,15 @@ import HeaderBackButton from "@/components/HeaderBackButton";
 import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
 
+// OUT UTILS
+import { addressFormatter } from "@/utils/validationAddressFormatter";
+import { nameFormatter } from "@/utils/validationNameFormatter";
+import { numberFormatter } from "@/utils/validationNumberFormatter";
+
 export default function editAddressScreen() {
   const isDarkMode = useColorScheme() === "dark";
   const router = useRouter();
-  const [fullName, setFullName] = useState("");
+  const [province, setProvince] = useState("");
   const [city, setCity] = useState("");
   const [regency, setRegency] = useState("");
   const [numberPostalCode, setNumberPostalCode] = useState("");
@@ -30,28 +35,60 @@ export default function editAddressScreen() {
       {/*Form*/}
       <View className="flex justify-center items-center  py-6">
         {/* Form Nama Lengkap*/}
-        <FloatingLabelInput label="Nama Lengkap" value={fullName} onChangeText={setFullName} />
+        <FloatingLabelInput
+          label="Provinsi" //
+          value={province}
+          onChangeText={(input) => setProvince(nameFormatter(input))}
+        />
 
         {/* Form Kota*/}
-        <FloatingLabelInput label="Kota" value={city} onChangeText={setCity} />
+        <FloatingLabelInput
+          label="Kota" //
+          value={city}
+          onChangeText={(input) => setCity(nameFormatter(input))}
+        />
 
         {/* Form Kabupaten*/}
-        <FloatingLabelInput label="Kabupaten" value={regency} onChangeText={setRegency} />
+        <FloatingLabelInput
+          label="Kabupaten" //
+          value={regency}
+          onChangeText={(input) => setRegency(nameFormatter(input))}
+        />
 
         {/* Form Postal Code*/}
-        <FloatingLabelInput label="Postal Code" value={numberPostalCode} onChangeText={setNumberPostalCode} />
+        <FloatingLabelInput
+          label="Postal Code" //
+          value={numberPostalCode}
+          onChangeText={(input) => setNumberPostalCode(numberFormatter(input, 6))}
+        />
 
         {/* Form RT*/}
-        <FloatingLabelInput label="RT" value={numberRT} onChangeText={setNumberRT} />
+        <FloatingLabelInput
+          label="RT" //
+          value={numberRT}
+          onChangeText={(input) => setNumberRT(numberFormatter(input, 3))}
+        />
 
         {/* Form RW*/}
-        <FloatingLabelInput label="RW" value={numberRW} onChangeText={setNumberRW} />
+        <FloatingLabelInput
+          label="RW" //
+          value={numberRW}
+          onChangeText={(input) => setNumberRW(numberFormatter(input, 3))}
+        />
 
         {/* Form Patokan*/}
-        <FloatingLabelInput label="Patokan (Opsional)" value={benchmark} onChangeText={setBenchmark} />
+        <FloatingLabelInput
+          label="Patokan (Opsional)" //
+          value={benchmark}
+          onChangeText={(input) => setBenchmark(addressFormatter(input))}
+        />
 
         {/* Form Alamat Lengkap*/}
-        <FloatingLabelInput label="Alamat Lengkap" value={address} onChangeText={setAddress} />
+        <FloatingLabelInput
+          label="Alamat Lengkap" //
+          value={address}
+          onChangeText={(input) => setAddress(addressFormatter(input))}
+        />
 
         {/* Button Simpan*/}
         <Button

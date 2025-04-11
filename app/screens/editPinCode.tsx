@@ -8,6 +8,9 @@ import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
+// OUT UTILS
+import { numberFormatter } from "@/utils/validationNumberFormatter";
+
 export default function editPinCodeScreen() {
   const router = useRouter();
   const isDarkMode = useColorScheme() === "dark";
@@ -30,7 +33,11 @@ export default function editPinCodeScreen() {
       {/*Form*/}
       <View className="flex justify-center items-center ">
         {/*Form Kode Pin*/}
-        <FloatingLabelInput label="Kode Pin" value={pinCode} onChangeText={setPinCode} />
+        <FloatingLabelInput
+          label="Kode Pin" //
+          value={pinCode}
+          onChangeText={(input) => setPinCode(numberFormatter(input, 6))}
+        />
 
         {/* Button Simpan*/}
         <Button

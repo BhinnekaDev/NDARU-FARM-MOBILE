@@ -8,6 +8,9 @@ import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
+// OUR UTILS
+import { nameFormatter } from "@/utils/validationNameFormatter";
+
 export default function editUsernameScreen() {
   const isDarkMode = useColorScheme() === "dark";
 
@@ -30,7 +33,11 @@ export default function editUsernameScreen() {
       {/*Form*/}
       <View className="flex justify-center items-center ">
         {/* Form Nama Pengguna*/}
-        <FloatingLabelInput label="Nama Pengguna" value={username} onChangeText={setUsername} />
+        <FloatingLabelInput
+          label="Nama Pengguna" //
+          value={username}
+          onChangeText={(input) => setUsername(nameFormatter(input))}
+        />
 
         {/* Button Simpan*/}
         <Button

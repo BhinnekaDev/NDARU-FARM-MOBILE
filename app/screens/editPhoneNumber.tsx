@@ -9,7 +9,7 @@ import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
 // OUR UTILS
-import { formatPhoneNumber } from "@/utils/phoneNumberFormatter";
+import { phoneNumberFormatter } from "@/utils/validationPhoneNumberFormatter";
 
 export default function EditPhoneNumberScreen() {
   const router = useRouter();
@@ -36,7 +36,7 @@ export default function EditPhoneNumberScreen() {
         <FloatingLabelInput
           label="Nomor Telepon" //
           value={phoneNumber}
-          onChangeText={(input) => setPhoneNumber(formatPhoneNumber(input))}
+          onChangeText={(input) => setPhoneNumber(phoneNumberFormatter(input))}
         />
 
         {/* Button Simpan */}

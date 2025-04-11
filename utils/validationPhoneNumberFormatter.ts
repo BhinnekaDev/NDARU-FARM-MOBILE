@@ -1,4 +1,4 @@
-export const formatPhoneNumber = (input: string): string => {
+export const phoneNumberFormatter = (input: string): string => {
   if (!input) return "";
 
   // Step 1: Bersihkan input, hanya izinkan angka dan '+'

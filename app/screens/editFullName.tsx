@@ -8,6 +8,9 @@ import FloatingLabelInput from "@/components/EditForm";
 import Button from "@/components/ButtonCustomProfile";
 import SectionTitle from "@/components/EditFormTitle";
 
+// OUR UTILS
+import { nameFormatter } from "@/utils/validationNameFormatter";
+
 export default function editFullNameScreen() {
   const isDarkMode = useColorScheme() === "dark";
   const router = useRouter();
@@ -29,7 +32,11 @@ export default function editFullNameScreen() {
       {/*Form*/}
       <View className="flex justify-center items-center ">
         {/* Form Nama Lengkap*/}
-        <FloatingLabelInput label="Nama Lengkap" value={fullName} onChangeText={setFullName} />
+        <FloatingLabelInput
+          label="Nama Lengkap" //
+          value={fullName}
+          onChangeText={(input) => setFullName(nameFormatter(input))}
+        />
 
         {/* Button Simpan*/}
         <Button
