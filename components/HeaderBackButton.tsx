@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Button from "@/components/ButtonCustomProfile";
 
 // OUR INTERFACES
-import { HeaderBackButtonProps } from "@/interfaces/HeaderBackButton";
+import { HeaderBackButtonProps } from "@/interfaces/HeaderBackButtonProps";
 
 export default function HeaderBackButton({
   title, //

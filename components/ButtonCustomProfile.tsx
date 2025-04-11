@@ -6,7 +6,7 @@ import { ButtonProps } from "@/interfaces/ButtonCustomProfileProps";
 const ButtonProfile = ({ children = "", classNameContainer = "", textClassName = "", onPress }: ButtonProps) => {
   return (
     /* Button Custom Profile Component */
-    <TouchableOpacity className={classNameContainer} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.7} className={classNameContainer} onPress={onPress}>
       <Text className={textClassName}>{children}</Text>
     </TouchableOpacity>
   );
