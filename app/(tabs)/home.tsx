@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { useColorScheme, View, Animated } from "react-native";
 // COMPONENTS
@@ -164,6 +165,15 @@ export default function Home() {
           ))}
         </View>
       </Animated.ScrollView>
+=======
+import { View, Text } from "react-native";
+import React from "react";
+
+export default function HomeTabs() {
+  return (
+    <View>
+      <Text>home</Text>
+>>>>>>> bhinnekadev24/bhi-47-pengembangan-halaman-profil-dengan-fitur-sunting-push
     </View>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+<<<<<<< HEAD
 import { Tabs } from "expo-router";
 import { useColorScheme } from "react-native";
 import { useLoadFont } from "@/hooks/Frontend/useLoadFonts";
@@ -14,13 +15,24 @@ export default function TabNavigator() {
   }
 
   const theme = colorScheme === "dark" ? tabsBarDarkTheme : tabsBarLightTheme;
+=======
+import { useColorScheme } from "react-native";
+import { Tabs } from "expo-router";
+
+export default function TabNavigator() {
+  const isDarkMode = useColorScheme() === "dark";
+>>>>>>> bhinnekadev24/bhi-47-pengembangan-halaman-profil-dengan-fitur-sunting-push
 
   return (
     <Tabs
       screenOptions={({ route }) => {
         let iconName: keyof typeof Ionicons.glyphMap;
+<<<<<<< HEAD
         let labelName: string =
           route.name.charAt(0).toUpperCase() + route.name.slice(1);
+=======
+        let labelName: string = route.name.charAt(0).toUpperCase() + route.name.slice(1);
+>>>>>>> bhinnekadev24/bhi-47-pengembangan-halaman-profil-dengan-fitur-sunting-push
 
         switch (route.name) {
           case "home":
@@ -45,6 +57,7 @@ export default function TabNavigator() {
 
         return {
           tabBarIcon: ({ color, size }) => (
+<<<<<<< HEAD
             <Ionicons name={iconName} size={size} color={color} />
           ),
           tabBarActiveTintColor: theme.iconActive,
@@ -53,12 +66,29 @@ export default function TabNavigator() {
           tabBarStyle: {
             backgroundColor: theme.background,
             height: 60,
+=======
+            <Ionicons
+              name={iconName} //
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarActiveTintColor: isDarkMode ? "white" : "black",
+          tabBarInactiveTintColor: "gray",
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: isDarkMode ? "black" : "white",
+            height: 70,
+>>>>>>> bhinnekadev24/bhi-47-pengembangan-halaman-profil-dengan-fitur-sunting-push
             borderTopWidth: 1,
           },
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: "600",
+<<<<<<< HEAD
             fontFamily: "LexSemiBold",
+=======
+>>>>>>> bhinnekadev24/bhi-47-pengembangan-halaman-profil-dengan-fitur-sunting-push
           },
           tabBarLabel: labelName,
         };

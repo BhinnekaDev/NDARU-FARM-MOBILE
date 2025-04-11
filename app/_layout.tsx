@@ -1,5 +1,6 @@
 import "@/global.css";
 import { Stack } from "expo-router";
+<<<<<<< HEAD
 import { useLoadFont } from "@/hooks/Frontend/useLoadFonts";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "react-native";
@@ -23,6 +24,14 @@ export default function RootLayout() {
         style={colorScheme === "dark" ? "light" : "dark"}
       />
 
+=======
+import { StatusBar } from "react-native";
+
+export default function RootLayout() {
+  return (
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="black" />
+>>>>>>> bhinnekadev24/bhi-47-pengembangan-halaman-profil-dengan-fitur-sunting-push
       <Stack screenOptions={{ headerShown: false }} />
     </>
   );
