@@ -36,37 +36,20 @@ export default function MyButton({
     return null;
   }
 
-  const IconComponent = Icons[
-    iconLibrary as keyof typeof Icons
-  ] as ComponentType<any>;
+  const IconComponent = Icons[iconLibrary as keyof typeof Icons] as ComponentType<any>;
 
   const myButtonColorBright1 = "#159778";
   const myButtonColorDark1 = "#333836";
   const myButtonColorBright2 = "#159778";
   const myButtonColorDark2 = "#156F32";
 
-  const selectedButtonColor =
-    buttonColorType === "type2"
-      ? theme === "dark"
-        ? myButtonColorDark2
-        : myButtonColorBright2
-      : theme === "dark"
-      ? myButtonColorDark1
-      : myButtonColorBright1;
+  const selectedButtonColor = buttonColorType === "type2" ? (theme === "dark" ? myButtonColorDark2 : myButtonColorBright2) : theme === "dark" ? myButtonColorDark1 : myButtonColorBright1;
 
   const defaultButtonColor = myButtonColor || selectedButtonColor;
 
-  const computedBorderColor =
-    borderColor === "auto"
-      ? theme === "dark"
-        ? "#FFF"
-        : "#000"
-      : borderColor !== undefined
-      ? borderColor
-      : "transparent";
+  const computedBorderColor = borderColor === "auto" ? (theme === "dark" ? "#FFF" : "#000") : borderColor !== undefined ? borderColor : "transparent";
 
-  const computedTextColor =
-    textColor !== undefined ? (theme === "dark" ? "#FFF" : "#000") : "#FFF";
+  const computedTextColor = textColor !== undefined ? (theme === "dark" ? "#FFF" : "#000") : "#FFF";
 
   const handlePressIn = () => {
     setIsPressed(true);
@@ -107,12 +90,7 @@ export default function MyButton({
           borderColor: computedBorderColor,
         }}
       >
-        {buttonType === "icon" &&
-          icon &&
-          iconPosition === "left" &&
-          IconComponent && (
-            <IconComponent name={icon} size={iconSize} color={iconColor} />
-          )}
+        {buttonType === "icon" && icon && iconPosition === "left" && IconComponent && <IconComponent name={icon} size={iconSize} color={iconColor} />}
 
         <Text
           style={{
@@ -124,17 +102,7 @@ export default function MyButton({
           {title}
         </Text>
 
-        {buttonType === "icon" &&
-          icon &&
-          iconPosition === "right" &&
-          IconComponent && (
-            <IconComponent
-              name={icon}
-              size={iconSize}
-              color={iconColor}
-              style={{ marginLeft: 8 }}
-            />
-          )}
+        {buttonType === "icon" && icon && iconPosition === "right" && IconComponent && <IconComponent name={icon} size={iconSize} color={iconColor} style={{ marginLeft: 8 }} />}
       </TouchableOpacity>
     </Animated.View>
   );

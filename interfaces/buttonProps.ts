@@ -1,7 +1,7 @@
 import * as Icons from "@expo/vector-icons";
 
 export interface buttonProps {
-  title: string;
+  title?: string;
   fontFamily?: string;
   myActiveOpacity?: number;
   myClassName?: string;
