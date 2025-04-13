@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react";
 import { Appearance } from "react-native";
 // CONSTANTS
-import {
-  splashLightTheme,
-  splashDarkTheme,
-  startLightTheme,
-  startDarkTheme,
-  selectLightTheme,
-  selectDarkTheme,
-  registerLoginLightTheme,
-  registerLoginDarkTheme,
-  identityLightTheme,
-  identityDarkTheme
-} from "@/constant/theme";
+import { splashLightTheme, splashDarkTheme, startLightTheme, startDarkTheme, selectLightTheme, selectDarkTheme, registerLoginLightTheme, registerLoginDarkTheme, identityLightTheme, identityDarkTheme } from "@/constant/theme";
 
 type ThemeType = {
   background?: string;
@@ -25,9 +14,9 @@ const themes = {
   splash: { light: splashLightTheme, dark: splashDarkTheme },
   start: { light: startLightTheme, dark: startDarkTheme },
   select: { light: selectLightTheme, dark: selectDarkTheme },
-  register: { light: registerLoginLightTheme, dark: registerLoginDarkTheme},
-  login: { light: registerLoginLightTheme, dark: registerLoginDarkTheme},
-  identity: { light: identityLightTheme, dark: identityDarkTheme},
+  register: { light: registerLoginLightTheme, dark: registerLoginDarkTheme },
+  login: { light: registerLoginLightTheme, dark: registerLoginDarkTheme },
+  identity: { light: identityLightTheme, dark: identityDarkTheme },
 };
 
 export function useThemeListener(screenType: keyof typeof themes) {
@@ -35,9 +24,7 @@ export function useThemeListener(screenType: keyof typeof themes) {
     return { ...themes[screenType][colorScheme], mode: colorScheme };
   };
 
-  const [theme, setTheme] = useState<ThemeType>(
-    getTheme(Appearance.getColorScheme() ?? "light")
-  );
+  const [theme, setTheme] = useState<ThemeType>(getTheme(Appearance.getColorScheme() ?? "light"));
 
   useEffect(() => {
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {

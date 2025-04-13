@@ -37,13 +37,9 @@ export default function useHomeInterpolate(colorScheme: string) {
 
   const headerBackgroundColor = scrollY.interpolate({
     inputRange: [140, 150],
-    outputRange: [
-      useColorScheme() === "dark" ? "rgba(19,21,20,0)" : "rgba(255,255,255,0)",
-      useColorScheme() === "dark" ? "#131514" : "white",
-    ],
+    outputRange: [useColorScheme() === "dark" ? "rgba(19,21,20,0)" : "rgba(255,255,255,0)", useColorScheme() === "dark" ? "#131514" : "white"],
     extrapolate: "clamp",
-  }); 
-  
+  });
 
   const headerBorderWidth = scrollY.interpolate({
     inputRange: [150, 160],
@@ -58,13 +54,14 @@ export default function useHomeInterpolate(colorScheme: string) {
   });
 
   const headerSearchOpacity = scrollY.interpolate({
-    inputRange: [0, 110, 125],
+    inputRange: [0, 145, 205],
     outputRange: [0, 0, 1],
     extrapolate: "clamp",
   });
 
   const headerCategoryOpacity = scrollY.interpolate({
-    inputRange: [0, 150, 170],
+    inputRange: [0, 205, 275],
+
     outputRange: [0, 0, 1],
     extrapolate: "clamp",
   });
