@@ -41,8 +41,8 @@ const EditProfile = () => {
         <UserProfile
           containerImageClassName="w-44 h-44 rounded-full  border-gray-500 flex items-center justify-center  overflow-hidden"
           imageClassName="w-full h-full"
-          nameClassName={isDarkMode ? "text-white font-extrabold text-xl  mt-4" : "text-black font-extrabold text-xl  mt-4"}
-          emailClassName={isDarkMode ? "text-white font-semibold text-lg underline" : "text-black font-semibold text-lg underline"}
+          nameClassName={isDarkMode ? "text-white  text-xl  mt-4" : "text-black  text-xl  mt-4"}
+          emailClassName={isDarkMode ? "text-white  text-lg underline" : "text-black  text-lg underline"}
         />
         <Button
           classNameContainer={`${isDarkMode ? "bg-[#333836]" : "bg-[#159778]"} absolute bottom-24 right-40  px-2 py-1 rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-lg`} //
@@ -140,6 +140,7 @@ const EditProfile = () => {
             <View className="py-2 space-y-3">
               <ButtonSwitchProfile
                 label="Pemberitahuan" //
+                textStyle={{ fontFamily: "LexSemiBold" }}
                 containerClassName="py-2"
                 value={isAnnouncementEnabled}
                 onToggle={setAnnouncementEnabled}
@@ -148,6 +149,7 @@ const EditProfile = () => {
               />
               <ButtonSwitchProfile
                 label="Email" //
+                textStyle={{ fontFamily: "LexSemiBold" }}
                 containerClassName="py-2"
                 value={isEmailEnabled}
                 onToggle={setEmailEnabled}
@@ -161,7 +163,7 @@ const EditProfile = () => {
       {/* KELUAR SUNTING PROFILE */}
       <View className="w-full px-6 mb-4">
         <EditProfiles
-          labelClassName={`${isDarkMode ? "text-[#9E0505]" : "text-[#9E0505]"} font-semibold text-lg`} //
+          labelClassName={`${isDarkMode ? "text-[#9E0505]" : "text-[#9E0505]"}  text-lg`} //
           label="Keluar"
           iconComponent={<MaterialIcons name="keyboard-arrow-right" size={24} color={isDarkMode ? "#FFFFFF" : "#000000"} />}
           isWrapperButton={true}

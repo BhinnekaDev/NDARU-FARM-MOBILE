@@ -7,8 +7,7 @@ import MySearch from "@/components/search";
 import MyButtonCategory from "@/components/buttonCategory";
 import MyCard from "@/components/card";
 import MyCart from "@/components/button";
-
-// HOOKS
+// HOOKSFE
 import useHomeInterpolate from "@/hooks/Frontend/homeScreen/useHomeInterpolate";
 import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
 
@@ -44,7 +43,6 @@ export default function Home() {
           borderBottomColor: "rgba(255,255,255,0.7)",
         }}
       >
-        {/* Baris Ndaru Farm + Keranjang */}
         <View
           style={{
             flexDirection: "row",
@@ -52,7 +50,7 @@ export default function Home() {
             justifyContent: "space-between",
           }}
         >
-          {/* Teks NDARU FARM */}
+          {/* Header Fixed Text */}
           <Animated.Text
             style={{
               fontSize: fontSizeAnim,
@@ -64,7 +62,6 @@ export default function Home() {
           >
             Ndaru Farm
           </Animated.Text>
-
           {/* Button Keranjang */}
           <Animated.View
             style={{
@@ -87,20 +84,20 @@ export default function Home() {
               <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>1</Text>
             </View>
           </Animated.View>
+
+          {/* Header Fixed Tombol Cari */}
+          <Animated.View
+            style={{
+              flex: 1,
+              marginLeft: 10,
+              opacity: headerSearchOpacity,
+            }}
+          >
+            <MySearch />
+          </Animated.View>
         </View>
 
-        {/* Input Cari */}
-        <Animated.View
-          style={{
-            flex: 1,
-            marginTop: 10,
-            opacity: headerSearchOpacity,
-          }}
-        >
-          <MySearch />
-        </Animated.View>
-
-        {/* Tombol Kategori */}
+        {/* Header Fixed Tombol Kategori */}
         <Animated.View
           style={{
             opacity: headerCategoryOpacity,
@@ -111,7 +108,7 @@ export default function Home() {
         </Animated.View>
       </Animated.View>
 
-      {/* ScrollView */}
+      {/* Header Konten */}
       <Animated.ScrollView
         contentContainerStyle={{
           paddingTop: 100,
@@ -120,9 +117,7 @@ export default function Home() {
         }}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-          useNativeDriver: false,
-        })}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
       >
         {/* Header Teks */}
         <View className="mb-5 flex-col justify-start w-full ">

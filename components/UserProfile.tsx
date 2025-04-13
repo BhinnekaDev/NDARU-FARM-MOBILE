@@ -22,10 +22,14 @@ const UserProfile = ({
       </View>
 
       {/* NAME */}
-      <Text className={nameClassName}>{name}</Text>
+      <Text className={nameClassName} style={{ fontFamily: "LexXBold" }}>
+        {name}
+      </Text>
 
       {/* EMAIL */}
-      <Text className={emailClassName}>{email}</Text>
+      <Text className={emailClassName} style={{ fontFamily: "LexMedium" }}>
+        {email}
+      </Text>
     </Fragment>
   );
 };

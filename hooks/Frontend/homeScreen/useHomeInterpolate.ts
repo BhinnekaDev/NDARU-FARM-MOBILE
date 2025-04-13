@@ -54,14 +54,13 @@ export default function useHomeInterpolate(colorScheme: string) {
   });
 
   const headerSearchOpacity = scrollY.interpolate({
-    inputRange: [0, 145, 205],
+    inputRange: [0, 110, 125],
     outputRange: [0, 0, 1],
     extrapolate: "clamp",
   });
 
   const headerCategoryOpacity = scrollY.interpolate({
-    inputRange: [0, 205, 275],
-
+    inputRange: [0, 150, 170],
     outputRange: [0, 0, 1],
     extrapolate: "clamp",
   });

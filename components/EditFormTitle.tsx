@@ -5,7 +5,9 @@ const SectionTitle = ({ title }: { title: string }) => {
   return (
     // JUDUL FORM
     <View className="py-6 w-96">
-      <Text className={` ${isDarkMode ? "text-white" : "text-black"} text-lg font-semibold mb-4 opacity-50`}>{title}</Text>
+      <Text className={` ${isDarkMode ? "text-white" : "text-black"} text-lg  mb-4 opacity-50`} style={{ fontFamily: "LexXBold" }}>
+        {title}
+      </Text>
     </View>
   );
 };

@@ -34,6 +34,7 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
       {/* Animated Label */}
       <Animated.Text
         style={{
+          fontFamily: "LexSemiBold",
           position: "absolute",
           left: 0,
           fontSize: animatedLabel.interpolate({
@@ -45,7 +46,6 @@ const AnimateForm = ({ label, value, onChangeText }: AnimateFormProps) => {
             outputRange: [5, -15],
           }),
           color: isFocused ? (isDarkMode ? "white" : "black") : "gray", // Warna menyesuaikan mode
-          fontWeight: "bold",
         }}
       >
         {label}

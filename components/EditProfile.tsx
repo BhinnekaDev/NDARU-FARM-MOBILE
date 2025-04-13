@@ -25,10 +25,14 @@ const EditProfile = ({
       className="flex-row items-center justify-between py-2"
     >
       {/* LABEL */}
-      <Text className={`${labelClassName || (isDarkMode ? "text-white" : "text-black")} font-semibold text-lg`}>{label}</Text>
+      <Text className={`${labelClassName || (isDarkMode ? "text-white" : "text-black")}  text-lg`} style={{ fontFamily: "LexSemiBold" }}>
+        {label}
+      </Text>
       <View className="flex-row items-center space-x-2">
         {/* TEXT */}
-        <Text className={`${isDarkMode ? "text-white" : "text-black"} opacity-50 font-semibold text-lg pr-4`}>{text}</Text>
+        <Text className={`${isDarkMode ? "text-white" : "text-black"} opacity-50  text-lg pr-4`} style={{ fontFamily: "LexSemiBold" }}>
+          {text}
+        </Text>
 
         {/* BUTTON SUNTING PROFILE*/}
         <ButtonProfile

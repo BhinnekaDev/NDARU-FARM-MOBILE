@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
+import { TextStyle } from "react-native";
 
 export interface ButtonSwitchProfileProps {
   iconComponent?: ReactNode;
-
   label: string;
   value?: boolean;
   onToggle?: (newValue: boolean) => void;
@@ -13,4 +13,5 @@ export interface ButtonSwitchProfileProps {
   backgroundButtonOn?: string;
   backgroundCircleButtonOn?: string;
   backgroundCircleButtonOff?: string;
+  textStyle?: TextStyle;
 }

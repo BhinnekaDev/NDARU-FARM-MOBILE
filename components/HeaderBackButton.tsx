@@ -21,14 +21,16 @@ export default function HeaderBackButton({
       {/* HEADER BUTTON KEMBALI */}
       <Button
         classNameContainer="px-3 py-2 rounded-lg" //
-        textClassName="text-white font-semibold"
+        textClassName="text-white "
         onPress={onPress}
       >
         {icon ?? defaultIcon} {/* Gunakan ikon yang diberikan atau default */}
       </Button>
 
       {/* TITLE HEADER BACK */}
-      <Text className={`${isDarkMode ? "text-white" : "text-black"} font-extrabold ml-2 text-2xl`}>{title}</Text>
+      <Text className={`${isDarkMode ? "text-white" : "text-black"}  ml-2 text-2xl`} style={{ fontFamily: "LexXBold" }}>
+        {title}
+      </Text>
     </View>
   );
 }

@@ -37,7 +37,8 @@ const TabBar = ({
         <ButtonBar
           key={index} //
           classNameContainer="flex-1 justify-center items-center"
-          textClassName={`font-bold text-lg ${activeTab === index ? (isDarkMode ? "text-white" : "text-black") : "text-gray-600"}`}
+          textClassName={` text-lg ${activeTab === index ? (isDarkMode ? "text-white" : "text-black") : "text-gray-600"}`}
+          textStyle={{ fontFamily: "LexXBold" }}
           onPress={() => handleTabPress(index)}
         >
           {title}
