@@ -28,7 +28,6 @@ const MyCard: React.FC<MyCardProps> = ({
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
 
-  // Handle Click Detail Produk
   const onDetail = () => {
     const routes = {
       vegetable: "/screens/vegetableDetailScreen",
@@ -49,34 +48,57 @@ const MyCard: React.FC<MyCardProps> = ({
     router.push(path as any);
   };
 
+  const getCardBackgroundColor = () => {
+    const bgColors: Record<string, string> = {
+      vegetable: "#093731",
+      news: "#3D081C",
+      service: "#071758",
+      facility: "#074558",
+    };
+
+    return bgColors[detailType ?? "facility"];
+  };
+
+  const getBgImageColor = () => {
+    const bgColors: Record<string, string> = {
+      vegetable: "#159778",
+      news: "#5A0B29",
+      service: "#1C2D6F",
+      facility: "#248EAE",
+    };
+
+    return bgColors[detailType ?? "vegetable"];
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onDetail}>
       <View
-        className={`p-4 w-full rounded-3xl shadow-md ${
-          isDarkMode ? "bg-[#84BCA1]" : "bg-[#093731]"
-        }`}
+        className="p-4 w-full rounded-3xl shadow-md"
+        style={{ backgroundColor: getCardBackgroundColor() }}
       >
         <View className="flex-row items-center">
-          {/* Tombol Love Favorite */}
-          <TouchableOpacity
-            onPress={() => setIsFavorited(!isFavorited)}
-            className="w-10 flex items-center justify-center absolute top-0"
-            activeOpacity={0.3}
-          >
-            <Ionicons
-              name={isFavorited ? "heart" : "heart-outline"}
-              size={23}
-              color={isFavorited ? "#FF3B30" : "#888"}
-              className="bg-white rounded-full p-1"
-            />
-          </TouchableOpacity>
+          {/* Tombol Love Favorite*/}
+          {detailType !== "news" && (
+            <TouchableOpacity
+              onPress={() => setIsFavorited(!isFavorited)}
+              className="w-10 flex items-center justify-center absolute top-0"
+              activeOpacity={0.3}
+            >
+              <Ionicons
+                name={isFavorited ? "heart" : "heart-outline"}
+                size={23}
+                color={isFavorited ? "#FF3B30" : "#888"}
+                className="bg-white rounded-full p-1"
+              />
+            </TouchableOpacity>
+          )}
 
           {/* Gambar Produk */}
           <View className="w-2/5 flex-row items-center h-full justify-center">
             <View
               className={`w-[95px] h-[95px] absolute rounded-lg ${bgImageStyle} `}
               style={{
-                backgroundColor: isDarkMode ? "#B9E7D1" : "#159778",
+                backgroundColor: getBgImageColor(),
                 transform: [{ rotate: "-20deg" }],
               }}
             />
@@ -137,7 +159,7 @@ const MyCard: React.FC<MyCardProps> = ({
               fontFamily="LexSemiBold"
               myClassName="rounded-3xl py-1.5"
               myTouchStyle="gap-4"
-              myButtonColor={isDarkMode ? "#333836" : "transparent"}
+              myButtonColor={getBgImageColor()}
               onPress={onPress}
             />
           </View>
