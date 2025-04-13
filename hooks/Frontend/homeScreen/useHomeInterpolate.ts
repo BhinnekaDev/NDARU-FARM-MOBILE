@@ -37,13 +37,9 @@ export default function useHomeInterpolate(colorScheme: string) {
 
   const headerBackgroundColor = scrollY.interpolate({
     inputRange: [140, 150],
-    outputRange: [
-      useColorScheme() === "dark" ? "rgba(19,21,20,0)" : "rgba(255,255,255,0)",
-      useColorScheme() === "dark" ? "#131514" : "white",
-    ],
+    outputRange: [useColorScheme() === "dark" ? "rgba(19,21,20,0)" : "rgba(255,255,255,0)", useColorScheme() === "dark" ? "#131514" : "white"],
     extrapolate: "clamp",
-  }); 
-  
+  });
 
   const headerBorderWidth = scrollY.interpolate({
     inputRange: [150, 160],

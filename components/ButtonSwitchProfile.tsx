@@ -5,19 +5,21 @@ import { View, Text, Switch, useColorScheme } from "react-native";
 import { ButtonSwitchProfileProps } from "@/interfaces/ButtonSwitchProfileProps";
 
 const ButtonSwitchProfile = ({
-    iconComponent,
-    label,
-    value,
-    onToggle,
-    containerClassName = "",
-    labelClassName = "",
-    dividerClassName = "",
-    backgroundCircleButtonOn = "",
-    backgroundButtonOn = "",
-    backgroundCircleButtonOff = "",
-    backgroundButtonOff = "",
+  iconComponent,
+  label,
+  value,
+  onToggle,
+  containerClassName = "",
+  labelClassName = "",
+  dividerClassName = "",
+  backgroundCircleButtonOn = "",
+  backgroundButtonOn = "",
+  backgroundCircleButtonOff = "",
+  backgroundButtonOff = "",
+  textStyle,
 }: ButtonSwitchProfileProps) => {
-    const isDarkMode = useColorScheme() === "dark";
+  const isDarkMode = useColorScheme() === "dark";
+
 
     return (
         <View className={containerClassName}>
@@ -36,30 +38,24 @@ const ButtonSwitchProfile = ({
                     </Text>
                 </View>
 
-                {/* BUTTON SWITCH */}
-                <Switch
-                    trackColor={{
-                        false: isDarkMode ? "#000" : "#fff",
-                        true: backgroundButtonOn || "#00822F",
-                    }}
-                    thumbColor={
-                        value
-                            ? backgroundCircleButtonOn || "#FFFFFF"
-                            : backgroundCircleButtonOff || "#f4f3f4"
-                    }
-                    ios_backgroundColor={
-                        backgroundButtonOff || isDarkMode ? "#000000" : "white"
-                    }
-                    style={[{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }]}
-                    value={value}
-                    onValueChange={onToggle}
-                />
-            </View>
+        {/* BUTTON SWITCH */}
+        <Switch
+          trackColor={{
+            false: isDarkMode ? "#000" : "#fff",
+            true: backgroundButtonOn || "#00822F",
+          }}
+          thumbColor={value ? backgroundCircleButtonOn || "#FFFFFF" : backgroundCircleButtonOff || "#f4f3f4"}
+          ios_backgroundColor={backgroundButtonOff || isDarkMode ? "#000000" : "white"}
+          style={[{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }]}
+          value={value}
+          onValueChange={onToggle}
+        />
+      </View>
 
-            {/* BORDER BOTTOM */}
-            <View className={dividerClassName} />
-        </View>
-    );
+      {/* BORDER BOTTOM */}
+      <View className={dividerClassName} />
+    </View>
+  );
 };
 
 export default ButtonSwitchProfile;

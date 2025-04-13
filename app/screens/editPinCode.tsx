@@ -42,7 +42,8 @@ export default function editPinCodeScreen() {
         {/* Button Simpan*/}
         <Button
           classNameContainer={`${isDarkMode ? "bg-[#333836]" : "bg-[#159778]"} mt-4  px-6 py-2 rounded-lg items-center w-96`}
-          textClassName="text-white font-semibold text-lg" //
+          textClassName="text-white  text-lg" //
+          textStyle={{ fontFamily: "LexBold" }}
         >
           Simpan
         </Button>

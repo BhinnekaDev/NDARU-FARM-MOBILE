@@ -8,21 +8,7 @@ import MyButton from "@/components/button";
 // INTERFACES
 import { MyCardProps } from "@/interfaces/cardProps";
 
-const MyCard: React.FC<MyCardProps> = ({
-  image,
-  bgImageStyle,
-  imageStyle,
-  name,
-  description,
-  price,
-  quantity,
-  date,
-  detailType,
-  id,
-  onPress,
-  buttonType = "default",
-  buttonTitle,
-}) => {
+const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, description, price, quantity, date, detailType, id, onPress, buttonType = "default", buttonTitle }) => {
   const router = useRouter();
   const [isFavorited, setIsFavorited] = useState(false);
   const colorScheme = useColorScheme();
@@ -36,9 +22,7 @@ const MyCard: React.FC<MyCardProps> = ({
       facility: "/screens/facilityDetailScreen",
     } as const;
 
-    const path = detailType
-      ? routes[detailType as keyof typeof routes]
-      : undefined;
+    const path = detailType ? routes[detailType as keyof typeof routes] : undefined;
 
     if (!path) {
       console.error("Unknown detailType:", detailType);
@@ -93,6 +77,7 @@ const MyCard: React.FC<MyCardProps> = ({
             </TouchableOpacity>
           )}
 
+
           {/* Gambar Produk */}
           <View className="w-2/5 flex-row items-center h-full justify-center">
             <View
@@ -102,11 +87,7 @@ const MyCard: React.FC<MyCardProps> = ({
                 transform: [{ rotate: "-20deg" }],
               }}
             />
-            <Image
-              source={image}
-              className={`w-24 h-24 rounded-xl ${imageStyle} `}
-              resizeMode="cover"
-            />
+            <Image source={image} className={`w-24 h-24 rounded-xl ${imageStyle} `} resizeMode="cover" />
           </View>
 
           <View className="flex-1 h-full">
@@ -116,15 +97,8 @@ const MyCard: React.FC<MyCardProps> = ({
             </MyText>
 
             {/* Teks Deskripsi Produk */}
-            <MyText
-              fontSize={15}
-              fontFamily="LexMedium"
-              color="white"
-              textstyle="ml-4"
-            >
-              {description.length > 17
-                ? description.slice(0, 17) + " ..."
-                : description}
+            <MyText fontSize={15} fontFamily="LexMedium" color="white" textstyle="ml-4">
+              {description.length > 17 ? description.slice(0, 17) + " ..." : description}
             </MyText>
             {/* Teks Harga atau Tanggal Produk */}
             {price ? (
@@ -137,12 +111,7 @@ const MyCard: React.FC<MyCardProps> = ({
                 </MyText>
               </View>
             ) : date ? (
-              <MyText
-                fontSize={20}
-                fontFamily="LexBlack"
-                color="white"
-                textstyle="text-center my-5"
-              >
+              <MyText fontSize={20} fontFamily="LexBlack" color="white" textstyle="text-center my-5">
                 {date}
               </MyText>
             ) : null}

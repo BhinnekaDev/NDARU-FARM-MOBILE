@@ -1,12 +1,6 @@
 import { useState, useRef } from "react";
 import { useRouter } from "expo-router";
-import {
-  View,
-  Text,
-  useColorScheme,
-  Animated,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, useColorScheme, Animated, TouchableOpacity } from "react-native";
 // COMPONENTS
 import MyButtonBack from "@/components/buttonBack";
 import MyDetailImageProduct from "@/components/detailImageProduct";
@@ -27,8 +21,7 @@ function vegetableDetailScreen() {
   const colorScheme = useColorScheme() ?? "light";
   const textColor = colorScheme === "dark" ? "#FFFFFF80" : "#00000080";
   const textColor2 = colorScheme === "dark" ? "#FFFFFF" : "#000000";
-  const floatingBackgroundColor =
-    colorScheme === "dark" ? "#156F32" : "#159778";
+  const floatingBackgroundColor = colorScheme === "dark" ? "#156F32" : "#159778";
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const basePrice = 5000;
   const totalPrice = basePrice * selectedQuantity;
@@ -79,8 +72,7 @@ function vegetableDetailScreen() {
           myColor="white"
           myClassName="p-2 rounded-full"
           style={{
-            backgroundColor:
-              useColorScheme() === "dark" ? "#131514" : "#00000090",
+            backgroundColor: useColorScheme() === "dark" ? "#131514" : "#00000090",
           }}
         />
       </Animated.View>
@@ -100,14 +92,7 @@ function vegetableDetailScreen() {
         }}
       >
         {/* Fixed Tombol Kembali */}
-        <MyButtonBack
-          mySize={30}
-          myActiveOpacity={0.5}
-          onPress={() => router.back()}
-          myColor="white"
-          myClassName="p-2 rounded-full"
-          iconStyle={{ color: useColorScheme() === "dark" ? "white" : "black" }}
-        />
+        <MyButtonBack mySize={30} myActiveOpacity={0.5} onPress={() => router.back()} myColor="white" myClassName="p-2 rounded-full" iconStyle={{ color: useColorScheme() === "dark" ? "white" : "black" }} />
         <View
           style={{
             flex: 1,
@@ -139,17 +124,7 @@ function vegetableDetailScreen() {
               transform: [{ translateY: textRatingStatsTranslateY }],
             }}
           >
-            <MyTextProductStats
-              rating="4.9"
-              reviews="2.5K"
-              sales="1.5K"
-              iconSize={15}
-              ratingFontSize={14}
-              reviewsFontSize={14}
-              salesFontSize={14}
-              paddingTop={0}
-              paddingBottom={0}
-            />
+            <MyTextProductStats rating="4.9" reviews="2.5K" sales="1.5K" iconSize={15} ratingFontSize={14} reviewsFontSize={14} salesFontSize={14} paddingTop={0} paddingBottom={0} />
           </Animated.View>
         </View>
       </Animated.View>
@@ -163,19 +138,10 @@ function vegetableDetailScreen() {
           paddingHorizontal: 20,
         }}
         scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
       >
         {/* Tombol Kembali ke halaman sebelumnya */}
-        <MyButtonBack
-          myClassName="absolute top-20 left-5 z-10 p-2"
-          mySize={30}
-          myActiveOpacity={0.5}
-          onPress={() => router.back()}
-          myColor="white"
-        />
+        <MyButtonBack myClassName="absolute top-20 left-5 z-10 p-2" mySize={30} myActiveOpacity={0.5} onPress={() => router.back()} myColor="white" />
 
         {/* Detail Gambar Produk */}
         <MyDetailImageProduct productImageType="vegetable" />
@@ -211,32 +177,13 @@ function vegetableDetailScreen() {
         </Text>
 
         {/* Tombol Set Kuantitas */}
-        <MyButtonQuantityProduct
-          selectedQuantity={selectedQuantity}
-          onSelectQuantity={setSelectedQuantity}
-        />
+        <MyButtonQuantityProduct selectedQuantity={selectedQuantity} onSelectQuantity={setSelectedQuantity} />
 
         {/* Tombol Beli Produk */}
-        <MyButton
-          title="Beli Sekarang"
-          myActiveOpacity={0.8}
-          myClassName="p-4 rounded-xl my-4"
-          myTextStyle="text-xl"
-          fontFamily="LexBold"
-        />
+        <MyButton title="Beli Sekarang" myActiveOpacity={0.8} myClassName="p-4 rounded-xl my-4" myTextStyle="text-xl" fontFamily="LexBold" />
 
         {/* Tombol Masukan Ke Keranjang */}
-        <MyButton
-          title="Masukan Ke Keranjang"
-          myActiveOpacity={0.6}
-          myTouchStyle="p-4 rounded-md"
-          myTextStyle="text-xl"
-          myButtonColor="transparent"
-          fontFamily="LexBold"
-          borderColor="auto"
-          borderWidth={2}
-          textColor="auto"
-        />
+        <MyButton title="Masukan Ke Keranjang" myActiveOpacity={0.6} myTouchStyle="p-4 rounded-md" myTextStyle="text-xl" myButtonColor="transparent" fontFamily="LexBold" borderColor="auto" borderWidth={2} textColor="auto" />
 
         {/* Judul Teks Deskripsi */}
         <Text
@@ -281,15 +228,8 @@ function vegetableDetailScreen() {
             }}
           >
             {/* Icon */}
-            <Animated.View
-              style={{ transform: [{ translateX: translateXIcon }] }}
-            >
-              <AntDesign
-                name="message1"
-                size={30}
-                color="white"
-                style={{ transform: [{ scaleX: -1 }] }}
-              />
+            <Animated.View style={{ transform: [{ translateX: translateXIcon }] }}>
+              <AntDesign name="message1" size={30} color="white" style={{ transform: [{ scaleX: -1 }] }} />
             </Animated.View>
             {/* Teks */}
             {isTextVisible && (
@@ -331,15 +271,8 @@ function vegetableDetailScreen() {
             opacity: bottomBarIconLeftOpacity,
           }}
         >
-          <TouchableOpacity
-            className="border border-white p-2 rounded-lg"
-            activeOpacity={0.4}
-          >
-            <Ionicons
-              name="chatbox-ellipses-outline"
-              color={"white"}
-              size={24}
-            />
+          <TouchableOpacity className="border border-white p-2 rounded-lg" activeOpacity={0.4}>
+            <Ionicons name="chatbox-ellipses-outline" color={"white"} size={24} />
           </TouchableOpacity>
         </Animated.View>
         {/* Tombol Keranjang */}
