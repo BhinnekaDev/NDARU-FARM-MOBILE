@@ -20,16 +20,23 @@ const ButtonSwitchProfile = ({
 }: ButtonSwitchProfileProps) => {
   const isDarkMode = useColorScheme() === "dark";
 
-  return (
-    <View className={containerClassName}>
-      <View className="flex-row justify-between items-center">
-        {/* ICON & LABEL */}
-        <View className="flex-row items-center">
-          {iconComponent}
-          <Text className={`${labelClassName || (isDarkMode ? "text-white " : "text-black ")}  text-lg ml-4`} style={textStyle}>
-            {label}
-          </Text>
-        </View>
+
+    return (
+        <View className={containerClassName}>
+            <View className="flex-row justify-between items-center">
+                {/* ICON & LABEL */}
+                <View className="flex-row items-center">
+                    {iconComponent}
+                    <Text
+                        style={{ fontFamily: "LexBold" }}
+                        className={`${
+                            labelClassName ||
+                            (isDarkMode ? "text-white" : "text-black")
+                        }  text-lg ml-4`}
+                    >
+                        {label}
+                    </Text>
+                </View>
 
         {/* BUTTON SWITCH */}
         <Switch
