@@ -26,11 +26,10 @@ const ButtonSwitchProfile = ({
                 <View className="flex-row items-center">
                     {iconComponent}
                     <Text
+                        style={{ fontFamily: "LexBold" }}
                         className={`${
                             labelClassName ||
-                            (isDarkMode
-                                ? "text-white font-semibold"
-                                : "text-black font-semibold")
+                            (isDarkMode ? "text-white" : "text-black")
                         }  text-lg ml-4`}
                     >
                         {label}
