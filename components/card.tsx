@@ -28,7 +28,6 @@ const MyCard: React.FC<MyCardProps> = ({
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
 
-  // Handle Click Detail Produk
   const onDetail = () => {
     const routes = {
       vegetable: "/screens/vegetableDetailScreen",
