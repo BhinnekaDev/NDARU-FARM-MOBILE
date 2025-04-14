@@ -35,8 +35,7 @@ const products: MyCardProps[] = [
     id: "4",
     image: require("@/assets/images/sarana.png"),
     name: "Fungisida Tebukonazol",
-    description:
-      "Gabungan fungisida methoxyacrylate trifloxystrobin dan triazole tebuconazole.",
+    description: "Gabungan fungisida methoxyacrylate trifloxystrobin dan triazole tebuconazole.",
     price: "Rp75.000",
     quantity: "1PCS",
     detailType: "facility",
@@ -44,10 +43,7 @@ const products: MyCardProps[] = [
   },
 ];
 
-const categoryMap: Record<
-  string,
-  "vegetable" | "news" | "facility" | "service" | undefined
-> = {
+const categoryMap: Record<string, "vegetable" | "news" | "facility" | "service" | undefined> = {
   Sayuran: "vegetable",
   Jasa: "service",
   Berita: "news",
@@ -57,11 +53,7 @@ const categoryMap: Record<
 export default function useProducts() {
   const [selectedCategory, setSelectedCategory] = useState("Semua");
 
-  const filteredProducts = products.filter(
-    (item: MyCardProps) =>
-      selectedCategory === "Semua" ||
-      item.detailType === categoryMap[selectedCategory]
-  );
+  const filteredProducts = products.filter((item: MyCardProps) => selectedCategory === "Semua" || item.detailType === categoryMap[selectedCategory]);
 
   return {
     selectedCategory,

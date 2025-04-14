@@ -1,4 +1,5 @@
 import * as Icons from "@expo/vector-icons";
+import { TextStyle } from "react-native";
 
 export interface buttonProps {
   title?: string;
@@ -19,4 +20,5 @@ export interface buttonProps {
   borderColor?: string;
   textColor?: string;
   buttonColorType?: string;
+  buttonDisabled?: boolean;
 }
