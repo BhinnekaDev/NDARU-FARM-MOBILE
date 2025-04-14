@@ -45,7 +45,7 @@ export default function Home() {
       >
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: "row", //
             alignItems: "center",
             justifyContent: "space-between",
           }}
