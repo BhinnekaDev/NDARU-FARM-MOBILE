@@ -12,5 +12,5 @@ export interface MyCardProps {
   detailType?: "vegetable" | "service" | "news" | "facility";
   buttonType?: string;
   buttonTitle?: string;
-  buttonDisabled?: boolean;
+  isDisabled?: boolean;
 }

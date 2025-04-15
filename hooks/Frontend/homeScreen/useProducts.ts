@@ -52,12 +52,27 @@ const categoryMap: Record<string, "vegetable" | "news" | "facility" | "service" 
 
 export default function useProducts() {
   const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [refreshing, setRefreshing] = useState(false); // Tambahkan state refreshing
 
   const filteredProducts = products.filter((item: MyCardProps) => selectedCategory === "Semua" || item.detailType === categoryMap[selectedCategory]);
+
+  // Fungsi untuk melakukan refresh data produk (mengembalikan Promise)
+  const refreshProducts = (): Promise<void> => {
+    return new Promise((resolve) => {
+      setRefreshing(true);
+      // Kamu bisa menambahkan logika untuk mengambil data dari API atau memanipulasi data di sini
+      setTimeout(() => {
+        setRefreshing(false); // Selesai refresh
+        resolve(); // Menyelesaikan Promise
+      }, 1500); // Simulasi loading selama 1.5 detik
+    });
+  };
 
   return {
     selectedCategory,
     setSelectedCategory,
     filteredProducts,
+    refreshProducts, // Return fungsi refreshProducts
+    refreshing, // Return state refreshing
   };
 }

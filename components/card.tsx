@@ -21,8 +21,7 @@ const MyCard = ({
   id,
   onPress,
   buttonType = "default",
-  buttonTitle,
-  buttonDisabled,
+  isDisabled,
 }: MyCardProps) => {
   const router = useRouter();
   const [isFavorited, setIsFavorited] = useState(false);
@@ -128,10 +127,11 @@ const MyCard = ({
               iconColor="white"
               iconPosition="left"
               fontFamily="LexSemiBold"
-              myClassName={`rounded-3xl py-1.5 ${buttonDisabled ? "opacity-50" : "opacity-100"}`}
+              myClassName="rounded-3xl py-1.5"
               myTouchStyle="gap-4"
               myButtonColor={getBgImageColor()}
               onPress={detailType === "news" ? onDetail : onPress}
+              disabled={isDisabled}
             />
           </View>
         </View>
