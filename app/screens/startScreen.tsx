@@ -75,7 +75,15 @@ export default function StartScreen({ onExit }: StartScreenProps) {
           className="w-full p-3 mt-12"
         >
           {/* Tombol ke halaman Select Screen dengan Animasi Out */}
-          <MyButton fontFamily="LexBold" title="Mulai" myActiveOpacity={1} myClassName="p-3 rounded-xl" myTextStyle="text-lg" onPress={() => anim.handleOutAnimation(onExit)} />
+          <MyButton
+            fontFamily="LexBold" //
+            title="Mulai"
+            myActiveOpacity={1}
+            myClassName="p-3 rounded-xl"
+            myTextStyle="text-lg"
+            // onPress={() => anim.handleOutAnimation(onExit)}
+            onPress={() => router.push("/screens/cartDetailsScreen")}
+          />
         </Animated.View>
       </View>
     </View>

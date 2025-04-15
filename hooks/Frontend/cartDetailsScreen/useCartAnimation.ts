@@ -1,8 +1,10 @@
+// KERANJANG
+
 import { useColorScheme } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Animated } from "react-native";
 
-export const useVegetableAnimations = (scrollY: Animated.Value) => {
+export const useCartAnimations = (scrollY: Animated.Value) => {
   const colorScheme = useColorScheme() ?? "light";
   const [isTextVisible, setIsTextVisible] = useState(false);
 
@@ -55,31 +57,31 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
   });
 
   const bottomBarIconLeftOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [120, 120],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBarIconRightOpacity = scrollY.interpolate({
-    inputRange: [630, 660],
+    inputRange: [120, 120],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
   const bottomButtonBarOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [120, 120],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBarTranslateY = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [0, 50],
     outputRange: [30, 0],
     extrapolate: "clamp",
   });
 
   const bottomBarOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [0, 50],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
