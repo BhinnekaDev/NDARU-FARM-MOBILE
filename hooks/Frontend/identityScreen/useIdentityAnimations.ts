@@ -39,7 +39,7 @@ export default function useIdentityAnimations() {
 
       Animated.parallel([
         Animated.timing(farmerTranslateY, {
-          toValue: 0,
+          toValue: 20,
           delay: 1000,
           duration: 800,
           easing: Easing.out(Easing.ease),
