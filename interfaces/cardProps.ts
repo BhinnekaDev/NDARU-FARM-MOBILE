@@ -13,4 +13,6 @@ export interface MyCardProps {
   buttonType?: string;
   buttonTitle?: string;
   isDisabled?: boolean;
+  rating?: number;
+  onDelete?: () => void;
 }

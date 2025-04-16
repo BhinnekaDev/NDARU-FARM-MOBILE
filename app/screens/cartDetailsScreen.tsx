@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "expo-router";
-import { View, Text, useColorScheme, Animated, TouchableOpacity } from "react-native";
+import { View, Text, useColorScheme, Animated, TouchableOpacity, FlatList, Image } from "react-native";
 // COMPONENTS
 import MyButtonBack from "@/components/buttonBack";
 import MyDetailImageProduct from "@/components/detailImageProduct";
@@ -10,22 +10,33 @@ import MyButtonQuantityProduct from "@/components/buttonQuantityProduct";
 import MyButton from "@/components/button";
 import MyTextDescription from "@/components/textDescriptionProduct";
 import MyTextComment from "@/components/textComment";
+import MyCartDetails from "@/components/cartDetails";
+
 // ICONS
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 // HOOKS
 import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
+import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
+import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
 
-function vegetableDetailScreen() {
+function cartleDetailScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme() ?? "light";
   const textColor = colorScheme === "dark" ? "#FFFFFF80" : "#00000080";
   const textColor2 = colorScheme === "dark" ? "#FFFFFF" : "#000000";
   const floatingBackgroundColor = colorScheme === "dark" ? "#156F32" : "#159778";
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const { selectedCategory, setSelectedCategory, filteredProducts, refreshProducts } = useProducts();
+  const { cartItems, cartCount, handleDeleteFromCart } = useCart();
   const basePrice = 5000;
   const totalPrice = basePrice * selectedQuantity;
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    console.log("Cart items in CartDetailsScreen:", cartItems); // Verifikasi cartItems
+    console.log("Cart count in CartDetailsScreen:", cartCount); // Verifikasi cartCount
+  }, [cartItems, cartCount]);
 
   const {
     backgroundColor,
@@ -55,6 +66,7 @@ function vegetableDetailScreen() {
         backgroundColor: colorScheme === "dark" ? "#131514" : "white",
       }}
     >
+      {/* PEMBUNGKUS BUTTON KEMBALI - KEDUA*/}
       <Animated.View
         style={{
           position: "absolute",
@@ -76,6 +88,8 @@ function vegetableDetailScreen() {
           }}
         />
       </Animated.View>
+
+      {/* PEMBUNGKUS BUTTON KEMBALI - KETIGA */}
       <Animated.View
         style={{
           position: "absolute",
@@ -91,62 +105,35 @@ function vegetableDetailScreen() {
           opacity: buttonBackOpacity,
         }}
       >
-        {/* Fixed Tombol Kembali */}
+        {/* TOMBOL BUTTON KEMBALI - KETIGA*/}
         <MyButtonBack
-          mySize={30} //
+          mySize={30}
+          customIcon={<Ionicons name="chevron-back" size={24} color={colorScheme === "dark" ? "#FFFFFF" : "#000000"} />}
           myActiveOpacity={0.5}
           onPress={() => router.back()}
           myColor="white"
           myClassName="p-2 rounded-full"
-          iconStyle={{ color: useColorScheme() === "dark" ? "white" : "black" }}
-        />
-        <View
-          style={{
-            flex: 1,
-            marginLeft: 12,
-            paddingVertical: 10,
-            flexDirection: "column",
-            alignItems: "flex-start",
+          iconStyle={{
+            color: useColorScheme() === "dark" ? "white" : "black",
           }}
-        >
-          {/* Fixed Header Bar Teks */}
-          <Animated.Text
+        />
+
+        {/* JUDUL KERANJANG - KETIGA*/}
+        <View className="flex-1  justify-center items-center  mr-10">
+          <Animated.View
             style={{
-              flex: 1,
-              fontFamily: "LexBold",
-              fontSize: 20,
-              color: textColor2,
               opacity: textHeaderOpacity,
               transform: [{ translateY: textHeaderTranslateY }],
             }}
           >
-            Seladaaaaaaa
-          </Animated.Text>
-
-          {/* Fixed Header Bar Teks Status Produk */}
-          <Animated.View
-            style={{
-              flex: 1,
-              opacity: textRatingStatsOpacity,
-              transform: [{ translateY: textRatingStatsTranslateY }],
-            }}
-          >
-            <MyTextProductStats
-              rating="4.9" //
-              reviews="2.5K"
-              sales="1.5K"
-              iconSize={15}
-              ratingFontSize={14}
-              reviewsFontSize={14}
-              salesFontSize={14}
-              paddingTop={0}
-              paddingBottom={0}
-            />
+            <MyText fontFamily="LexBold" fontSize={20} textstyle="uppercase text-center">
+              KERANJANG
+            </MyText>
           </Animated.View>
         </View>
       </Animated.View>
 
-      {/* Body Konten Di Scroll */}
+      {/*SCROLL DAN PEMBUNGKUS BUTTON KEMBALI DAN ISI KERANJANG - PERTAMA */}
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -157,6 +144,7 @@ function vegetableDetailScreen() {
         scrollEventThrottle={16}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
       >
+        {/* PEMBUNGKUS TOMBOL KEMBALI - PERTAMA */}
         <View
           style={{
             flexDirection: "row",
@@ -166,8 +154,9 @@ function vegetableDetailScreen() {
             marginBottom: 30,
           }}
         >
-          {/* Tombol Kembali */}
+          {/* TOMBOL BUTTON KEMBALI - KETIGA*/}
           <MyButtonBack
+            customIcon={<Ionicons name="chevron-back" size={24} color={colorScheme === "dark" ? "#FFFFFF" : "#000000"} />}
             mySize={30}
             myActiveOpacity={0.5}
             onPress={() => router.push("/(tabs)/home")}
@@ -179,109 +168,53 @@ function vegetableDetailScreen() {
             }}
           />
 
-          {/* Teks Tengah */}
+          {/* JUDUL KERANJANG - KETIGA*/}
           <MyText fontFamily="LexBold" fontSize={20} textstyle="uppercase">
-            HALO GUYS
+            KERANJANG
           </MyText>
         </View>
 
-        {/* Detail Gambar Produk */}
-        <MyDetailImageProduct productImageType="vegetable" />
-
-        {/* Detail Rating Produk */}
-        <MyTextProductStats rating="4.9" reviews="2.5K" sales="1.5K" />
-
-        {/* Detail Harga Produk */}
-        <View className="flex-row gap-2">
-          {/* Teks Harga */}
-          <MyText fontFamily="LexBold" fontSize={20} textstyle="uppercase">
-            harga
-          </MyText>
-          <MyText fontFamily="LexBold" fontSize={20}>
-            Rp{totalPrice.toLocaleString("id-ID")}
-          </MyText>
+        {/* Body Card Konten */}
+        <View className="w-full gap-8">
+          {cartItems.map((item) => (
+            <MyCartDetails
+              key={item.id} //
+              image={item.image}
+              name={item.name}
+              description={item.description}
+              price={item.price}
+              rating={item.rating}
+              quantity={item.quantity}
+              date={item.date}
+              detailType={item.detailType}
+              onDelete={() => handleDeleteFromCart(item.id ?? "")}
+            />
+          ))}
         </View>
-        {/* Teks Kuantitas */}
-        <Text
-          style={{
-            fontFamily: "LexBold",
-            color: textColor,
-            fontSize: 16,
-            paddingVertical: 5,
-          }}
-        >
-          Kuantitas:
-        </Text>
 
-        {/* Tombol Set Kuantitas */}
-        <MyButtonQuantityProduct selectedQuantity={selectedQuantity} onSelectQuantity={setSelectedQuantity} />
+        {/* <View className="w-full gap-8 flex-1 my-20">
+          <Text className="text-xl font-semibold">Keranjang Anda</Text>
+          <Text className="text-lg">Total Pesanan: {cartCount} item</Text>
 
-        {/* Tombol Beli Produk */}
-        <MyButton
-          title="Beli Sekarang" //
-          myActiveOpacity={0.8}
-          myClassName="p-4 rounded-xl my-4"
-          myTextStyle="text-xl"
-          fontFamily="LexBold"
-        />
+          <FlatList
+            data={cartItems}
+            keyExtractor={(item) => item.id ?? ""}
+            renderItem={({ item }) => (
+              <View className="border-b py-4">
+                <Text className="font-bold">{item.name}</Text>
+                <Text>{item.description}</Text>
+                <Text className="text-green-500">Price: {item.price}</Text>
+                <Text className="text-gray-500">Quantity: {item.quantity}</Text>
+                <Image source={item.image} style={{ width: 100, height: 100 }} />
 
-        {/* Tombol Masukan Ke Keranjang */}
-        <MyButton
-          title="Masukan Ke Keranjang" //
-          myActiveOpacity={0.6}
-          myTouchStyle="p-4 rounded-md"
-          myTextStyle="text-xl"
-          myButtonColor="transparent"
-          fontFamily="LexBold"
-          borderColor="auto"
-          borderWidth={2}
-          textColor="auto"
-        />
-      </Animated.ScrollView>
-
-      {/* Tombol Kontak Penjual Mengambang */}
-      <Animated.View
-        style={{
-          position: "absolute",
-          bottom: 35,
-          right: 35,
-          zIndex: 10,
-          opacity: bottomBarIconRightOpacity,
-        }}
-      >
-        <TouchableOpacity activeOpacity={0.4}>
-          <Animated.View
-            style={{
-              backgroundColor: floatingBackgroundColor,
-              paddingVertical: 12,
-              borderRadius: 50,
-              flexDirection: "row",
-              alignItems: "center",
-              width: buttonWidth,
-              overflow: "hidden",
-              paddingHorizontal: 15,
-              gap: 10,
-            }}
-          >
-            {/* Icon */}
-            <Animated.View style={{ transform: [{ translateX: translateXIcon }] }}>
-              <AntDesign name="message1" size={30} color="white" style={{ transform: [{ scaleX: -1 }] }} />
-            </Animated.View>
-            {/* Teks */}
-            {isTextVisible && (
-              <Animated.Text
-                style={{
-                  opacity: textOpacity,
-                  color: "white",
-                  fontFamily: "LexBold",
-                }}
-              >
-                Kontak Penjual
-              </Animated.Text>
+                <TouchableOpacity onPress={() => handleDeleteFromCart(item.id ?? "There's No ID ")}>
+                  <Text className="text-red-500">Hapus</Text>
+                </TouchableOpacity>
+              </View>
             )}
-          </Animated.View>
-        </TouchableOpacity>
-      </Animated.View>
+          />
+        </View> */}
+      </Animated.ScrollView>
 
       {/* Bottom Bar */}
       <Animated.View
@@ -338,4 +271,4 @@ function vegetableDetailScreen() {
   );
 }
 
-export default vegetableDetailScreen;
+export default cartleDetailScreen;

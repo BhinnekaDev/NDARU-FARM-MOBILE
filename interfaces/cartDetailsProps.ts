@@ -7,4 +7,5 @@ export interface CartItem {
   quantity?: string;
   date?: string;
   detailType?: "vegetable" | "service" | "news" | "facility";
+  rating?: number;
 }

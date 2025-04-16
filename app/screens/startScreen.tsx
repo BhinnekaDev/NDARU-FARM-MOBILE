@@ -82,7 +82,7 @@ export default function StartScreen({ onExit }: StartScreenProps) {
             myClassName="p-3 rounded-xl"
             myTextStyle="text-lg"
             // onPress={() => anim.handleOutAnimation(onExit)}
-            onPress={() => router.push("/screens/cartDetailsScreen")}
+            onPress={() => router.push("/(tabs)/home")}
           />
         </Animated.View>
       </View>
