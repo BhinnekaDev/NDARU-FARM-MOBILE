@@ -4,4 +4,5 @@ export interface MyTextProps {
   fontSize?: number;
   color?: string;
   textstyle?: string;
+  style?: any;
 }
