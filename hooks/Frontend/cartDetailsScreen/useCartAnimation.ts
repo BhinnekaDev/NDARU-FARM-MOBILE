@@ -10,13 +10,14 @@ export function useCartAnimations(scrollYParam?: Animated.Value) {
   const [isTextVisible, setIsTextVisible] = useState(false);
 
   const slideLeftAnim = useRef(new Animated.Value(0)).current;
-  const animateLeft = (toValue: number, duration: number = 300) => {
+  const animateLeft = (toValue: number, duration: number = 1000) => {
     Animated.timing(slideLeftAnim, {
       toValue,
       duration,
       useNativeDriver: true,
     }).start();
   };
+
   const buttonBackOpacity = scrollY.interpolate({
     inputRange: [380, 400],
     outputRange: [0, 1],

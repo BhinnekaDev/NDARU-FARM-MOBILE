@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// OUR INTERFACES
 import { CartItem } from "@/interfaces/cartDetailsProps";
 
 export default function useCart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartCount, setCartCount] = useState(0);
-  const [refreshing, setRefreshing] = useState(false); // untuk state loading refresh
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchCartData = async () => {
     const storedCart = await AsyncStorage.getItem("cartItems");
