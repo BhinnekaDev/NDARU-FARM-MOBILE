@@ -5,19 +5,32 @@ import MyText from "@/components/text";
 // INTERFACES
 import { MyButtonCategoryProps } from "@/interfaces/buttonCategoryProps";
 
-const categories = ["Semua", "Sayuran", "Jasa", "Berita", "Sarana Pertanian"];
+const defaultCategories = [
+  "Semua",
+  "Sayuran",
+  "Jasa",
+  "Berita",
+  "Sarana Pertanian",
+];
 
 const MyButtonCategory: React.FC<MyButtonCategoryProps> = ({
   selectedCategory,
   onSelectCategory,
+  hideCategories = [],
+  ScrollStyle,
 }) => {
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
   const scrollRef = useRef<ScrollView>(null);
+
+  const filteredCategories = defaultCategories.filter(
+    (category) => !hideCategories.includes(category)
+  );
+
   const buttonRefs = useRef<
     React.RefObject<React.ElementRef<typeof TouchableOpacity>>[]
   >(
-    categories.map(() =>
+    filteredCategories.map(() =>
       React.createRef<React.ElementRef<typeof TouchableOpacity>>()
     )
   );
@@ -38,9 +51,9 @@ const MyButtonCategory: React.FC<MyButtonCategoryProps> = ({
       ref={scrollRef}
       horizontal
       showsHorizontalScrollIndicator={false}
-      className="flex-row"
+      className={`flex-row ${ScrollStyle || ""}`}
     >
-      {categories.map((category, index) => {
+      {filteredCategories.map((category, index) => {
         const isSelected = selectedCategory === category;
 
         return (
