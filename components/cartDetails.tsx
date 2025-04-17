@@ -2,9 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "expo-router";
 import { View, Image, TouchableOpacity, useColorScheme, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 // COMPONENTS
 import MyText from "@/components/text";
 import MyButton from "@/components/button";
+
+// OUR HOOKS
+import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
 // INTERFACES
 import { MyCardProps } from "@/interfaces/cardProps";
 
@@ -26,14 +30,12 @@ const CartDetails = ({
   onDelete,
 }: MyCardProps) => {
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
   const [currentQuantity, setCurrentQuantity] = useState(quantity || 1);
   const [currentPrice, setCurrentPrice] = useState(price ? parseInt(price.replace("Rp", "").replace(".", "")) : 0);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
-  const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === "dark";
-
-  // Animated values
-  const slideLeftAnim = useRef(new Animated.Value(0)).current;
+  const { slideLeftAnim, animateLeft } = useCartAnimations();
 
   const onDetail = () => {
     const routes = {
@@ -75,8 +77,8 @@ const CartDetails = ({
     return bgColors[detailType ?? "vegetable"];
   };
 
-  // Fungsi untuk mengurangi jumlah produk
   const decreaseQuantity = () => {
+    // Ensure currentQuantity is treated as a number
     const currentQuantityNumber = typeof currentQuantity === "number" ? currentQuantity : parseInt(currentQuantity, 10);
 
     if (currentQuantityNumber > 0) {
@@ -85,60 +87,46 @@ const CartDetails = ({
       setCurrentPrice(currentPrice - numericPrice);
     }
 
-    // Jika quantity mencapai 0, tampilkan tombol delete dan animasi pergeseran
-    if (currentQuantity === 1) {
+    if (currentQuantityNumber - 1 === 0) {
       setShowDeleteButton(true);
-      Animated.timing(slideLeftAnim, {
-        toValue: -100, // Bergeser ke kiri
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+      animateLeft(-65);
+      alert("Item berhasil dihapus.");
+    } else {
+      setShowDeleteButton(false);
+      animateLeft(0);
     }
   };
 
-  // Fungsi untuk menambah jumlah produk
   const increaseQuantity = () => {
+    // Ensure currentQuantity is treated as a number
     const currentQuantityNumber = typeof currentQuantity === "number" ? currentQuantity : parseInt(currentQuantity, 10);
     const numericPrice = price ? parseInt(price.replace("Rp", "").replace(".", ""), 10) : 0;
     setCurrentQuantity(currentQuantityNumber + 1);
     setCurrentPrice(currentPrice + numericPrice);
 
-    // Sembunyikan tombol delete saat quantity lebih dari 0 dan animasi kembali ke posisi semula
     setShowDeleteButton(false);
-    Animated.timing(slideLeftAnim, {
-      toValue: 0, // Kembali ke posisi awal
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+    animateLeft(0);
   };
 
-  useEffect(() => {
-    if (currentQuantity === 0) {
-      setShowDeleteButton(true); // Menampilkan tombol delete jika quantity = 0
-      Animated.timing(slideLeftAnim, {
-        toValue: -100, // Bergeser ke kiri
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setShowDeleteButton(false); // Menyembunyikan tombol delete jika quantity > 0
-      Animated.timing(slideLeftAnim, {
-        toValue: 0, // Kembali ke posisi awal
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [currentQuantity]);
+  // useEffect(() => {
+  //   if (currentQuantity === 0) {
+  //     setShowDeleteButton(true);
+  //     animateLeft(-65);
+  //   } else {
+  //     setShowDeleteButton(true);
+  //     animateLeft(0);
+  //   }
+  // }, [currentQuantity]);
 
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onDetail}>
       {/* Tombol Hapus */}
       {showDeleteButton && onDelete && (
-        <View className="absolute h-full  w-16 flex items-center justify-center right-0 bg-purple-400">
-          <TouchableOpacity onPress={onDelete} style={{ padding: 10 }}>
-            <Ionicons name="trash-outline" size={32} color="white" />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={onDelete} className="absolute h-full pl-5  w-24 flex items-center justify-center right-0 bg-[#C40E0E] rounded-tr-[15px] rounded-br-[15px]">
+          <View style={{ padding: 10 }}>
+            <FontAwesome5 name="trash" size={32} color="white" />
+          </View>
+        </TouchableOpacity>
       )}
 
       {/* Animated View for Cart */}
@@ -162,11 +150,11 @@ const CartDetails = ({
 
         {/* Info Produk */}
         <View className="flex-1">
-          <MyText fontSize={16} fontFamily="LexBlack" color="white">
+          <MyText fontSize={16} fontFamily="LexBold" color="white">
             {name}
           </MyText>
 
-          <MyText fontSize={13} fontFamily="LexMedium" color="gray" textstyle="mt-1">
+          <MyText fontSize={13} fontFamily="LexBold" color="gray" textstyle="mt-1">
             {description}
           </MyText>
 
@@ -174,7 +162,7 @@ const CartDetails = ({
             <Ionicons name="star" size={14} color="white" />
             <MyText fontSize={13} fontFamily="LexMedium" color="white" textstyle="ml-1">
               {rating}{" "}
-              <MyText fontSize={11} fontFamily="LexLight" color="gray">
+              <MyText fontSize={11} fontFamily="LexBold" color="gray">
                 (10K/Penilaian)
               </MyText>
             </MyText>
@@ -184,24 +172,24 @@ const CartDetails = ({
             <MyText fontSize={15} fontFamily="LexBlack" color="white">
               Rp{currentPrice.toLocaleString()}
             </MyText>
-            <MyText fontSize={12} fontFamily="LexLight" color="gray" textstyle="ml-1">
+            <MyText fontSize={12} fontFamily="LexSemiBold" color="gray" textstyle="ml-1">
               x{currentQuantity}
             </MyText>
           </View>
         </View>
 
         {/* Tombol Tambah & Kurang */}
-        <View className="items-center">
-          <TouchableOpacity onPress={increaseQuantity} className="w-[32px] h-[32px] rounded-md bg-white items-center justify-center">
-            <Ionicons name="add" size={20} color="black" />
+        <View className="items-center p-2 border-white border rounded-lg">
+          <TouchableOpacity onPress={increaseQuantity} className="w-[32px] h-[32px] rounded-md  items-center justify-center">
+            <FontAwesome5 name="plus" size={24} color="white" solid />
           </TouchableOpacity>
 
           <MyText fontSize={16} fontFamily="LexBold" color="white" textstyle="my-1">
             {currentQuantity}
           </MyText>
 
-          <TouchableOpacity onPress={decreaseQuantity} className="w-[32px] h-[32px] rounded-md bg-white items-center justify-center">
-            <Ionicons name="remove" size={20} color="black" />
+          <TouchableOpacity onPress={decreaseQuantity} className="w-[32px] h-[32px] rounded-md  items-center justify-center">
+            <FontAwesome5 name="minus" size={24} color="white" solid />
           </TouchableOpacity>
         </View>
       </Animated.View>

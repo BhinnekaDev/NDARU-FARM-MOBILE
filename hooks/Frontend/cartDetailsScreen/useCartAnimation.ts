@@ -4,10 +4,19 @@ import { useColorScheme } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Animated } from "react-native";
 
-export const useCartAnimations = (scrollY: Animated.Value) => {
+export function useCartAnimations(scrollYParam?: Animated.Value) {
+  const scrollY = scrollYParam ?? useRef(new Animated.Value(0)).current;
   const colorScheme = useColorScheme() ?? "light";
   const [isTextVisible, setIsTextVisible] = useState(false);
 
+  const slideLeftAnim = useRef(new Animated.Value(0)).current;
+  const animateLeft = (toValue: number, duration: number = 300) => {
+    Animated.timing(slideLeftAnim, {
+      toValue,
+      duration,
+      useNativeDriver: true,
+    }).start();
+  };
   const buttonBackOpacity = scrollY.interpolate({
     inputRange: [380, 400],
     outputRange: [0, 1],
@@ -183,5 +192,7 @@ export const useCartAnimations = (scrollY: Animated.Value) => {
     fadeOutOpacity,
     isTextVisible,
     startExitAnimation,
+    slideLeftAnim,
+    animateLeft,
   };
-};
+}

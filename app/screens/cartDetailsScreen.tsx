@@ -163,7 +163,7 @@ function cartleDetailScreen() {
             myColor="black"
             myClassName="p-2"
             style={{
-              position: "absolute", // Tetap absolute biar nggak ganggu teks tengah
+              position: "absolute",
               left: 0,
             }}
           />
@@ -191,29 +191,6 @@ function cartleDetailScreen() {
             />
           ))}
         </View>
-
-        {/* <View className="w-full gap-8 flex-1 my-20">
-          <Text className="text-xl font-semibold">Keranjang Anda</Text>
-          <Text className="text-lg">Total Pesanan: {cartCount} item</Text>
-
-          <FlatList
-            data={cartItems}
-            keyExtractor={(item) => item.id ?? ""}
-            renderItem={({ item }) => (
-              <View className="border-b py-4">
-                <Text className="font-bold">{item.name}</Text>
-                <Text>{item.description}</Text>
-                <Text className="text-green-500">Price: {item.price}</Text>
-                <Text className="text-gray-500">Quantity: {item.quantity}</Text>
-                <Image source={item.image} style={{ width: 100, height: 100 }} />
-
-                <TouchableOpacity onPress={() => handleDeleteFromCart(item.id ?? "There's No ID ")}>
-                  <Text className="text-red-500">Hapus</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          />
-        </View> */}
       </Animated.ScrollView>
 
       {/* Bottom Bar */}
