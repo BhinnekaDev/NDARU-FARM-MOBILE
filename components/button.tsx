@@ -26,6 +26,7 @@ export default function MyButton({
   borderWidth,
   textColor,
   buttonColorType = "type1",
+  disabled = false,
 }: buttonProps) {
   const fontLoaded = useLoadFont();
   const theme = useColorScheme();
@@ -77,6 +78,7 @@ export default function MyButton({
           inputRange: [0, 1],
           outputRange: [defaultButtonColor, "#161E1B"],
         }),
+        opacity: disabled ? 0.5 : 1,
       }}
     >
       <TouchableOpacity
@@ -89,6 +91,7 @@ export default function MyButton({
           borderWidth: borderWidth || 0,
           borderColor: computedBorderColor,
         }}
+        disabled={disabled}
       >
         {buttonType === "icon" && icon && iconPosition === "left" && IconComponent && <IconComponent name={icon} size={iconSize} color={iconColor} />}
 

@@ -19,4 +19,6 @@ export interface buttonProps {
   borderColor?: string;
   textColor?: string;
   buttonColorType?: string;
+  buttonDisabled?: boolean;
+  disabled?: boolean;
 }

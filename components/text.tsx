@@ -5,13 +5,7 @@ import { MyTextProps } from "@/interfaces/textProps";
 // HOOKS
 import { useLoadFont } from "@/hooks/Frontend/useLoadFonts";
 
-const MyText: React.FC<MyTextProps> = ({
-  children,
-  fontFamily = "LexBold",
-  fontSize = 14,
-  color,
-  textstyle,
-}) => {
+const MyText = ({ children, fontFamily = "LexBold", fontSize = 14, color, textstyle }: MyTextProps) => {
   const fontLoaded = useLoadFont();
   const colorScheme = useColorScheme();
 
@@ -22,10 +16,7 @@ const MyText: React.FC<MyTextProps> = ({
   const textColor = color || (colorScheme === "dark" ? "white" : "black");
 
   return (
-    <RNText
-      style={[{ fontFamily, fontSize, color: textColor }]}
-      className={textstyle}
-    >
+    <RNText style={[{ fontFamily, fontSize, color: textColor }]} className={textstyle}>
       {children}
     </RNText>
   );

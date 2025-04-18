@@ -14,16 +14,7 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
   const router = useRouter();
   const theme = useThemeListener("login");
 
-  const {
-    buttonBackTranslateX,
-    buttonBackOpacity,
-    translateXAnim,
-    translateYAnim,
-    farmerTranslateY,
-    farmerOpacity,
-    itemOpacity,
-    buttonOpacity,
-  } = useRegisterLoginAnimations(false);
+  const { buttonBackTranslateX, buttonBackOpacity, translateXAnim, translateYAnim, farmerTranslateY, farmerOpacity, itemOpacity, buttonOpacity } = useRegisterLoginAnimations(false);
 
   return (
     <View className="flex-1" style={{ backgroundColor: theme.background }}>
@@ -35,12 +26,7 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
         }}
         className="absolute top-12 left-5 z-10"
       >
-        <MyButtonBack
-          myActiveOpacity={0.5}
-          myClassName="p-4"
-          mySize={30}
-          onPress={onBack}
-        />
+        <MyButtonBack myActiveOpacity={0.5} myClassName="p-4" mySize={30} onPress={onBack} />
       </Animated.View>
 
       <View className="w-full h-1/2 absolute">
@@ -50,10 +36,7 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
           style={{
             width: "200%",
             height: "160%",
-            transform: [
-              { translateX: translateXAnim },
-              { translateY: translateYAnim },
-            ],
+            transform: [{ translateX: translateXAnim }, { translateY: translateYAnim }],
           }}
           resizeMode="cover"
         />
@@ -75,25 +58,9 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
         {/* Input */}
         <Animated.View className="gap-7" style={{ opacity: itemOpacity }}>
           {/* Input Nomor Telepon */}
-          <MyInput
-            type="number"
-            icon="phone"
-            iconLibrary="MaterialCommunityIcons"
-            iconSize={30}
-            placeholder="Nomor Telepon"
-            placeholderFont="LexSemiBold"
-            inputFontSize={20}
-          />
+          <MyInput type="number" icon="phone" iconLibrary="MaterialCommunityIcons" iconSize={30} placeholder="Nomor Telepon" placeholderFont="LexSemiBold" inputFontSize={20} />
           {/* Input Kata Sandi */}
-          <MyInput
-            type="password"
-            icon="lock"
-            iconLibrary="Entypo"
-            iconSize={30}
-            placeholder="Kata Sandi"
-            placeholderFont="LexSemiBold"
-            inputFontSize={20}
-          />
+          <MyInput type="password" icon="lock" iconLibrary="Entypo" iconSize={30} placeholder="Kata Sandi" placeholderFont="LexSemiBold" inputFontSize={20} />
 
           {/* Tombol untuk Login */}
           <Animated.View
@@ -102,32 +69,15 @@ export default function LoginScreen({ onBack }: LoginScreenProps) {
             }}
             className="w-full mt-8"
           >
-            <MyButton
-              fontFamily="LexBold"
-              title="Masuk"
-              myActiveOpacity={0.9}
-              myClassName="w-full rounded-xl py-3"
-              myTextStyle="text-xl"
-            />
+            <MyButton fontFamily="LexBold" title="Masuk" myActiveOpacity={0.9} myClassName="w-full rounded-xl py-3" myTextStyle="text-xl" />
           </Animated.View>
         </Animated.View>
 
         {/* HR Pembatas */}
-        <Animated.View
-          style={{ opacity: itemOpacity }}
-          className="flex-row justify-center items-center mx-28 my-4"
-        >
-          <View
-            className="h-px w-full"
-            style={{ backgroundColor: theme.text }}
-          />
-          <Text style={{ fontFamily: "LexSemiBold", color: theme.text }}>
-            Atau
-          </Text>
-          <View
-            className="h-px w-full"
-            style={{ backgroundColor: theme.text }}
-          />
+        <Animated.View style={{ opacity: itemOpacity }} className="flex-row justify-center items-center mx-28 my-4">
+          <View className="h-px w-full" style={{ backgroundColor: theme.text }} />
+          <Text style={{ fontFamily: "LexSemiBold", color: theme.text }}>Atau</Text>
+          <View className="h-px w-full" style={{ backgroundColor: theme.text }} />
         </Animated.View>
 
         {/* Tombol untuk Masuk dengan Google */}

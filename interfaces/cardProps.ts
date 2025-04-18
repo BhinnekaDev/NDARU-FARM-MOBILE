@@ -4,7 +4,7 @@ export interface MyCardProps {
   imageStyle?: string;
   name: string;
   description: string;
-  price?: string;
+  price?: number;
   quantity?: string;
   date?: string;
   onPress?: () => void;
@@ -12,4 +12,7 @@ export interface MyCardProps {
   detailType?: "vegetable" | "service" | "news" | "facility";
   buttonType?: string;
   buttonTitle?: string;
+  isDisabled?: boolean;
+  rating?: number;
+  onDelete?: () => void;
 }

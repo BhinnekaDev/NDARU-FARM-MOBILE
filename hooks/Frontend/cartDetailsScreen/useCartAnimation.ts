@@ -1,10 +1,22 @@
+// KERANJANG
+
 import { useColorScheme } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Animated } from "react-native";
 
-export const useVegetableAnimations = (scrollY: Animated.Value) => {
+export function useCartAnimations(scrollYParam?: Animated.Value) {
+  const scrollY = scrollYParam ?? useRef(new Animated.Value(0)).current;
   const colorScheme = useColorScheme() ?? "light";
   const [isTextVisible, setIsTextVisible] = useState(false);
+
+  const slideLeftAnim = useRef(new Animated.Value(0)).current;
+  const animateLeft = (toValue: number, duration: number = 1000) => {
+    Animated.timing(slideLeftAnim, {
+      toValue,
+      duration,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const buttonBackOpacity = scrollY.interpolate({
     inputRange: [380, 400],
@@ -55,31 +67,31 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
   });
 
   const bottomBarIconLeftOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [120, 120],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBarIconRightOpacity = scrollY.interpolate({
-    inputRange: [630, 660],
+    inputRange: [120, 120],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
   const bottomButtonBarOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [120, 120],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBarTranslateY = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [0, 50],
     outputRange: [30, 0],
     extrapolate: "clamp",
   });
 
   const bottomBarOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [0, 50],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
@@ -181,5 +193,7 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
     fadeOutOpacity,
     isTextVisible,
     startExitAnimation,
+    slideLeftAnim,
+    animateLeft,
   };
-};
+}

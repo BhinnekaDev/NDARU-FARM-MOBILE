@@ -92,7 +92,14 @@ function vegetableDetailScreen() {
         }}
       >
         {/* Fixed Tombol Kembali */}
-        <MyButtonBack mySize={30} myActiveOpacity={0.5} onPress={() => router.back()} myColor="white" myClassName="p-2 rounded-full" iconStyle={{ color: useColorScheme() === "dark" ? "white" : "black" }} />
+        <MyButtonBack
+          mySize={30} //
+          myActiveOpacity={0.5}
+          onPress={() => router.back()}
+          myColor="white"
+          myClassName="p-2 rounded-full"
+          iconStyle={{ color: useColorScheme() === "dark" ? "white" : "black" }}
+        />
         <View
           style={{
             flex: 1,
