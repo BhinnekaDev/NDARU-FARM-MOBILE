@@ -1,72 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "expo-router";
-import { View, Text, useColorScheme, Animated, TouchableOpacity, FlatList, Image } from "react-native";
+import { View, Animated, useColorScheme } from "react-native";
+
 // COMPONENTS
 import MyButtonBack from "@/components/buttonBack";
-import MyDetailImageProduct from "@/components/detailImageProduct";
 import MyText from "@/components/text";
-import MyTextProductStats from "@/components/textProductStats";
-import MyButtonQuantityProduct from "@/components/buttonQuantityProduct";
 import MyButton from "@/components/button";
-import MyTextDescription from "@/components/textDescriptionProduct";
-import MyTextComment from "@/components/textComment";
 import MyCartDetails from "@/components/cartDetails";
 
 // ICONS
 import Ionicons from "@expo/vector-icons/Ionicons";
-import AntDesign from "@expo/vector-icons/AntDesign";
+
 // HOOKS
 import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
-import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
 import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
+import { useQuantity } from "@/hooks/Frontend/cartDetailsScreen/useQuantity";
 
 function cartleDetailScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme() ?? "light";
-  const textColor = colorScheme === "dark" ? "#FFFFFF80" : "#00000080";
-  const textColor2 = colorScheme === "dark" ? "#FFFFFF" : "#000000";
-  const floatingBackgroundColor = colorScheme === "dark" ? "#156F32" : "#159778";
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const { selectedCategory, setSelectedCategory, filteredProducts, refreshProducts } = useProducts();
+  const isDarkMode = useColorScheme() === "dark";
   const { cartItems, cartCount, handleDeleteFromCart } = useCart();
-  const basePrice = 5000;
-  const totalPrice = basePrice * selectedQuantity;
   const scrollY = useRef(new Animated.Value(0)).current;
+  const totalHarga = cartItems.reduce((total, item) => total + (item.price ?? 0) * parseInt(item.quantity ?? "0"), 0);
 
   useEffect(() => {
-    console.log("Cart items in CartDetailsScreen:", cartItems); // Verifikasi cartItems
-    console.log("Cart count in CartDetailsScreen:", cartCount); // Verifikasi cartCount
+    console.log("Cart items in CartDetailsScreen:", cartItems);
+    console.log("Cart count in CartDetailsScreen:", cartCount);
   }, [cartItems, cartCount]);
 
   const {
-    backgroundColor,
+    backgroundColor, //
     buttonBackOpacity,
     buttonBackOpacityFirst,
     buttonBackTranslateYFirst,
     textHeaderOpacity,
     textHeaderTranslateY,
-    textRatingStatsOpacity,
-    textRatingStatsTranslateY,
-    bottomBarIconRightOpacity,
-    buttonWidth,
-    translateXIcon,
-    textOpacity,
     bottomBackgroundColor,
     bottomBarOpacity,
     bottomBarTranslateY,
-    bottomBarIconLeftOpacity,
     bottomButtonBarOpacity,
-    isTextVisible,
   } = useCartAnimations(scrollY);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colorScheme === "dark" ? "#131514" : "white",
-      }}
-    >
-      {/* PEMBUNGKUS BUTTON KEMBALI - KEDUA*/}
+    <View style={{ flex: 1, backgroundColor: isDarkMode ? "#131514" : "white" }}>
+      {/* BUTTON KEMBALI - KEDUA */}
       <Animated.View
         style={{
           position: "absolute",
@@ -84,12 +61,12 @@ function cartleDetailScreen() {
           myColor="white"
           myClassName="p-2 rounded-full"
           style={{
-            backgroundColor: useColorScheme() === "dark" ? "#131514" : "#00000090",
+            backgroundColor: isDarkMode ? "#131514" : "#00000090",
           }}
         />
       </Animated.View>
 
-      {/* PEMBUNGKUS BUTTON KEMBALI - KETIGA */}
+      {/* BUTTON KEMBALI - KETIGA */}
       <Animated.View
         style={{
           position: "absolute",
@@ -105,21 +82,17 @@ function cartleDetailScreen() {
           opacity: buttonBackOpacity,
         }}
       >
-        {/* TOMBOL BUTTON KEMBALI - KETIGA*/}
         <MyButtonBack
           mySize={30}
-          customIcon={<Ionicons name="chevron-back" size={24} color={colorScheme === "dark" ? "#FFFFFF" : "#000000"} />}
+          customIcon={<Ionicons name="chevron-back" size={24} color={isDarkMode ? "#FFFFFF" : "#000000"} />}
           myActiveOpacity={0.5}
           onPress={() => router.back()}
           myColor="white"
           myClassName="p-2 rounded-full"
-          iconStyle={{
-            color: useColorScheme() === "dark" ? "white" : "black",
-          }}
+          iconStyle={{ color: isDarkMode ? "white" : "black" }}
         />
 
-        {/* JUDUL KERANJANG - KETIGA*/}
-        <View className="flex-1  justify-center items-center  mr-10">
+        <View className="flex-1 justify-center items-center mr-10">
           <Animated.View
             style={{
               opacity: textHeaderOpacity,
@@ -133,52 +106,44 @@ function cartleDetailScreen() {
         </View>
       </Animated.View>
 
-      {/*SCROLL DAN PEMBUNGKUS BUTTON KEMBALI DAN ISI KERANJANG - PERTAMA */}
+      {/* ISI KERANJANG */}
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingTop: 50,
-          paddingBottom: 80,
-          paddingHorizontal: 20,
-        }}
+        contentContainerStyle={{ paddingTop: 50, paddingBottom: 80, paddingHorizontal: 20 }}
         scrollEventThrottle={16}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+          useNativeDriver: false,
+        })}
       >
-        {/* PEMBUNGKUS TOMBOL KEMBALI - PERTAMA */}
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: 60, // Atur jarak dari atas
+            marginTop: 60,
             marginBottom: 30,
           }}
         >
-          {/* TOMBOL BUTTON KEMBALI - KETIGA*/}
           <MyButtonBack
-            customIcon={<Ionicons name="chevron-back" size={24} color={colorScheme === "dark" ? "#FFFFFF" : "#000000"} />}
+            customIcon={<Ionicons name="chevron-back" size={24} color={isDarkMode ? "#FFFFFF" : "#000000"} />}
             mySize={30}
             myActiveOpacity={0.5}
             onPress={() => router.push("/(tabs)/home")}
             myColor="black"
             myClassName="p-2"
-            style={{
-              position: "absolute",
-              left: 0,
-            }}
+            style={{ position: "absolute", left: 0 }}
           />
 
-          {/* JUDUL KERANJANG - KETIGA*/}
           <MyText fontFamily="LexBold" fontSize={20} textstyle="uppercase">
             KERANJANG
           </MyText>
         </View>
 
-        {/* Body Card Konten */}
-        <View className="w-full gap-8">
+        <View className="w-full gap-6">
           {cartItems.map((item) => (
             <MyCartDetails
-              key={item.id} //
+              key={item.id} // wajib ada key prop
+              id={item.id}
               image={item.image}
               name={item.name}
               description={item.description}
@@ -193,7 +158,7 @@ function cartleDetailScreen() {
         </View>
       </Animated.ScrollView>
 
-      {/* Bottom Bar */}
+      {/* BOTTOM BAR */}
       <Animated.View
         style={{
           position: "absolute",
@@ -201,47 +166,29 @@ function cartleDetailScreen() {
           left: 0,
           right: 0,
           zIndex: 10,
-          flexDirection: "row",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           paddingVertical: 20,
-          gap: 24,
+          gap: 10, // Tambahkan gap antara total dan tombol
           backgroundColor: bottomBackgroundColor,
           opacity: bottomBarOpacity,
           transform: [{ translateY: bottomBarTranslateY }],
         }}
       >
-        {/* Tombol Chat */}
-        <Animated.View
-          style={{
-            opacity: bottomBarIconLeftOpacity,
-          }}
-        >
-          <TouchableOpacity className="border border-white p-2 rounded-lg" activeOpacity={0.4}>
-            <Ionicons name="chatbox-ellipses-outline" color={"white"} size={24} />
-          </TouchableOpacity>
-        </Animated.View>
-        {/* Tombol Keranjang */}
-        <Animated.View
-          style={{
-            opacity: bottomButtonBarOpacity,
-          }}
-        >
-          <MyButton
-            title="Keranjang"
-            myActiveOpacity={0.7}
-            myClassName="px-10 py-2 rounded-lg"
-            myTextStyle="text-xl"
-            buttonType="icon"
-            icon="plus"
-            iconLibrary="FontAwesome"
-            iconSize={14}
-            iconPosition="left"
-            iconColor="white"
-            fontFamily="LexBold"
-            myTouchStyle="gap-2"
-            buttonColorType="type2"
-          />
+        {/* TOTAL */}
+        <View style={{ flexDirection: "row", justifyContent: "space-between", width: "80%" }}>
+          <MyText fontFamily="LexBold" fontSize={16} textstyle="uppercase">
+            TOTAL
+          </MyText>
+          <MyText fontFamily="LexBlack" fontSize={16} textstyle="uppercase">
+            {totalHarga.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+          </MyText>
+        </View>
+
+        {/* BUTTON Lanjutkan */}
+        <Animated.View style={{ opacity: bottomButtonBarOpacity }}>
+          <MyButton title="Lanjutkan" myActiveOpacity={0.7} myClassName="px-10 py-2 rounded-lg" myTextStyle="text-xl" fontFamily="LexBlack" myTouchStyle="gap-2" buttonColorType="type2" myButtonColor="" />
         </Animated.View>
       </Animated.View>
     </View>

@@ -105,7 +105,7 @@ const MyCard = ({
             {price ? (
               <View className="flex-row justify-center items-center my-5">
                 <MyText fontSize={20} fontFamily="LexBlack" color="white">
-                  {price}
+                  Rp{price.toLocaleString("id-ID")}
                 </MyText>
                 <MyText fontSize={15} fontFamily="LexLight" color="white">
                   /{quantity}

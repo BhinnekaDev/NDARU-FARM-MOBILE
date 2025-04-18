@@ -4,7 +4,7 @@ export interface MyCardProps {
   imageStyle?: string;
   name: string;
   description: string;
-  price?: string;
+  price?: number;
   quantity?: string;
   date?: string;
   onPress?: () => void;

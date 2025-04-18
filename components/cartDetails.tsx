@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from "expo-router";
-import { View, Image, TouchableOpacity, useColorScheme, Animated, PanResponder } from "react-native";
+import { View, Image, useColorScheme, Animated, PanResponder } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 // OUR COMPONENTS
 import MyText from "@/components/text";
+import MyButton from "@/components/ButtonCustomProfile";
 
 // OUR INTERFACES
 import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
@@ -23,7 +24,7 @@ const CartDetails = ({
   description,
   price,
   quantity,
-  detailType,
+  detailType = "vegetable",
   rating,
   id,
   onDelete,
@@ -34,7 +35,9 @@ const CartDetails = ({
   const translateX = useRef(new Animated.Value(0)).current;
   const [showDelete, setShowDelete] = useState(false);
   const { slideLeftAnim, animateLeft } = useCartAnimations();
-  const { currentQuantity, currentPrice, increaseQuantity, decreaseQuantity } = useQuantity({
+  const { currentQuantity, increaseQuantity, decreaseQuantity, getTotalPrice } = useQuantity({
+    id: id,
+    name: name,
     initialQuantity: quantity,
     price: price,
     onZeroQuantity: () => {
@@ -53,7 +56,7 @@ const CartDetails = ({
       if (gesture.dx < -65) {
         Animated.timing(translateX, {
           toValue: -65,
-          duration: 1000,
+          duration: 500,
           useNativeDriver: true,
         }).start(() => setShowDelete(true));
       } else {
@@ -105,38 +108,52 @@ const CartDetails = ({
 
   return (
     <View>
+      {/* PEMBUNGKUS MEMUNCULKAN DELETE */}
       {(showDelete || showDeleteButton) && onDelete && (
-        <TouchableOpacity onPress={onDelete} className="absolute h-full pl-5 w-24 flex items-center justify-center right-0 bg-[#C40E0E] rounded-tr-[15px] rounded-br-[15px]">
+        <MyButton
+          onPress={onDelete} //
+          classNameContainer="absolute h-full pl-5 w-24 flex items-center justify-center right-0 bg-[#C40E0E] rounded-tr-[15px] rounded-br-[15px]"
+        >
           <View style={{ padding: 10 }}>
             <FontAwesome5 name="trash" size={32} color="white" />
           </View>
-        </TouchableOpacity>
+        </MyButton>
       )}
 
       <Animated.View
         {...panResponder.panHandlers}
         style={{
-          transform: [
-            { translateX }, // Opsi pertama
-            { translateX: slideLeftAnim }, // Opsi kedua
-          ],
+          transform: [{ translateX }, { translateX: slideLeftAnim }],
           backgroundColor: getCardBackgroundColor(),
         }}
-        className="px-4 py-3 w-full h-44 rounded-2xl shadow-md flex-row items-center justify-between"
+        className="px-4 py-3 w-full h-44 rounded-2xl shadow-md flex-row items-center  justify-between"
       >
         {/* PEMBUNGKUS GAMBAR */}
         <View className="w-40 h-full flex-row items-center justify-center bg-purple-400 rounded-lg">
-          <View className={`w-40 h-full absolute rounded-lg ${bgImageStyle}} style={{ backgroundColor: getBgImageColor() }`} />
-          <Image source={image} className={`w-24 h-24 rounded-xl ${imageStyle}`} resizeMode="cover" />
+          <View style={{ backgroundColor: getBgImageColor() }} className={`w-40 h-full absolute rounded-lg ${bgImageStyle}`} />
+
+          <MyButton onPress={onDetail}>
+            {/* GAMBAR + OVERLAY */}
+            <View className="w-full h-full rounded-xl overflow-hidden relative">
+              <Image source={image} className={`w-full h-full rounded-xl ${imageStyle}`} resizeMode="cover" />
+
+              {/* OVERLAY TULISAN DETAILS DI TENGAH */}
+              <View className="absolute inset-0 items-center justify-center flex ">
+                <MyText fontSize={14} fontFamily="LexBold" color="white">
+                  Details
+                </MyText>
+              </View>
+            </View>
+          </MyButton>
         </View>
 
         {/* PEMBUNGKUS INFORMASI KERANJANG */}
         <View className="flex-1  px-2 ">
           <MyText fontSize={20} fontFamily="LexBold" color="white">
-            {name}
+            {maxLengthText(name, 7)}
           </MyText>
           <MyText fontSize={14} fontFamily="LexBold" color="gray" textstyle="mt-1">
-            {maxLengthText(description, 10)}
+            {maxLengthText(description, 12)}
           </MyText>
 
           <View className="flex-row items-center mt-1">
@@ -152,7 +169,7 @@ const CartDetails = ({
 
           <View className="flex-row items-center mt-1">
             <MyText fontSize={22} fontFamily="LexBlack" color="white">
-              Rp{currentPrice.toLocaleString()}
+              Rp{getTotalPrice().toLocaleString()}
             </MyText>
             <MyText fontSize={12} fontFamily="LexSemiBold" color="gray" textstyle="ml-1">
               x{currentQuantity}
@@ -162,17 +179,23 @@ const CartDetails = ({
 
         {/* PEMBUNGKUS KUANTITAS */}
         <View className="items-center p-2 border-white border rounded-lg">
-          <TouchableOpacity onPress={increaseQuantity} className="w-[32px] h-[32px] rounded-md items-center justify-center">
+          <MyButton
+            onPress={increaseQuantity} //
+            classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center"
+          >
             <FontAwesome5 name="plus" size={24} color="white" solid />
-          </TouchableOpacity>
+          </MyButton>
 
           <MyText fontSize={16} fontFamily="LexBold" color="white" textstyle="my-1">
             {currentQuantity}
           </MyText>
 
-          <TouchableOpacity onPress={decreaseQuantity} className="w-[32px] h-[32px] rounded-md items-center justify-center">
+          <MyButton
+            onPress={decreaseQuantity} //
+            classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center"
+          >
             <FontAwesome5 name="minus" size={24} color="white" solid />
-          </TouchableOpacity>
+          </MyButton>
         </View>
       </Animated.View>
     </View>

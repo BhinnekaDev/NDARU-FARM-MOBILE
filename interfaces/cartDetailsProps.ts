@@ -3,7 +3,7 @@ export interface CartItem {
   name: string;
   description: string;
   image: any; // Tetap pakai `any` khusus untuk image (bisa file lokal atau remote)
-  price?: string;
+  price?: number;
   quantity?: string;
   date?: string;
   detailType?: "vegetable" | "service" | "news" | "facility";
