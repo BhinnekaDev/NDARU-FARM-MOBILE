@@ -3,9 +3,7 @@ import { useRouter } from "expo-router";
 import { View, Image, useColorScheme, Animated, PanResponder } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "expo-router";
-import { useCallback } from "react";
+
 // OUR COMPONENTS
 import MyText from "@/components/text";
 import MyButton from "@/components/ButtonCustomProfile";
@@ -107,9 +105,9 @@ const CartDetails = ({
           </View>
         </MyButton>
       )}
-      <MyText fontSize={18} fontFamily="LexBold" color="white" textstyle="mt-5 text-right pr-4">
+      {/* <MyText fontSize={18} fontFamily="LexBold" color="white" textstyle="mt-5 text-right pr-4">
         Total Harga: Rp{totalCartPrice.toLocaleString()}
-      </MyText>
+      </MyText> */}
       <Animated.View
         {...panResponder.panHandlers}
         style={{

@@ -5,7 +5,7 @@ export interface MyCardProps {
   name: string;
   description: string;
   price?: number;
-  quantity?: string;
+  quantity?: string | number;
   date?: string;
   onPress?: () => void;
   id?: string;
@@ -15,4 +15,6 @@ export interface MyCardProps {
   isDisabled?: boolean;
   rating?: number;
   onDelete?: () => void;
+  onIncrease?: () => void;
+  onDecrease?: () => void;
 }

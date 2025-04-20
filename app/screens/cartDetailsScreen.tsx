@@ -95,7 +95,7 @@ function cartleDetailScreen() {
             }}
           >
             <MyText fontFamily="LexBold" fontSize={20} textstyle="uppercase text-center">
-              KERANJANG
+              Keranjang
             </MyText>
           </Animated.View>
         </View>
@@ -119,6 +119,8 @@ function cartleDetailScreen() {
             marginBottom: 30,
           }}
         >
+          {/* BUTTON KEMBALI - PERTAMA*/}
+
           <MyButtonBack
             customIcon={<Ionicons name="chevron-back" size={24} color={isDarkMode ? "#FFFFFF" : "#000000"} />}
             mySize={30}
@@ -130,7 +132,7 @@ function cartleDetailScreen() {
           />
 
           <MyText fontFamily="LexBold" fontSize={20} textstyle="uppercase">
-            KERANJANG
+            Keranjang
           </MyText>
         </View>
 
@@ -164,31 +166,30 @@ function cartleDetailScreen() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          paddingVertical: 20,
+          paddingVertical: 40,
           gap: 30, // Tambahkan gap antara total dan tombol
           backgroundColor: bottomBackgroundColor,
         }}
       >
         {/* TOTAL */}
-        <View style={{ flexDirection: "row", justifyContent: "space-between", width: "80%" }}>
-          <MyText fontFamily="LexBlack" fontSize={16} textstyle="">
+        <View style={{ flexDirection: "row", justifyContent: "space-between", width: "90%" }}>
+          <MyText fontFamily="LexBlack" fontSize={22} textstyle="">
             TOTAL :
           </MyText>
-          <MyText fontFamily="LexBlack" fontSize={16} textstyle="">
+          <MyText fontFamily="LexBlack" fontSize={22} textstyle="">
             100000
           </MyText>
         </View>
 
         {/* BUTTON Lanjutkan */}
-        <Animated.View>
+        <Animated.View style={{ width: "90%" }}>
           <MyButton
-            title="Lanjutkan" //
-            myActiveOpacity={0.7}
-            myClassName="px-10 py-2 rounded-lg"
+            fontFamily="LexBlack" //
+            title="Lanjutkan"
+            myActiveOpacity={1}
+            myClassName="px-10 py-3 rounded-lg "
             myTextStyle="text-xl"
-            fontFamily="LexBlack"
-            myTouchStyle="gap-2"
-            buttonColorType="type2"
+            onPress={() => router.push("/screens/checkoutCartScreen")}
           />
         </Animated.View>
       </Animated.View>
