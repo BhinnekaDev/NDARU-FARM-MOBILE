@@ -26,8 +26,15 @@ function cartleDetailScreen() {
     console.log("Cart count in CartDetailsScreen:", cartCount);
   }, [cartItems, cartCount]);
 
-  const { backgroundColor, buttonBackOpacity, buttonBackOpacityFirst, buttonBackTranslateYFirst, textHeaderOpacity, textHeaderTranslateY, bottomBackgroundColor, bottomBarOpacity, bottomBarTranslateY, bottomButtonBarOpacity } =
-    useCartAnimations(scrollY);
+  const {
+    backgroundColor, //
+    buttonBackOpacity,
+    buttonBackOpacityFirst,
+    buttonBackTranslateYFirst,
+    textHeaderOpacity,
+    textHeaderTranslateY,
+    bottomBackgroundColor,
+  } = useCartAnimations(scrollY);
 
   return (
     <View style={{ flex: 1, backgroundColor: isDarkMode ? "#131514" : "white" }}>
@@ -158,25 +165,31 @@ function cartleDetailScreen() {
           alignItems: "center",
           justifyContent: "center",
           paddingVertical: 20,
-          gap: 10, // Tambahkan gap antara total dan tombol
+          gap: 30, // Tambahkan gap antara total dan tombol
           backgroundColor: bottomBackgroundColor,
-          opacity: bottomBarOpacity,
-          transform: [{ translateY: bottomBarTranslateY }],
         }}
       >
         {/* TOTAL */}
         <View style={{ flexDirection: "row", justifyContent: "space-between", width: "80%" }}>
-          <MyText fontFamily="LexBold" fontSize={16} textstyle="uppercase">
-            TOTAL HARGA :
+          <MyText fontFamily="LexBlack" fontSize={16} textstyle="">
+            TOTAL :
           </MyText>
-          <MyText fontFamily="LexBlack" fontSize={16} textstyle="uppercase">
+          <MyText fontFamily="LexBlack" fontSize={16} textstyle="">
             100000
           </MyText>
         </View>
 
         {/* BUTTON Lanjutkan */}
-        <Animated.View style={{ opacity: bottomButtonBarOpacity }}>
-          <MyButton title="Lanjutkan" myActiveOpacity={0.7} myClassName="px-10 py-2 rounded-lg" myTextStyle="text-xl" fontFamily="LexBlack" myTouchStyle="gap-2" buttonColorType="type2" myButtonColor="" />
+        <Animated.View>
+          <MyButton
+            title="Lanjutkan" //
+            myActiveOpacity={0.7}
+            myClassName="px-10 py-2 rounded-lg"
+            myTextStyle="text-xl"
+            fontFamily="LexBlack"
+            myTouchStyle="gap-2"
+            buttonColorType="type2"
+          />
         </Animated.View>
       </Animated.View>
     </View>
