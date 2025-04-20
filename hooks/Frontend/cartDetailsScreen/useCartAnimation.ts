@@ -1,12 +1,10 @@
-// KERANJANG
-
 import { useColorScheme } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Animated } from "react-native";
 
 export function useCartAnimations(scrollYParam?: Animated.Value) {
   const scrollY = scrollYParam ?? useRef(new Animated.Value(0)).current;
-  const colorScheme = useColorScheme() ?? "light";
+  const isDarkMode = useColorScheme() === "dark";
   const [isTextVisible, setIsTextVisible] = useState(false);
 
   const slideLeftAnim = useRef(new Animated.Value(0)).current;
@@ -19,7 +17,7 @@ export function useCartAnimations(scrollYParam?: Animated.Value) {
   };
 
   const buttonBackOpacity = scrollY.interpolate({
-    inputRange: [380, 400],
+    inputRange: [450, 500],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
@@ -38,7 +36,7 @@ export function useCartAnimations(scrollYParam?: Animated.Value) {
 
   const backgroundColor = scrollY.interpolate({
     inputRange: [390, 400],
-    outputRange: [colorScheme === "dark" ? "rgba(19, 21, 20, 0)" : "rgba(255, 255, 255, 0)", colorScheme === "dark" ? "rgba(19, 21, 20, 1)" : "rgba(255, 255, 255, 1)"],
+    outputRange: [isDarkMode ? "rgba(19, 21, 20, 0)" : "rgba(255, 255, 255, 0)", isDarkMode ? "rgba(19, 21, 20, 1)" : "rgba(255, 255, 255, 1)"],
     extrapolate: "clamp",
   });
 
@@ -98,7 +96,10 @@ export function useCartAnimations(scrollYParam?: Animated.Value) {
 
   const bottomBackgroundColor = scrollY.interpolate({
     inputRange: [620, 690],
-    outputRange: [colorScheme === "dark" ? "#33383610" : "#00000010", colorScheme === "dark" ? "#333836" : "#000000"],
+    outputRange: [
+      isDarkMode ? "#131514" : "#FFFFFF", //
+      isDarkMode ? "#131514" : "#FFFFFF",
+    ],
     extrapolate: "clamp",
   });
 
@@ -106,7 +107,6 @@ export function useCartAnimations(scrollYParam?: Animated.Value) {
   const translateXIcon = useRef(new Animated.Value(0)).current;
   const buttonWidth = useRef(new Animated.Value(60)).current;
   const textOpacity = useRef(new Animated.Value(0)).current;
-
   const fadeOutOpacity = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {

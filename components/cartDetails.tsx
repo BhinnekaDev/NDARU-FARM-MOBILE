@@ -40,7 +40,6 @@ const CartDetails = ({
 
   const {
     currentQuantity, //
-    getTotalPrice,
     increaseQuantityAndUpdateTotal,
     decreaseQuantityAndUpdateTotal,
     totalCartPrice,
@@ -161,7 +160,7 @@ const CartDetails = ({
 
           <View className="flex-row items-center mt-1">
             <MyText fontSize={22} fontFamily="LexBlack" color="white">
-              Rp{getTotalPrice().toLocaleString()}
+              Rp{price.toLocaleString()}
             </MyText>
             <MyText fontSize={12} fontFamily="LexSemiBold" color="white" textstyle="ml-1 opacity-50">
               x{currentQuantity}

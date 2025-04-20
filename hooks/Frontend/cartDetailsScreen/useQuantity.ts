@@ -79,10 +79,6 @@ export const useQuantity = ({ initialQuantity = 1, price = 0, id, name, onZeroQu
     }
   };
 
-  const getTotalPrice = () => {
-    return currentQuantity * numericPrice; // Menggunakan numericPrice, bukan currentPrice
-  };
-
   // Modifikasi fungsi increaseQuantity dan decreaseQuantity untuk langsung update total dan simpan ke AsyncStorage
   const increaseQuantityAndUpdateTotal = () => {
     increaseQuantity();
@@ -142,7 +138,6 @@ export const useQuantity = ({ initialQuantity = 1, price = 0, id, name, onZeroQu
   return {
     currentQuantity,
     totalCartPrice,
-    getTotalPrice,
     increaseQuantity,
     decreaseQuantity,
     increaseQuantityAndUpdateTotal,
