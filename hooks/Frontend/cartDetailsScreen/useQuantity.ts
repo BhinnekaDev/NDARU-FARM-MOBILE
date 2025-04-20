@@ -4,17 +4,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 interface UseQuantityProps {
   initialQuantity?: string | number;
   price?: number;
-  id?: string; // Adding ID here
-  name?: string; // Adding name here
+  id?: string;
+  name?: string;
   onZeroQuantity?: () => void;
   onResetDelete?: () => void;
 }
 
 export const useQuantity = ({ initialQuantity = 1, price = 0, id, name, onZeroQuantity, onResetDelete }: UseQuantityProps) => {
-  const parsedQuantity = typeof initialQuantity === "string" ? parseInt(initialQuantity, 10) : initialQuantity ?? 1;
-  const numericPrice = price ? parseInt(`${price}`.replace("Rp", "").replace(".", ""), 10) : 0;
-
+  const parsedQuantity = isNaN(Number(initialQuantity)) ? 1 : typeof initialQuantity === "string" ? parseInt(initialQuantity, 10) : initialQuantity;
+  const numericPrice = price && !isNaN(price) ? parseInt(`${price}`.replace("Rp", "").replace(".", ""), 10) : 0;
   const [currentQuantity, setCurrentQuantity] = useState(parsedQuantity);
+  const [totalCartPrice, setTotalCartPrice] = useState(0);
 
   // Fungsi untuk menyimpan data ke AsyncStorage
   const saveToStorage = async () => {
@@ -23,34 +23,26 @@ export const useQuantity = ({ initialQuantity = 1, price = 0, id, name, onZeroQu
         id,
         name,
         quantity: currentQuantity,
-        price: numericPrice, // gunakan numericPrice, bukan currentPrice
+        price: numericPrice,
       };
 
-      // Ambil data keranjang yang sudah ada dari AsyncStorage
       const cartItems = JSON.parse((await AsyncStorage.getItem("cartItems")) || "[]");
-
-      // Temukan item dengan ID yang sesuai
       const itemIndex = cartItems.findIndex((item: any) => item.id === id);
+
       if (itemIndex !== -1) {
-        // Jika item sudah ada, update kuantitas
         cartItems[itemIndex] = { ...cartItems[itemIndex], quantity: currentQuantity };
       } else {
-        // Jika item belum ada, tambahkan item baru
         cartItems.push(data);
       }
 
-      // Simpan kembali ke AsyncStorage
       await AsyncStorage.setItem("cartItems", JSON.stringify(cartItems));
-      console.log("Data saved to AsyncStorage:", data);
+      console.log("MENYIMPAN DATA AWAL KE STORAGE:", data);
     } catch (error) {
-      console.error("Error saving to AsyncStorage:", error);
+      console.error("Error saving to SAVE STORAGE:", error);
     }
   };
 
-  // Mengupdate AsyncStorage setiap kali kuantitas berubah
-  useEffect(() => {
-    saveToStorage();
-  }, [currentQuantity]); // hanya bergantung pada currentQuantity
+  // Fungsi untuk menghitung total harga keranjang
 
   const increaseQuantity = () => {
     const newQty = currentQuantity + 1;
@@ -66,14 +58,94 @@ export const useQuantity = ({ initialQuantity = 1, price = 0, id, name, onZeroQu
     }
   };
 
-  const getTotalPrice = () => {
-    return currentQuantity * numericPrice; // menggunakan numericPrice, bukan currentPrice
+  // Simpan item ke AsyncStorage dan update total cart price
+  const saveCartItem = async (item: any) => {
+    try {
+      const storedCart = await AsyncStorage.getItem("cartItems");
+      const parsedCart = storedCart ? JSON.parse(storedCart) : [];
+
+      const index = parsedCart.findIndex((cartItem: any) => cartItem.id === item.id);
+      if (index !== -1) {
+        parsedCart[index] = item; // Update item yang sudah ada
+      } else {
+        parsedCart.push(item); // Tambahkan item baru
+      }
+
+      await AsyncStorage.setItem("cartItems", JSON.stringify(parsedCart));
+      console.log("Data saved to AsyncStorage:", JSON.stringify(parsedCart));
+      updateTotalCartPrice(); // Update harga total setelah perubahan
+    } catch (err) {
+      console.error("Error saving data to AsyncStorage", err);
+    }
   };
+
+  const getTotalPrice = () => {
+    return currentQuantity * numericPrice; // Menggunakan numericPrice, bukan currentPrice
+  };
+
+  // Modifikasi fungsi increaseQuantity dan decreaseQuantity untuk langsung update total dan simpan ke AsyncStorage
+  const increaseQuantityAndUpdateTotal = () => {
+    increaseQuantity();
+    const newQuantity = currentQuantity + 1;
+    saveCartItem({ id, name, price, quantity: newQuantity });
+    setTotalCartPrice((prevTotal) => prevTotal + price);
+  };
+
+  const decreaseQuantityAndUpdateTotal = () => {
+    if (currentQuantity > 1) {
+      const newQuantity = currentQuantity - 1;
+      decreaseQuantity();
+      saveCartItem({ id, name, price, quantity: newQuantity });
+      setTotalCartPrice((prevTotal) => prevTotal - price);
+    } else if (currentQuantity === 1) {
+      decreaseQuantity();
+      saveCartItem({ id, name, price, quantity: 0 });
+      setTotalCartPrice((prevTotal) => prevTotal - price);
+    }
+  };
+
+  const updateTotalCartPrice = async () => {
+    try {
+      const cartItems = JSON.parse((await AsyncStorage.getItem("cartItems")) || "[]");
+
+      const total = cartItems.reduce((sum: number, item: any) => {
+        let quantity =
+          typeof item.quantity === "string"
+            ? parseFloat(item.quantity.replace(/[^\d.-]/g, "")) // Ambil angka saja dari string
+            : item.quantity;
+
+        if (isNaN(quantity)) {
+          console.warn(`Invalid quantity for item ${item.id}, using 1 as default.`);
+          quantity = 1; // Default ke 1 jika quantity tidak valid
+        }
+
+        return sum + item.price * quantity;
+      }, 0);
+
+      setTotalCartPrice(total);
+      console.log("TOTAL UPDATE TERBARU :", total);
+    } catch (error) {
+      console.error("Error calculating TOTAL UPDATE TERBARU:", error);
+    }
+  };
+
+  useEffect(() => {
+    const updateCart = async () => {
+      await saveToStorage(); // Simpan ke AsyncStorage
+      await updateTotalCartPrice(); // Update total harga setelah perubahan
+    };
+
+    updateCart();
+    console.log("Current quantity changed:", currentQuantity);
+  }, [currentQuantity]);
 
   return {
     currentQuantity,
-    getTotalPrice, // gunakan getTotalPrice untuk menghitung total
+    totalCartPrice,
+    getTotalPrice,
     increaseQuantity,
     decreaseQuantity,
+    increaseQuantityAndUpdateTotal,
+    decreaseQuantityAndUpdateTotal,
   };
 };

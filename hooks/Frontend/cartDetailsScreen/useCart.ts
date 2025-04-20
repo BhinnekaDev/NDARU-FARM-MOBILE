@@ -61,9 +61,7 @@ export default function useCart() {
       console.warn("Item tidak valid, tidak ditambahkan ke keranjang:", item);
       return;
     }
-
     const itemExists = cartItems.some((cartItem) => cartItem.id === item.id);
-
     if (!itemExists) {
       setCartItems((prevItems) => [...prevItems, item]);
       setCartCount((prevCount) => prevCount + 1);
@@ -80,19 +78,15 @@ export default function useCart() {
     setCartCount(updatedItems.length);
   };
 
-  // Fungsi untuk menghapus seluruh item dalam keranjang
-  const clearCart = () => {
-    setCartItems([]);
-    setCartCount(0);
-    AsyncStorage.removeItem("cartItems");
-  };
-
-  // Fungsi untuk memperbarui kuantitas item dalam keranjang
-  const updateQuantity = (itemId: string, newQuantity: number) => {
-    const updatedItems = cartItems.map((item) => (item.id === itemId ? { ...item, quantity: String(newQuantity) } : item));
-    setCartItems(updatedItems);
-
-    setCartCount(updatedItems.length);
+  // Hitung total harga
+  const calculateTotalPrice = () => {
+    return cartItems.reduce((total, item) => {
+      if (item.price !== undefined && typeof item.quantity === "number") {
+        return total + item.price * item.quantity;
+      } else {
+        return total;
+      }
+    }, 0);
   };
 
   return {
@@ -102,7 +96,6 @@ export default function useCart() {
     refreshCart,
     handleAddToCart,
     handleDeleteFromCart,
-    clearCart,
-    updateQuantity, // Tambahkan fungsi update kuantitas
+    calculateTotalPrice,
   };
 }

@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { View, Image, useColorScheme, Animated, PanResponder } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 // OUR COMPONENTS
 import MyText from "@/components/text";
 import MyButton from "@/components/ButtonCustomProfile";
@@ -22,7 +24,7 @@ const CartDetails = ({
   imageStyle,
   name,
   description,
-  price,
+  price = 0,
   quantity,
   detailType = "vegetable",
   rating,
@@ -35,7 +37,14 @@ const CartDetails = ({
   const translateX = useRef(new Animated.Value(0)).current;
   const [showDelete, setShowDelete] = useState(false);
   const { slideLeftAnim, animateLeft } = useCartAnimations();
-  const { currentQuantity, increaseQuantity, decreaseQuantity, getTotalPrice } = useQuantity({
+
+  const {
+    currentQuantity, //
+    getTotalPrice,
+    increaseQuantityAndUpdateTotal,
+    decreaseQuantityAndUpdateTotal,
+    totalCartPrice,
+  } = useQuantity({
     id: id,
     name: name,
     initialQuantity: quantity,
@@ -86,26 +95,6 @@ const CartDetails = ({
     router.push(path as any);
   };
 
-  const getCardBackgroundColor = () => {
-    const bgColors: Record<string, string> = {
-      vegetable: "#093731",
-      news: "#3D081C",
-      service: "#071758",
-      facility: "#074558",
-    };
-    return bgColors[detailType ?? "facility"];
-  };
-
-  const getBgImageColor = () => {
-    const bgColors: Record<string, string> = {
-      vegetable: "#159778",
-      news: "#5A0B29",
-      service: "#1C2D6F",
-      facility: "#248EAE",
-    };
-    return bgColors[detailType ?? "vegetable"];
-  };
-
   return (
     <View>
       {/* PEMBUNGKUS MEMUNCULKAN DELETE */}
@@ -119,18 +108,20 @@ const CartDetails = ({
           </View>
         </MyButton>
       )}
-
+      <MyText fontSize={18} fontFamily="LexBold" color="white" textstyle="mt-5 text-right pr-4">
+        Total Harga: Rp{totalCartPrice.toLocaleString()}
+      </MyText>
       <Animated.View
         {...panResponder.panHandlers}
         style={{
           transform: [{ translateX }, { translateX: slideLeftAnim }],
-          backgroundColor: getCardBackgroundColor(),
+          backgroundColor: isDarkMode ? "#333836" : "#159778",
         }}
         className="px-4 py-3 w-full h-44 rounded-2xl shadow-md flex-row items-center  justify-between"
       >
         {/* PEMBUNGKUS GAMBAR */}
-        <View className="w-40 h-full flex-row items-center justify-center bg-purple-400 rounded-lg">
-          <View style={{ backgroundColor: getBgImageColor() }} className={`w-40 h-full absolute rounded-lg ${bgImageStyle}`} />
+        <View className="w-40 h-full flex-row items-center justify-center rounded-lg">
+          <View className={`w-40 h-full absolute rounded-lg ${bgImageStyle}`} />
 
           <MyButton onPress={onDetail}>
             {/* GAMBAR + OVERLAY */}
@@ -152,7 +143,8 @@ const CartDetails = ({
           <MyText fontSize={20} fontFamily="LexBold" color="white">
             {maxLengthText(name, 7)}
           </MyText>
-          <MyText fontSize={14} fontFamily="LexBold" color="gray" textstyle="mt-1">
+
+          <MyText fontSize={14} fontFamily="LexBold" color="white" textstyle="mt-1 opacity-50">
             {maxLengthText(description, 12)}
           </MyText>
 
@@ -160,7 +152,7 @@ const CartDetails = ({
             <Ionicons name="star" size={16} color="white" />
             <MyText fontSize={20} fontFamily="LexMedium" color="white" textstyle="ml-1">
               {rating}
-              <MyText fontSize={11} fontFamily="LexBold" color="gray">
+              <MyText fontSize={11} fontFamily="LexBold" color="white" textstyle="opacity-50">
                 {" "}
                 (10K/Penilaian)
               </MyText>
@@ -171,7 +163,7 @@ const CartDetails = ({
             <MyText fontSize={22} fontFamily="LexBlack" color="white">
               Rp{getTotalPrice().toLocaleString()}
             </MyText>
-            <MyText fontSize={12} fontFamily="LexSemiBold" color="gray" textstyle="ml-1">
+            <MyText fontSize={12} fontFamily="LexSemiBold" color="white" textstyle="ml-1 opacity-50">
               x{currentQuantity}
             </MyText>
           </View>
@@ -180,7 +172,7 @@ const CartDetails = ({
         {/* PEMBUNGKUS KUANTITAS */}
         <View className="items-center p-2 border-white border rounded-lg">
           <MyButton
-            onPress={increaseQuantity} //
+            onPress={increaseQuantityAndUpdateTotal} //
             classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center"
           >
             <FontAwesome5 name="plus" size={24} color="white" solid />
@@ -191,7 +183,7 @@ const CartDetails = ({
           </MyText>
 
           <MyButton
-            onPress={decreaseQuantity} //
+            onPress={decreaseQuantityAndUpdateTotal} //
             classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center"
           >
             <FontAwesome5 name="minus" size={24} color="white" solid />

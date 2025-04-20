@@ -14,32 +14,20 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 // HOOKS
 import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
 import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
-import { useQuantity } from "@/hooks/Frontend/cartDetailsScreen/useQuantity";
 
 function cartleDetailScreen() {
   const router = useRouter();
   const isDarkMode = useColorScheme() === "dark";
   const { cartItems, cartCount, handleDeleteFromCart } = useCart();
   const scrollY = useRef(new Animated.Value(0)).current;
-  const totalHarga = cartItems.reduce((total, item) => total + (item.price ?? 0) * parseInt(item.quantity ?? "0"), 0);
 
   useEffect(() => {
     console.log("Cart items in CartDetailsScreen:", cartItems);
     console.log("Cart count in CartDetailsScreen:", cartCount);
   }, [cartItems, cartCount]);
 
-  const {
-    backgroundColor, //
-    buttonBackOpacity,
-    buttonBackOpacityFirst,
-    buttonBackTranslateYFirst,
-    textHeaderOpacity,
-    textHeaderTranslateY,
-    bottomBackgroundColor,
-    bottomBarOpacity,
-    bottomBarTranslateY,
-    bottomButtonBarOpacity,
-  } = useCartAnimations(scrollY);
+  const { backgroundColor, buttonBackOpacity, buttonBackOpacityFirst, buttonBackTranslateYFirst, textHeaderOpacity, textHeaderTranslateY, bottomBackgroundColor, bottomBarOpacity, bottomBarTranslateY, bottomButtonBarOpacity } =
+    useCartAnimations(scrollY);
 
   return (
     <View style={{ flex: 1, backgroundColor: isDarkMode ? "#131514" : "white" }}>
@@ -179,10 +167,10 @@ function cartleDetailScreen() {
         {/* TOTAL */}
         <View style={{ flexDirection: "row", justifyContent: "space-between", width: "80%" }}>
           <MyText fontFamily="LexBold" fontSize={16} textstyle="uppercase">
-            TOTAL
+            TOTAL HARGA :
           </MyText>
           <MyText fontFamily="LexBlack" fontSize={16} textstyle="uppercase">
-            {totalHarga.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+            100000
           </MyText>
         </View>
 
