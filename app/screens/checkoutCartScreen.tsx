@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { View, Animated, useColorScheme, ScrollView, Text, TouchableOpacity, TextInput } from "react-native";
+
+// ICONS
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { FontAwesome5 } from "@expo/vector-icons";
+
 // COMPONENTS
 import MyButtonBack from "@/components/buttonBack";
 import MyText from "@/components/text";
 import MyCartDetails from "@/components/cartDetails";
 import MyButton from "@/components/button";
-
-// ICONS
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { FontAwesome5 } from "@expo/vector-icons";
+import FloatingLabelInput from "@/components/EditForm";
 
 // HOOKS
 import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
@@ -18,13 +20,9 @@ import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
 function checkoutCartScreen() {
   const router = useRouter();
   const isDarkMode = useColorScheme() === "dark";
-  const { cartItems, cartCount, handleDeleteFromCart } = useCart();
+  const { cartItems, handleDeleteFromCart } = useCart();
   const scrollY = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    console.log("Cart items in CartDetailsScreen:", cartItems);
-    console.log("Cart count in CartDetailsScreen:", cartCount);
-  }, [cartItems, cartCount]);
+  const [kodePromo, setKodePromo] = useState("");
 
   const {
     backgroundColor, //
