@@ -2,20 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { View, Animated, useColorScheme, ScrollView, Text, TouchableOpacity, TextInput } from "react-native";
 
-// ICONS
+// OUR ICONS
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-// COMPONENTS
+// OUR COMPONENTS
 import MyButtonBack from "@/components/buttonBack";
 import MyText from "@/components/text";
 import MyCartDetails from "@/components/cartDetails";
 import MyButton from "@/components/button";
-import FloatingLabelInput from "@/components/EditForm";
+import MyInput from "@/components/input";
+import MyButtonAdd from "@/components/ButtonCustomProfile";
 
-// HOOKS
+// OUR HOOKS
 import { useCartAnimations } from "@/hooks/Frontend/cartDetailsScreen/useCartAnimation";
 import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
+
+// OUR UTILS
+import { numberFormatter } from "@/utils/validationNumberFormatter";
 
 function checkoutCartScreen() {
   const router = useRouter();
@@ -161,24 +165,38 @@ function checkoutCartScreen() {
         </Animated.View>
 
         {/* ISI DI PILIH UNTUK PEMBAYARAN - MODE SCROLL */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View className="flex-row gap-3 py-3">
-            {cartItems.map((item) => (
-              <View key={item.id} style={{ width: 370 }}>
-                <MyCartDetails
-                  id={item.id}
-                  image={item.image}
-                  name={item.name}
-                  description={item.description}
-                  price={item.price}
-                  rating={item.rating}
-                  quantity={item.quantity}
-                  date={item.date}
-                  detailType={item.detailType}
-                  onDelete={() => handleDeleteFromCart(item.id ?? "")}
-                />
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false} //
+          contentContainerStyle={{ justifyContent: "center", alignItems: "center", flexGrow: 1 }}
+        >
+          <View className="items-center py-3 ">
+            {cartItems.length === 0 ? (
+              <View className="rounded-2xl h-44 shadow-md items-center justify-center">
+                <MyText>There's no cart</MyText>
               </View>
-            ))}
+            ) : (
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ alignItems: "center" }}>
+                <View className="flex-row gap-3 py-3">
+                  {cartItems.map((item) => (
+                    <View key={item.id} style={{ width: 370 }}>
+                      <MyCartDetails
+                        id={item.id}
+                        image={item.image}
+                        name={item.name}
+                        description={item.description}
+                        price={item.price}
+                        rating={item.rating}
+                        quantity={item.quantity}
+                        date={item.date}
+                        detailType={item.detailType}
+                        onDelete={() => handleDeleteFromCart(item.id ?? "")}
+                      />
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
+            )}
           </View>
         </ScrollView>
 
@@ -203,9 +221,9 @@ function checkoutCartScreen() {
                   ))}
                 </View>
               </ScrollView>
-              <TouchableOpacity className="ml-2 p-2 rounded-full">
-                <FontAwesome5 name="plus" size={24} color={`${isDarkMode ? "white" : "black"}`} solid />
-              </TouchableOpacity>
+              <MyButtonAdd classNameContainer="ml-2 p-2 rounded-full" onPress={() => router.push("/screens/editPaymentMethod")}>
+                <FontAwesome5 name="plus" size={24} color={`${isDarkMode ? "white" : "black"}`} />
+              </MyButtonAdd>
             </View>
           </View>
 
@@ -228,9 +246,9 @@ function checkoutCartScreen() {
                   ))}
                 </View>
               </ScrollView>
-              <TouchableOpacity className="ml-2 p-2 rounded-full">
-                <FontAwesome5 name="plus" size={24} color={`${isDarkMode ? "white" : "black"}`} solid />
-              </TouchableOpacity>
+              <MyButtonAdd classNameContainer="ml-2 p-2 rounded-full" onPress={() => alert("Pilih Metode Pengiriman")}>
+                <FontAwesome5 name="plus" size={24} color={`${isDarkMode ? "white" : "black"}`} />
+              </MyButtonAdd>
             </View>
           </View>
 
@@ -239,19 +257,27 @@ function checkoutCartScreen() {
             style={{ borderColor: isDarkMode ? "#333836" : "#159778" }} //
             className="flex-row items-center border rounded-xl px-2 py-2"
           >
-            <TextInput
-              placeholder="Kode Promo" //
-              placeholderTextColor="#999"
-              className="flex-1 text-black opacity-50 px-2 text-[20px]"
-              style={{ fontFamily: "LexBold" }}
-            />
+            {/* INPUT KODE PROMO */}
+            <View className="flex-1">
+              <MyInput
+                placeholder="Kode Promo" //
+                placeholderFont="LexBold"
+                inputFontSize={20}
+                withBorder={false}
+                myClassName="text-[20px] opacity-50"
+                value={kodePromo}
+                onChangeText={(input) => setKodePromo(numberFormatter(input, 6))}
+              />
+            </View>
+
+            {/* BUTTON TERAPKAN */}
             <MyButton
               title="Terapkan" //
               fontFamily="LexBold"
               myClassName="rounded-md w-44"
               myTextStyle="text-white text-[20px]"
               myTouchStyle={` px-4 py-3  ${isDarkMode ? "#333836" : "#159778"} `}
-              onPress={() => alert("halo")}
+              onPress={() => alert(`KODE PROMO ${kodePromo}`)}
             />
           </View>
         </View>
