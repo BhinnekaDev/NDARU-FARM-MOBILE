@@ -22,7 +22,11 @@ export default function StartScreen({ onExit }: StartScreenProps) {
           style={{
             width: "200%",
             height: "160%",
-            transform: [{ translateX: anim.translateXAnim }, { translateY: anim.translateYAnim }, { scale: anim.scaleAnim }],
+            transform: [
+              { translateX: anim.translateXAnim },
+              { translateY: anim.translateYAnim },
+              { scale: anim.scaleAnim },
+            ],
           }}
           resizeMode="cover"
         />
@@ -75,15 +79,14 @@ export default function StartScreen({ onExit }: StartScreenProps) {
           className="w-full p-3 mt-12"
         >
           {/* Tombol ke halaman Select Screen dengan Animasi Out */}
-          <MyButton
-            fontFamily="LexBold" //
-            title="Mulai"
-            myActiveOpacity={1}
-            myClassName="p-3 rounded-xl"
-            myTextStyle="text-lg"
-            // onPress={() => anim.handleOutAnimation(onExit)}
-            onPress={() => router.push("/screens/checkoutCartScreen")}
-          />
+        <MyButton
+          fontFamily="LexBold"
+          title="Mulai"
+          myActiveOpacity={1}
+          myClassName="p-3 rounded-xl"
+          myTextStyle="text-lg"
+          onPress={() => router.push("/(tabs)/home")}
+        />
         </Animated.View>
       </View>
     </View>
