@@ -1,55 +1,27 @@
-<<<<<<< HEAD
-import React from "react";
-import {
-  useColorScheme,
-  View,
-  Animated,
-  TouchableOpacity,
-  Text,
-} from "react-native";
-=======
 import React, { useState, useCallback } from "react";
-import { View, Animated, Text, RefreshControl, ScrollView, ActivityIndicator } from "react-native";
-import { useColorScheme } from "react-native";
+import { View, Animated, Text, RefreshControl, useColorScheme, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
->>>>>>> bhinnekadev24/bhi-158-implementasi-frontend-fitur-keranjang-untuk-menambahkan
 // COMPONENTS
 import MyText from "@/components/text";
 import MySearch from "@/components/search";
 import MyButtonCategory from "@/components/buttonCategory";
 import MyCard from "@/components/card";
-<<<<<<< HEAD
-// HOOKSFE
-import useHomeInterpolate from "@/hooks/Frontend/homeScreen/useHomeInterpolate";
-import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-=======
-import MyCart from "@/components/button";
 // HOOKS
 import useHomeInterpolate from "@/hooks/Frontend/homeScreen/useHomeInterpolate";
 import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
+import { Ionicons } from "@expo/vector-icons";
+import MyCart from "@/components/button";
 import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
->>>>>>> bhinnekadev24/bhi-158-implementasi-frontend-fitur-keranjang-untuk-menambahkan
 
 export default function Home() {
   const router = useRouter();
   const colorScheme = useColorScheme() ?? "light";
   const textColor = colorScheme === "dark" ? "#FFFFFF" : "#000000";
-  const jumlahItemDiKeranjang = 1;
-  const { selectedCategory, setSelectedCategory, filteredProducts } =
-    useProducts();
-
-<<<<<<< HEAD
-  const {
-    scrollY,
-=======
   const { selectedCategory, setSelectedCategory, filteredProducts, refreshProducts } = useProducts();
 
   const {
     scrollY, //
->>>>>>> bhinnekadev24/bhi-158-implementasi-frontend-fitur-keranjang-untuk-menambahkan
     fontSizeAnim,
     textDecsOpacity,
     textOpacity,
@@ -61,20 +33,14 @@ export default function Home() {
     headerSearchOpacity,
     headerCategoryOpacity,
     CategoryOpacity,
-<<<<<<< HEAD
     floatingButtonCartOpacity,
     translateXIconCart,
     buttonCartWidth,
     isTextVisible,
     textCartOpacity,
   } = useHomeInterpolate(colorScheme);
-=======
-  } = useHomeInterpolate(colorScheme);
-
   const { cartCount, handleAddToCart, refreshCart, cartItems } = useCart();
-
   const [refreshing, setRefreshing] = useState(false);
-
   const onRefresh = useCallback(async () => {
     try {
       setRefreshing(true);
@@ -86,7 +52,6 @@ export default function Home() {
       setRefreshing(false);
     }
   }, [refreshProducts, refreshCart]);
->>>>>>> bhinnekadev24/bhi-158-implementasi-frontend-fitur-keranjang-untuk-menambahkan
 
   return (
     <View
@@ -95,7 +60,7 @@ export default function Home() {
         backgroundColor: colorScheme === "dark" ? "#131514" : "white",
       }}
     >
-      {/* Header Fixed Konten */}
+      {/* HEADER KONTEN TETAP */}
       <Animated.View
         style={{
           position: "absolute",
@@ -111,7 +76,7 @@ export default function Home() {
         }}
       >
         <View className="flex-row items-center justify-between">
-          {/* Header Fixed Text */}
+          {/* JUDUL "NDARU FARM" - SETELAH SCROLL */}
           <Animated.Text
             style={{
               fontSize: fontSizeAnim,
@@ -124,109 +89,53 @@ export default function Home() {
             Ndaru Farm
           </Animated.Text>
 
-<<<<<<< HEAD
-          {/* Header Fixed Tombol Keranjang dan Cari */}
-          <Animated.View
-            style={{ opacity: headerSearchOpacity }}
-            className="flex-row gap-6"
-          >
-            {/* Cart dengan badge */}
-            <TouchableOpacity activeOpacity={0.3}>
-              <View className="relative">
-                {/* Icon Keranjang */}
-                <Ionicons name="cart-outline" size={28} color={textColor} />
-
-                {/* Badge */}
-                {jumlahItemDiKeranjang > 0 && (
-                  <View
-                    className="absolute -top-1.5 -right-1.5 bg-red-500 rounded-full items-center justify-center"
-                    style={{
-                      minWidth: 16,
-                      height: 16,
-                      paddingHorizontal: 3,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 10,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {jumlahItemDiKeranjang}
-                    </Text>
-                  </View>
-                )}
+          {/* PEMBUNGKUS BUTTON KERANJANG + PENCARIAN - SETELAH SCROLL */}
+          <Animated.View style={{ opacity: headerSearchOpacity }} className="flex-row items-center gap-6">
+            {/* Button Keranjang */}
+            <View style={{ position: "relative", justifyContent: "center", alignItems: "center" }}>
+              <MyCart
+                buttonType="icon"
+                icon="cart-outline"
+                iconLibrary="Ionicons"
+                iconSize={28}
+                iconColor={colorScheme === "dark" ? "white" : "black"}
+                iconPosition="left"
+                fontFamily="LexSemiBold"
+                myButtonColor="transparent"
+                myClassName="w-12 h-12 rounded-full bg-[#131514] flex justify-center items-center pl-2"
+                onPress={() => router.push("/screens/cartDetailsScreen")}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  top: -4,
+                  right: -4,
+                  backgroundColor: "red",
+                  borderRadius: 999,
+                  width: 18,
+                  height: 18,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 11, fontFamily: "LexMedium" }}>{cartCount}</Text>
               </View>
-            </TouchableOpacity>
+            </View>
 
-            {/* Search icon */}
-            <TouchableOpacity
-              activeOpacity={0.3}
-              onPress={() => router.push("/screens/searchScreen")}
-            >
+            {/* ICON PENCARIAN */}
+            <TouchableOpacity activeOpacity={0.3} onPress={() => router.push("/screens/searchScreen")}>
               <Ionicons name="search-outline" size={28} color={textColor} />
             </TouchableOpacity>
-=======
-          {/* Header Fixed Tombol Cari */}
-          <Animated.View
-            style={{
-              flex: 1,
-              marginLeft: 10,
-              opacity: headerSearchOpacity,
-            }}
-          >
-            <MySearch />
-          </Animated.View>
-          {/* Button Keranjang */}
-          <Animated.View
-            style={{
-              opacity: headerSearchOpacity,
-            }}
-          >
-            <MyCart
-              buttonType="icon" //
-              icon="cart-outline"
-              iconLibrary="Ionicons"
-              iconSize={35}
-              iconColor={colorScheme === "dark" ? "white" : "black"}
-              iconPosition="left"
-              fontFamily="LexSemiBold"
-              myButtonColor="transparent"
-              myClassName="w-14 h-14 rounded-full bg-[#131514] flex justify-center items-center pl-2"
-              onPress={() => router.push("/screens/cartDetailsScreen")}
-            />
-            <View
-              style={{
-                position: "absolute", //
-                top: -5,
-                right: -5,
-                backgroundColor: "red",
-                borderRadius: 999,
-                width: 20,
-                height: 20,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ color: "white", fontSize: 12, fontFamily: "LexMedium" }}>{cartCount}</Text>
-            </View>
->>>>>>> bhinnekadev24/bhi-158-implementasi-frontend-fitur-keranjang-untuk-menambahkan
           </Animated.View>
         </View>
 
-        {/* Header Fixed Tombol Kategori */}
-        <Animated.View
-          style={{ opacity: headerCategoryOpacity, paddingVertical: 10 }}
-        >
-          <MyButtonCategory
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
+        {/* TOMBOL - TOMBOL KATEGORI - SETELAH SCROLL */}
+        <Animated.View style={{ opacity: headerCategoryOpacity, paddingVertical: 10 }}>
+          <MyButtonCategory selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
         </Animated.View>
       </Animated.View>
 
-      {/* Floating Button Keranjang */}
+      {/* PEMBUNGKUS BUTTON KERANJANG BAGIAN BAWAH  */}
       <Animated.View
         style={{
           position: "absolute",
@@ -236,7 +145,7 @@ export default function Home() {
           opacity: floatingButtonCartOpacity,
         }}
       >
-        <TouchableOpacity activeOpacity={0.4}>
+        <TouchableOpacity activeOpacity={0.4} onPress={() => router.push("/screens/cartDetailsScreen")}>
           <Animated.View
             style={{
               backgroundColor: "#18b48f",
@@ -250,39 +159,35 @@ export default function Home() {
               gap: 10,
             }}
           >
-            {/* Icon dengan badge */}
-            <Animated.View
-              style={{ transform: [{ translateX: translateXIconCart }] }}
-            >
+            {/* ICON BUTTON KERANJANG BAGIAN BAWAH */}
+            <Animated.View style={{ transform: [{ translateX: translateXIconCart }] }}>
               <View style={{ position: "relative" }}>
                 <Ionicons name="cart-outline" size={30} color="white" />
 
-                {jumlahItemDiKeranjang > 0 && (
-                  <View
+                <View
+                  style={{
+                    position: "absolute",
+                    top: -6,
+                    right: -6,
+                    backgroundColor: "red",
+                    borderRadius: 10,
+                    minWidth: 18,
+                    height: 18,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingHorizontal: 4,
+                  }}
+                >
+                  <Text
                     style={{
-                      position: "absolute",
-                      top: -6,
-                      right: -6,
-                      backgroundColor: "red",
-                      borderRadius: 10,
-                      minWidth: 18,
-                      height: 18,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      paddingHorizontal: 4,
+                      color: "white",
+                      fontSize: 10,
+                      fontWeight: "bold",
                     }}
                   >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 10,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {jumlahItemDiKeranjang}
-                    </Text>
-                  </View>
-                )}
+                    {cartCount}
+                  </Text>
+                </View>
               </View>
             </Animated.View>
             {/* Teks */}
@@ -310,40 +215,20 @@ export default function Home() {
         }}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
-<<<<<<< HEAD
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
-      >
-        {/* Header Teks */}
-        <View className="mb-5 flex-col justify-start w-full">
-          <Animated.Text
-            style={{
-              fontSize: fontSizeAnim,
-              textTransform: "uppercase",
-              color: textColor,
-              fontFamily: "LexBold",
-              opacity: textOpacity,
-            }}
-          >
-            Ndaru Farm
-          </Animated.Text>
-=======
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
         refreshControl={
           <RefreshControl
-            refreshing={refreshing} // Status refreshing
-            onRefresh={onRefresh} // Fungsi refresh
+            refreshing={refreshing} //
+            onRefresh={onRefresh}
             progressViewOffset={150}
-            colors={["#9Bd35A", "#689F38"]} // Warna loading spinner
+            colors={["#9Bd35A", "#689F38"]}
           />
         }
       >
-        {/* Header Teks */}
+        {/* PEMBUNGKUS JUDUL */}
         <View className="mb-5 flex-col justify-start w-full ">
           <View className="flex-row justify-between items-center">
-            {/* Teks "Ndaru Farm" */}
+            {/* JUDUL "NDARU FARM" */}
             <Animated.Text
               style={{
                 fontSize: fontSizeAnim,
@@ -355,41 +240,9 @@ export default function Home() {
             >
               Ndaru Farm
             </Animated.Text>
-
-            {/* Button Keranjang */}
-            <Animated.View style={{ opacity: textDecsOpacity }}>
-              <MyCart
-                buttonType="icon"
-                icon="cart-outline"
-                iconLibrary="Ionicons"
-                iconSize={35}
-                iconColor={colorScheme === "dark" ? "white" : "black"}
-                iconPosition="left"
-                fontFamily="LexSemiBold"
-                myButtonColor="transparent"
-                myClassName="w-14 h-14 rounded-full bg-[#131514] flex justify-center items-center pl-2"
-                onPress={() => router.push("/screens/cartDetailsScreen")}
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  top: -5,
-                  right: -5,
-                  backgroundColor: "red",
-                  borderRadius: 999,
-                  width: 20,
-                  height: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 12, fontFamily: "LexMedium" }}>{cartCount}</Text>
-              </View>
-            </Animated.View>
           </View>
->>>>>>> bhinnekadev24/bhi-158-implementasi-frontend-fitur-keranjang-untuk-menambahkan
 
-          {/* Header Deskripsi Teks */}
+          {/* JUDUL TEKS DEKSRIPSI */}
           <Animated.View style={{ opacity: textDecsOpacity }}>
             <MyText fontSize={18} textstyle="uppercase">
               Pertanian sehat dan bersih
@@ -397,7 +250,7 @@ export default function Home() {
           </Animated.View>
         </View>
 
-        {/* Header Tombol cari */}
+        {/* TOMBOL PENCARIAN AWAL*/}
         <Animated.View
           style={{
             transform: [{ scale: searchScale }],
@@ -407,15 +260,12 @@ export default function Home() {
           <MySearch />
         </Animated.View>
 
-        {/* Header Tombol Kategori */}
+        {/* TOMBOL - TOMBOL KATEGORI - SEBELUM SCROLL*/}
         <Animated.View className="py-6" style={{ opacity: CategoryOpacity }}>
-          <MyButtonCategory
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
+          <MyButtonCategory selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
         </Animated.View>
 
-        {/* Body Card Konten */}
+        {/* PEMBUNGKUS SELURUH ISI CART*/}
         <View className="w-full gap-8">
           {filteredProducts.map((item) => (
             <MyCard
