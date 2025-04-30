@@ -6,23 +6,19 @@ import { useColorScheme } from "react-native";
 import { statusBarLightTheme, statusBarDarkTheme } from "@/constant/theme";
 
 export default function RootLayout() {
-    const fontLoaded = useLoadFont();
-    const colorScheme = useColorScheme();
+  const fontLoaded = useLoadFont();
+  const colorScheme = useColorScheme();
 
-    if (!fontLoaded) {
-        return null;
-    }
+  if (!fontLoaded) {
+    return null;
+  }
 
-    const theme =
-        colorScheme === "dark" ? statusBarDarkTheme : statusBarLightTheme;
+  const theme = colorScheme === "dark" ? statusBarDarkTheme : statusBarLightTheme;
 
-    return (
-        <>
-            <StatusBar
-                backgroundColor={theme.background}
-                style={colorScheme === "dark" ? "light" : "dark"}
-            />
-            <Stack screenOptions={{ headerShown: false }} />
-        </>
-    );
+  return (
+    <>
+      <StatusBar backgroundColor={theme.background} style={colorScheme === "dark" ? "light" : "dark"} />
+      <Stack screenOptions={{ headerShown: false }} />
+    </>
+  );
 }

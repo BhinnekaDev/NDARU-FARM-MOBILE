@@ -2,12 +2,22 @@ import { useColorScheme } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Animated } from "react-native";
 
-export const useVegetableAnimations = (scrollY: Animated.Value) => {
-  const colorScheme = useColorScheme() ?? "light";
+export function useCartAnimations(scrollYParam?: Animated.Value) {
+  const scrollY = scrollYParam ?? useRef(new Animated.Value(0)).current;
+  const isDarkMode = useColorScheme() === "dark";
   const [isTextVisible, setIsTextVisible] = useState(false);
 
+  const slideLeftAnim = useRef(new Animated.Value(0)).current;
+  const animateLeft = (toValue: number, duration: number = 1000) => {
+    Animated.timing(slideLeftAnim, {
+      toValue,
+      duration,
+      useNativeDriver: true,
+    }).start();
+  };
+
   const buttonBackOpacity = scrollY.interpolate({
-    inputRange: [380, 400],
+    inputRange: [450, 500],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
@@ -26,7 +36,7 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
 
   const backgroundColor = scrollY.interpolate({
     inputRange: [390, 400],
-    outputRange: [colorScheme === "dark" ? "rgba(19, 21, 20, 0)" : "rgba(255, 255, 255, 0)", colorScheme === "dark" ? "rgba(19, 21, 20, 1)" : "rgba(255, 255, 255, 1)"],
+    outputRange: [isDarkMode ? "rgba(19, 21, 20, 0)" : "rgba(255, 255, 255, 0)", isDarkMode ? "rgba(19, 21, 20, 1)" : "rgba(255, 255, 255, 1)"],
     extrapolate: "clamp",
   });
 
@@ -55,38 +65,41 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
   });
 
   const bottomBarIconLeftOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [120, 120],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBarIconRightOpacity = scrollY.interpolate({
-    inputRange: [630, 660],
+    inputRange: [120, 120],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
   const bottomButtonBarOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [120, 120],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBarTranslateY = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [0, 50],
     outputRange: [30, 0],
     extrapolate: "clamp",
   });
 
   const bottomBarOpacity = scrollY.interpolate({
-    inputRange: [620, 690],
+    inputRange: [0, 50],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
   const bottomBackgroundColor = scrollY.interpolate({
     inputRange: [620, 690],
-    outputRange: [colorScheme === "dark" ? "#33383610" : "#00000010", colorScheme === "dark" ? "#333836" : "#000000"],
+    outputRange: [
+      isDarkMode ? "#131514" : "#FFFFFF", //
+      isDarkMode ? "#131514" : "#FFFFFF",
+    ],
     extrapolate: "clamp",
   });
 
@@ -94,7 +107,6 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
   const translateXIcon = useRef(new Animated.Value(0)).current;
   const buttonWidth = useRef(new Animated.Value(60)).current;
   const textOpacity = useRef(new Animated.Value(0)).current;
-
   const fadeOutOpacity = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -181,5 +193,7 @@ export const useVegetableAnimations = (scrollY: Animated.Value) => {
     fadeOutOpacity,
     isTextVisible,
     startExitAnimation,
+    slideLeftAnim,
+    animateLeft,
   };
-};
+}

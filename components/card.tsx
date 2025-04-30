@@ -8,7 +8,21 @@ import MyButton from "@/components/button";
 // INTERFACES
 import { MyCardProps } from "@/interfaces/cardProps";
 
-const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, description, price, quantity, date, detailType, id, onPress, buttonType = "default", buttonTitle }) => {
+const MyCard = ({
+  image, //
+  bgImageStyle,
+  imageStyle,
+  name,
+  description,
+  price,
+  quantity,
+  date,
+  detailType,
+  id,
+  onPress,
+  buttonType = "default",
+  isDisabled,
+}: MyCardProps) => {
   const router = useRouter();
   const [isFavorited, setIsFavorited] = useState(false);
   const colorScheme = useColorScheme();
@@ -20,7 +34,7 @@ const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, 
       news: "/screens/newsDetailScreen",
       service: "/screens/servicesDetailScreen",
       facility: "/screens/facilityDetailScreen",
-    } as const;
+    };
 
     const path = detailType ? routes[detailType as keyof typeof routes] : undefined;
 
@@ -56,27 +70,14 @@ const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, 
 
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onDetail}>
-      <View
-        className="p-4 w-full rounded-3xl shadow-md"
-        style={{ backgroundColor: getCardBackgroundColor() }}
-      >
+      <View className="p-4 w-full rounded-3xl shadow-md" style={{ backgroundColor: getCardBackgroundColor() }}>
         <View className="flex-row items-center">
           {/* Tombol Love Favorite*/}
           {detailType !== "news" && (
-            <TouchableOpacity
-              onPress={() => setIsFavorited(!isFavorited)}
-              className="w-10 flex items-center justify-center absolute top-0"
-              activeOpacity={0.3}
-            >
-              <Ionicons
-                name={isFavorited ? "heart" : "heart-outline"}
-                size={23}
-                color={isFavorited ? "#FF3B30" : "#888"}
-                className="bg-white rounded-full p-1"
-              />
+            <TouchableOpacity onPress={() => setIsFavorited(!isFavorited)} className="w-10 flex items-center justify-center absolute top-0" activeOpacity={0.3}>
+              <Ionicons name={isFavorited ? "heart" : "heart-outline"} size={23} color={isFavorited ? "#FF3B30" : "#888"} className="bg-white rounded-full p-1" />
             </TouchableOpacity>
           )}
-
 
           {/* Gambar Produk */}
           <View className="w-2/5 flex-row items-center h-full justify-center">
@@ -104,7 +105,7 @@ const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, 
             {price ? (
               <View className="flex-row justify-center items-center my-5">
                 <MyText fontSize={20} fontFamily="LexBlack" color="white">
-                  {price}
+                  Rp{price.toLocaleString("id-ID")}
                 </MyText>
                 <MyText fontSize={15} fontFamily="LexLight" color="white">
                   /{quantity}
@@ -118,7 +119,7 @@ const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, 
 
             {/* Tombol Pesan Sekarang */}
             <MyButton
-              title={buttonTitle ?? "Pesan Sekarang"}
+              title={detailType === "news" ? "Baca Selengkapnya" : "Pesan Sekarang"}
               buttonType={buttonType}
               icon="cart-outline"
               iconLibrary="Ionicons"
@@ -129,7 +130,8 @@ const MyCard: React.FC<MyCardProps> = ({ image, bgImageStyle, imageStyle, name, 
               myClassName="rounded-3xl py-1.5"
               myTouchStyle="gap-4"
               myButtonColor={getBgImageColor()}
-              onPress={onPress}
+              onPress={detailType === "news" ? onDetail : onPress}
+              disabled={isDisabled}
             />
           </View>
         </View>
