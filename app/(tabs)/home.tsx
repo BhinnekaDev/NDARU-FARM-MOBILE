@@ -1,5 +1,7 @@
-import React from "react";
-import { useColorScheme, View, Animated, Text } from "react-native";
+import React, { useState, useCallback } from "react";
+import { View, Animated, Text, RefreshControl, ScrollView, ActivityIndicator } from "react-native";
+import { useColorScheme } from "react-native";
+import { useRouter } from "expo-router";
 
 // COMPONENTS
 import MyText from "@/components/text";
@@ -7,18 +9,48 @@ import MySearch from "@/components/search";
 import MyButtonCategory from "@/components/buttonCategory";
 import MyCard from "@/components/card";
 import MyCart from "@/components/button";
-// HOOKSFE
+// HOOKS
 import useHomeInterpolate from "@/hooks/Frontend/homeScreen/useHomeInterpolate";
 import useProducts from "@/hooks/Frontend/homeScreen/useProducts";
+import useCart from "@/hooks/Frontend/cartDetailsScreen/useCart";
 
 export default function Home() {
+  const router = useRouter();
   const colorScheme = useColorScheme() ?? "light";
   const textColor = colorScheme === "dark" ? "#FFFFFF" : "#000000";
 
-  const { selectedCategory, setSelectedCategory, filteredProducts } = useProducts();
+  const { selectedCategory, setSelectedCategory, filteredProducts, refreshProducts } = useProducts();
 
-  const { scrollY, fontSizeAnim, textDecsOpacity, textOpacity, searchOpacity, searchScale, headerBackgroundColor, headerBorderWidth, headerTextOpacity, headerSearchOpacity, headerCategoryOpacity, CategoryOpacity } =
-    useHomeInterpolate(colorScheme);
+  const {
+    scrollY, //
+    fontSizeAnim,
+    textDecsOpacity,
+    textOpacity,
+    searchOpacity,
+    searchScale,
+    headerBackgroundColor,
+    headerBorderWidth,
+    headerTextOpacity,
+    headerSearchOpacity,
+    headerCategoryOpacity,
+    CategoryOpacity,
+  } = useHomeInterpolate(colorScheme);
+
+  const { cartCount, handleAddToCart, refreshCart, cartItems } = useCart();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    try {
+      setRefreshing(true);
+      await Promise.all([refreshProducts(), refreshCart()]);
+      console.log("✅ Refresh berhasil");
+    } catch (error) {
+      console.error("❌ Error saat refresh:", error);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refreshProducts, refreshCart]);
 
   return (
     <View
@@ -62,6 +94,17 @@ export default function Home() {
           >
             Ndaru Farm
           </Animated.Text>
+
+          {/* Header Fixed Tombol Cari */}
+          <Animated.View
+            style={{
+              flex: 1,
+              marginLeft: 10,
+              opacity: headerSearchOpacity,
+            }}
+          >
+            <MySearch />
+          </Animated.View>
           {/* Button Keranjang */}
           <Animated.View
             style={{
@@ -73,27 +116,28 @@ export default function Home() {
               icon="cart-outline"
               iconLibrary="Ionicons"
               iconSize={35}
-              iconColor="white"
+              iconColor={colorScheme === "dark" ? "white" : "black"}
               iconPosition="left"
               fontFamily="LexSemiBold"
               myButtonColor="transparent"
               myClassName="w-14 h-14 rounded-full bg-[#131514] flex justify-center items-center pl-2"
-              onPress={() => alert("Keranjang")}
+              onPress={() => router.push("/screens/cartDetailsScreen")}
             />
-            <View style={{ position: "absolute", top: -5, right: -5, backgroundColor: "red", borderRadius: 999, width: 20, height: 20, justifyContent: "center", alignItems: "center" }}>
-              <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>1</Text>
+            <View
+              style={{
+                position: "absolute", //
+                top: -5,
+                right: -5,
+                backgroundColor: "red",
+                borderRadius: 999,
+                width: 20,
+                height: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: "white", fontSize: 12, fontFamily: "LexMedium" }}>{cartCount}</Text>
             </View>
-          </Animated.View>
-
-          {/* Header Fixed Tombol Cari */}
-          <Animated.View
-            style={{
-              flex: 1,
-              marginLeft: 10,
-              opacity: headerSearchOpacity,
-            }}
-          >
-            <MySearch />
           </Animated.View>
         </View>
 
@@ -118,6 +162,14 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing} // Status refreshing
+            onRefresh={onRefresh} // Fungsi refresh
+            progressViewOffset={150}
+            colors={["#9Bd35A", "#689F38"]} // Warna loading spinner
+          />
+        }
       >
         {/* Header Teks */}
         <View className="mb-5 flex-col justify-start w-full ">
@@ -138,19 +190,31 @@ export default function Home() {
             {/* Button Keranjang */}
             <Animated.View style={{ opacity: textDecsOpacity }}>
               <MyCart
-                buttonType="icon" //
+                buttonType="icon"
                 icon="cart-outline"
                 iconLibrary="Ionicons"
                 iconSize={35}
-                iconColor="white"
+                iconColor={colorScheme === "dark" ? "white" : "black"}
                 iconPosition="left"
                 fontFamily="LexSemiBold"
                 myButtonColor="transparent"
                 myClassName="w-14 h-14 rounded-full bg-[#131514] flex justify-center items-center pl-2"
-                onPress={() => alert("Keranjang")}
+                onPress={() => router.push("/screens/cartDetailsScreen")}
               />
-              <View style={{ position: "absolute", top: -5, right: -5, backgroundColor: "red", borderRadius: 999, width: 20, height: 20, justifyContent: "center", alignItems: "center" }}>
-                <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>1</Text>
+              <View
+                style={{
+                  position: "absolute",
+                  top: -5,
+                  right: -5,
+                  backgroundColor: "red",
+                  borderRadius: 999,
+                  width: 20,
+                  height: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 12, fontFamily: "LexMedium" }}>{cartCount}</Text>
               </View>
             </Animated.View>
           </View>
@@ -192,6 +256,8 @@ export default function Home() {
               buttonType={item.buttonType}
               buttonTitle={item.buttonTitle}
               date={item.date}
+              onPress={() => handleAddToCart(item)}
+              isDisabled={cartItems.some((cartItem) => cartItem.id === item.id)}
             />
           ))}
         </View>
