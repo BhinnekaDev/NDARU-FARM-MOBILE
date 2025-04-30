@@ -14,5 +14,8 @@ export interface inputProps {
   rightIconLibrary?: keyof typeof Icons;
   rightIconColor?: string;
   rightIconSize?: number;
+  withBorder?: boolean;
+  value?: string;
+  onChangeText?: (text: string) => void;
   onRightIconPress?: () => void;
 }

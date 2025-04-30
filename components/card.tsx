@@ -29,6 +29,7 @@ const MyCard: React.FC<MyCardProps> = ({
   onPress,
   buttonType = "default",
   buttonTitle,
+  isDisabled,
 }) => {
   const router = useRouter();
   const [isFavorited, setIsFavorited] = useState(false);
@@ -42,18 +43,16 @@ const MyCard: React.FC<MyCardProps> = ({
       news: "/screens/newsDetailScreen",
       service: "/screens/servicesDetailScreen",
       facility: "/screens/facilityDetailScreen",
-    } as const;
+    };
 
-    const path = detailType
-      ? routes[detailType as keyof typeof routes]
-      : undefined;
+    const path = detailType ? routes[detailType as keyof typeof routes] : undefined;
 
     if (!path) {
       console.error("Unknown detailType:", detailType);
       return;
     }
 
-    router.push(path as any);
+    router.push(path);
   };
 
   const getCardBackgroundColor = () => {
@@ -63,7 +62,6 @@ const MyCard: React.FC<MyCardProps> = ({
       service: "#071758",
       facility: "#074558",
     };
-
     return bgColors[detailType ?? "facility"];
   };
 
@@ -74,7 +72,6 @@ const MyCard: React.FC<MyCardProps> = ({
       service: "#1C2D6F",
       facility: "#248EAE",
     };
-
     return bgColors[detailType ?? "vegetable"];
   };
 
@@ -112,10 +109,7 @@ const MyCard: React.FC<MyCardProps> = ({
               className="w-10 flex items-center justify-center absolute top-0 bg-white rounded-full p-1.5"
               activeOpacity={0.8}
             >
-              <Animated.View
-                className=""
-                style={{ transform: [{ scale: scaleAnim }] }}
-              >
+              <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
                 <Ionicons
                   name={isFavorited ? "heart" : "heart-outline"}
                   size={23}
@@ -128,7 +122,7 @@ const MyCard: React.FC<MyCardProps> = ({
           {/* Gambar Produk */}
           <View className="w-2/5 flex-row items-center h-full justify-center">
             <View
-              className={`w-[95px] h-[95px] absolute rounded-lg ${bgImageStyle} `}
+              className={`w-[95px] h-[95px] absolute rounded-lg ${bgImageStyle}`}
               style={{
                 backgroundColor: getBgImageColor(),
                 transform: [{ rotate: "-20deg" }],
@@ -136,33 +130,32 @@ const MyCard: React.FC<MyCardProps> = ({
             />
             <Image
               source={image}
-              className={`w-24 h-24 rounded-xl ${imageStyle} `}
+              className={`w-24 h-24 rounded-xl ${imageStyle}`}
               resizeMode="cover"
             />
           </View>
 
           <View className="flex-1 h-full">
-            {/* Teks Nama Produk */}
+            {/* Nama Produk */}
             <MyText fontSize={26} fontFamily="LexBlack" color="white">
               {name.length > 11 ? `${name.slice(0, 11)}...` : name}
             </MyText>
 
-            {/* Teks Deskripsi Produk */}
+            {/* Deskripsi Produk */}
             <MyText
               fontSize={15}
               fontFamily="LexMedium"
               color="white"
               textstyle="ml-4"
             >
-              {description.length > 17
-                ? description.slice(0, 17) + " ..."
-                : description}
+              {description.length > 17 ? description.slice(0, 17) + " ..." : description}
             </MyText>
-            {/* Teks Harga atau Tanggal Produk */}
+
+            {/* Harga atau Tanggal */}
             {price ? (
               <View className="flex-row justify-center items-center my-5">
                 <MyText fontSize={20} fontFamily="LexBlack" color="white">
-                  {price}
+                  Rp{price.toLocaleString("id-ID")}
                 </MyText>
                 <MyText fontSize={15} fontFamily="LexLight" color="white">
                   /{quantity}
@@ -179,9 +172,9 @@ const MyCard: React.FC<MyCardProps> = ({
               </MyText>
             ) : null}
 
-            {/* Tombol Pesan Sekarang */}
+            {/* Tombol */}
             <MyButton
-              title={buttonTitle ?? "Pesan Sekarang"}
+              title={buttonTitle ?? (detailType === "news" ? "Baca Selengkapnya" : "Pesan Sekarang")}
               buttonType={buttonType}
               icon="cart-outline"
               iconLibrary="Ionicons"
@@ -192,7 +185,8 @@ const MyCard: React.FC<MyCardProps> = ({
               myClassName="rounded-3xl py-1.5"
               myTouchStyle="gap-4"
               myButtonColor={getBgImageColor()}
-              onPress={onPress}
+              onPress={detailType === "news" ? onDetail : onPress}
+              disabled={isDisabled}
             />
           </View>
         </View>

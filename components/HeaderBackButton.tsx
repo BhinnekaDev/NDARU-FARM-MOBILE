@@ -28,7 +28,7 @@ export default function HeaderBackButton({
       </Button>
 
       {/* TITLE HEADER BACK */}
-      <Text className={`${isDarkMode ? "text-white" : "text-black"}  ml-2 text-2xl`} style={{ fontFamily: "LexXBold" }}>
+      <Text className={`${isDarkMode ? "text-white" : "text-black"}  ml-2 text-[20px]`} style={{ fontFamily: "LexXBold" }}>
         {title}
       </Text>
     </View>
