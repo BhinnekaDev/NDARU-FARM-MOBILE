@@ -9,16 +9,16 @@ import SectionTitle from "@/components/EditFormTitle";
 import CustomDropdown from "@/components/animationDropdown";
 
 // OUR HOOKS
-import { useEditPaymentMethod } from "@/hooks/Frontend/editPaymentMethod/useEditPaymentMethod"; // Import custom hook
+import { useEditSalesMethod } from "@/hooks/Frontend/editSalesMethod/useEditSalesMethod"; // Import custom hook
 
-export default function EditPaymentMethod() {
+export default function editSalesMethod() {
   const isDarkMode = useColorScheme() === "dark";
   const {
     selectedMethod, //
     setSelectedMethod,
-    paymentOptions,
+    salesOptions,
     handleSave,
-  } = useEditPaymentMethod();
+  } = useEditSalesMethod();
 
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
@@ -36,7 +36,7 @@ export default function EditPaymentMethod() {
         <CustomDropdown
           selected={selectedMethod} //
           onSelect={setSelectedMethod}
-          options={paymentOptions}
+          options={salesOptions}
         />
 
         {/* BUTTON SIMPAN */}

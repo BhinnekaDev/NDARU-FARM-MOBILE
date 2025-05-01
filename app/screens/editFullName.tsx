@@ -19,10 +19,7 @@ export default function editFullNameScreen() {
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* Header Button Kembali */}
-      <HeaderBackButton
-        onPress={() => router.push("/screens/editProfile")} //
-        title="Sunting Nama Lengkap"
-      />
+      <HeaderBackButton title="Sunting Nama Lengkap" />
 
       {/* Judul Form*/}
       <View className="flex justify-center items-center">

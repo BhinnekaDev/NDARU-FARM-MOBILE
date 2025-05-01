@@ -31,10 +31,7 @@ const EditProfile = () => {
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* HEADER */}
-      <HeaderBackButton
-        onPress={() => router.push("/(tabs)/profile")} //
-        title="Sunting Profil"
-      />
+      <HeaderBackButton title="Sunting Profil" />
 
       {/* USER PROFILE */}
       <View className="items-center pt-20 pb-4 relative">

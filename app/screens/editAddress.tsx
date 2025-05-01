@@ -32,10 +32,7 @@ export default function editAddressScreen() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
           {/* Header Button Kembali */}
-          <HeaderBackButton
-            onPress={() => router.push("/screens/editProfile")} //
-            title="Sunting Alamat"
-          />
+          <HeaderBackButton title="Sunting Alamat" />
           <View className="flex-1 ">
             <ScrollView
               contentContainerStyle={{

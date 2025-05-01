@@ -20,10 +20,7 @@ export default function editPinCodeScreen() {
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* Header Button Kembali */}
-      <HeaderBackButton
-        onPress={() => router.push("/screens/editProfile")} //
-        title="Sunting Nama Pengguna"
-      />
+      <HeaderBackButton title="Sunting Nama Pengguna" />
 
       {/* Judul Form*/}
       <View className="flex justify-center items-center">

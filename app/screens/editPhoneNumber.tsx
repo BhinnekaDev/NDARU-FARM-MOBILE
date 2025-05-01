@@ -20,10 +20,7 @@ export default function EditPhoneNumberScreen() {
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* Header Button Kembali */}
-      <HeaderBackButton
-        onPress={() => router.push("/screens/editProfile")} //
-        title="Sunting Nomor Telepon"
-      />
+      <HeaderBackButton title="Sunting Nomor Telepon" />
 
       {/* Judul Form */}
       <View className="flex justify-center items-center">

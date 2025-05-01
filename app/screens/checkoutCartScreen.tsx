@@ -246,7 +246,7 @@ function checkoutCartScreen() {
                   ))}
                 </View>
               </ScrollView>
-              <MyButtonAdd classNameContainer="ml-2 p-2 rounded-full" onPress={() => alert("Pilih Metode Pengiriman")}>
+              <MyButtonAdd classNameContainer="ml-2 p-2 rounded-full" onPress={() => router.push("/screens/editSalesMethod")}>
                 <FontAwesome5 name="plus" size={24} color={`${isDarkMode ? "white" : "black"}`} />
               </MyButtonAdd>
             </View>
