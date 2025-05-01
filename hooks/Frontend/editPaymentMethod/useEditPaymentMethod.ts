@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Option } from "@/interfaces/animationDropdownProps";
 
-// Custom hook untuk memilih dan menyimpan metode pembayaran
 export const useEditPaymentMethod = () => {
   const [selectedMethod, setSelectedMethod] = useState<Option | null>(null);
 

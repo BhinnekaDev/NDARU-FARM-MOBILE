@@ -319,7 +319,7 @@ function checkoutCartScreen() {
           </MyText>
         </View>
 
-        {/* BUTTON Lanjutkan */}
+        {/* BUTTON LANJUTKAN */}
         <Animated.View style={{ width: "90%" }}>
           <MyButton
             title="Bayar Sekarang" //

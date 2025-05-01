@@ -9,7 +9,7 @@ import SectionTitle from "@/components/EditFormTitle";
 import CustomDropdown from "@/components/animationDropdown";
 
 // OUR HOOKS
-import { useEditSalesMethod } from "@/hooks/Frontend/editSalesMethod/useEditSalesMethod"; // Import custom hook
+import { useEditSalesMethod } from "@/hooks/Frontend/editSalesMethod/useEditSalesMethod";
 
 export default function editSalesMethod() {
   const isDarkMode = useColorScheme() === "dark";
@@ -23,16 +23,16 @@ export default function editSalesMethod() {
   return (
     <View className={`flex-1 ${isDarkMode ? "bg-black" : "bg-white"}`}>
       {/* HEADER BUTTON KEMBALI */}
-      <HeaderBackButton title="Pilih Metode Pembayaran" />
+      <HeaderBackButton title="Pilih Metode Penjualan" />
 
       {/* JUDUL FORM */}
       <View className="flex justify-center items-center">
-        <SectionTitle title="Pilih salah satu metode pembayaran dengan mengklik tombol agar bisa melanjutkan ke tahap berikutnya." />
+        <SectionTitle title="Pilih salah satu metode pengiriman dengan mengklik tombol agar bisa melanjutkan ke tahap berikutnya." />
       </View>
 
       {/* FORM */}
       <View className="flex justify-center items-center">
-        {/* DROPDOWN PILIH METODE PEMBAYARAN */}
+        {/* DROPDOWN PILIH METODE PENJUALAN */}
         <CustomDropdown
           selected={selectedMethod} //
           onSelect={setSelectedMethod}
