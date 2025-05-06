@@ -315,7 +315,7 @@ function checkoutCartScreen() {
             TOTAL :
           </MyText>
           <MyText fontFamily="LexBlack" fontSize={22}>
-            100000
+            1xxxxxx
           </MyText>
         </View>
 
