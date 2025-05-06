@@ -28,6 +28,7 @@ const CartDetails = ({
   rating,
   id,
   onDelete,
+  showQuantityControl,
 }: MyCardProps) => {
   const router = useRouter();
   const isDarkMode = useColorScheme() === "dark";
@@ -167,25 +168,21 @@ const CartDetails = ({
         </View>
 
         {/* PEMBUNGKUS KUANTITAS */}
-        <View className="items-center p-2 border-white border rounded-lg">
-          <MyButton
-            onPress={increaseQuantityAndUpdateTotal} //
-            classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center"
-          >
-            <FontAwesome5 name="plus" size={24} color="white" solid />
-          </MyButton>
+        {showQuantityControl && (
+          <View className="items-center p-2 border-white border rounded-lg">
+            <MyButton onPress={increaseQuantityAndUpdateTotal} classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center">
+              <FontAwesome5 name="plus" size={24} color="white" solid />
+            </MyButton>
 
-          <MyText fontSize={16} fontFamily="LexBold" color="white" textstyle="my-1">
-            {currentQuantity}
-          </MyText>
+            <MyText fontSize={16} fontFamily="LexBold" color="white" textstyle="my-1">
+              {currentQuantity}
+            </MyText>
 
-          <MyButton
-            onPress={decreaseQuantityAndUpdateTotal} //
-            classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center"
-          >
-            <FontAwesome5 name="minus" size={24} color="white" solid />
-          </MyButton>
-        </View>
+            <MyButton onPress={decreaseQuantityAndUpdateTotal} classNameContainer="w-[32px] h-[32px] rounded-md items-center justify-center">
+              <FontAwesome5 name="minus" size={24} color="white" solid />
+            </MyButton>
+          </View>
+        )}
       </Animated.View>
     </View>
   );

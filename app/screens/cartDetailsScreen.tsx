@@ -150,6 +150,7 @@ function cartleDetailScreen() {
               date={item.date}
               detailType={item.detailType}
               onDelete={() => handleDeleteFromCart(item.id ?? "")}
+              showQuantityControl={true}
             />
           ))}
         </View>
@@ -177,7 +178,7 @@ function cartleDetailScreen() {
             TOTAL :
           </MyText>
           <MyText fontFamily="LexBlack" fontSize={22} textstyle="">
-            100000
+            1xxx1
           </MyText>
         </View>
 

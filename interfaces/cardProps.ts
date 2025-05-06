@@ -17,4 +17,5 @@ export interface MyCardProps {
   onDelete?: () => void;
   onIncrease?: () => void;
   onDecrease?: () => void;
+  showQuantityControl?: boolean;
 }
