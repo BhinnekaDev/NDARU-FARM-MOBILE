@@ -18,4 +18,5 @@ export interface MyCardProps {
   onIncrease?: () => void;
   onDecrease?: () => void;
   showQuantityControl?: boolean;
+  cartClassName?: string;
 }

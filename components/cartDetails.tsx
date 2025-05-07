@@ -29,6 +29,7 @@ const CartDetails = ({
   id,
   onDelete,
   showQuantityControl,
+  cartClassName,
 }: MyCardProps) => {
   const router = useRouter();
   const isDarkMode = useColorScheme() === "dark";
@@ -137,7 +138,7 @@ const CartDetails = ({
         </View>
 
         {/* PEMBUNGKUS INFORMASI KERANJANG */}
-        <View className="flex-1  px-2 ">
+        <View className={cartClassName || "flex-1 px-2"}>
           <MyText fontSize={20} fontFamily="LexBold" color="white">
             {maxLengthText(name, 7)}
           </MyText>
