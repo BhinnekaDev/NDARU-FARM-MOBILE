@@ -191,6 +191,7 @@ function checkoutCartScreen() {
                         date={item.date}
                         detailType={item.detailType}
                         onDelete={() => handleDeleteFromCart(item.id ?? "")}
+                        showQuantityControl={true}
                       />
                     </View>
                   ))}
@@ -327,7 +328,7 @@ function checkoutCartScreen() {
             myActiveOpacity={1}
             myClassName="px-10 py-3 rounded-lg "
             myTextStyle="text-xl"
-            onPress={() => null}
+            onPress={() => router.push("/(tabs)/order")}
           />
         </Animated.View>
       </Animated.View>

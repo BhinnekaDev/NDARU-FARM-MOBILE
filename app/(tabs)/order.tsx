@@ -41,6 +41,16 @@ function orderTrackingTabs() {
         </MyText>
       </View>
 
+      {/* TAB BAR - sekarang di bawah PESANAN */}
+      <View style={{ marginBottom: 10 }}>
+        <Animated.ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 10 }}>
+          <OrderTabBar
+            activeTab={activeTab} //
+            setActiveTab={setActiveTab}
+            tabs={["Menunggu Pembayaran", "Dikemas", "Diproses", "Penilaian", "Selesai"]}
+          />
+        </Animated.ScrollView>
+      </View>
       {/* ISI KERANJANG */}
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
@@ -50,17 +60,6 @@ function orderTrackingTabs() {
           useNativeDriver: false,
         })}
       >
-        {/* TAB BAR - sekarang di bawah PESANAN */}
-        <View style={{ marginBottom: 30 }}>
-          <Animated.ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 10 }}>
-            <OrderTabBar
-              activeTab={activeTab} //
-              setActiveTab={setActiveTab}
-              tabs={["Menunggu Pembayaran", "Dikemas", "Diproses", "Penilaian", "Selesai"]}
-            />
-          </Animated.ScrollView>
-        </View>
-
         {/* CONTENT TAB */}
         {activeTab === 0 && (
           <View className="w-full gap-6">

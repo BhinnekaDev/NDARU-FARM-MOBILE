@@ -1,5 +1,3 @@
-// YANG BARU
-
 import React, { useRef, useEffect, useState } from "react";
 import { View, Animated, useColorScheme } from "react-native";
 import ButtonBar from "@/components/ButtonCustomProfile";
@@ -11,17 +9,24 @@ const TabBar = ({ activeTab, setActiveTab, tabs = [] }: TabBarProps) => {
   const translateX = useRef(new Animated.Value(0)).current;
   const indicatorWidth = useRef(new Animated.Value(0)).current;
 
+  const INDICATOR_RATIO = 0.8; // misalnya 70% dari lebar asli tab
+
   const handleTabPress = (index: number) => {
     setActiveTab(index);
     if (tabLayouts[index]) {
+      const fullWidth = tabLayouts[index].width;
+      const x = tabLayouts[index].x;
+      const reducedWidth = fullWidth * INDICATOR_RATIO;
+      const centeredX = x + (fullWidth - reducedWidth) / 2;
+
       Animated.parallel([
         Animated.timing(translateX, {
-          toValue: tabLayouts[index].x,
+          toValue: centeredX,
           duration: 250,
-          useNativeDriver: false, // ✅ fix di sini juga
+          useNativeDriver: false,
         }),
         Animated.timing(indicatorWidth, {
-          toValue: tabLayouts[index].width,
+          toValue: reducedWidth,
           duration: 250,
           useNativeDriver: false,
         }),
@@ -40,8 +45,13 @@ const TabBar = ({ activeTab, setActiveTab, tabs = [] }: TabBarProps) => {
 
   useEffect(() => {
     if (tabLayouts[activeTab]) {
-      translateX.setValue(tabLayouts[activeTab].x);
-      indicatorWidth.setValue(tabLayouts[activeTab].width);
+      const fullWidth = tabLayouts[activeTab].width;
+      const x = tabLayouts[activeTab].x;
+      const reducedWidth = fullWidth * INDICATOR_RATIO;
+      const centeredX = x + (fullWidth - reducedWidth) / 2;
+
+      translateX.setValue(centeredX);
+      indicatorWidth.setValue(reducedWidth);
     }
   }, [tabLayouts]);
 
@@ -49,18 +59,18 @@ const TabBar = ({ activeTab, setActiveTab, tabs = [] }: TabBarProps) => {
     <View style={{ position: "relative", flexDirection: "row", height: 48 }}>
       {tabs.map((title, index) => (
         <View key={index} onLayout={(e) => onTabLayout(e, index)} style={{ justifyContent: "center", alignItems: "center", paddingHorizontal: 10 }}>
-          <ButtonBar onPress={() => handleTabPress(index)} textClassName={`text-lg ${activeTab === index ? (isDarkMode ? "text-white" : "text-black") : "text-gray-600"}`} textStyle={{ fontFamily: "LexXBold" }}>
+          <ButtonBar onPress={() => handleTabPress(index)} textClassName={`text-lg ${activeTab === index ? (isDarkMode ? "text-white" : "text-black") : "text-gray-600"}`} textStyle={{ fontFamily: "LexMedium" }}>
             {title}
           </ButtonBar>
         </View>
       ))}
 
-      {/* INDICATOR BAR */}
+      {/* Indicator bar */}
       <Animated.View
         style={{
           position: "absolute",
           bottom: 0,
-          height: 3,
+          height: 2,
           backgroundColor: isDarkMode ? "#FFFFFF" : "#000000",
           borderRadius: 2,
           transform: [{ translateX }],
